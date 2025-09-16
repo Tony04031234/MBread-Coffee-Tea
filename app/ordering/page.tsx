@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiPlus, FiMinus, FiShoppingCart, FiTrash2, FiUser, FiPhone, FiMapPin, FiClock, FiCreditCard, FiCheck, FiX, FiChevronLeft, FiChevronRight, FiSearch, FiNavigation, FiLogIn } from 'react-icons/fi'
 import { menuItems, categories } from '@/data/menu'
@@ -450,22 +451,26 @@ const OrderingPage = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col"
                 >
-                  <div className="relative h-40 md:h-48">
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-4 md:p-6 flex flex-col flex-grow">
-                    <h3 className="text-lg md:text-xl font-serif font-semibold text-primary-800 mb-2">
-                      {item.name}
-                    </h3>
-                    <p className="text-sm md:text-base text-gray-600 mb-4 leading-relaxed flex-grow">
-                      {item.description}
-                    </p>
-                    <div className="flex items-center justify-between mt-auto">
+                  <Link href={`/product/${item.id}`} className="block">
+                    <div className="relative h-40 md:h-48">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-4 md:p-6 flex flex-col flex-grow">
+                      <h3 className="text-lg md:text-xl font-serif font-semibold text-primary-800 mb-2">
+                        {item.name}
+                      </h3>
+                      <p className="text-sm md:text-base text-gray-600 mb-4 leading-relaxed flex-grow">
+                        {item.description}
+                      </p>
+                    </div>
+                  </Link>
+                  <div className="p-4 md:p-6 pt-0">
+                    <div className="flex items-center justify-between">
                       <span className="text-lg md:text-2xl font-bold text-primary-600">
                         {formatPrice(item.price)}
                       </span>

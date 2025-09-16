@@ -180,3 +180,7 @@ Thumbs.db
 
 # Prisma
 prisma/dev.db*
+
+# Firebase credentials
+mbreadcoffeetea-*-firebase-adminsdk-*.json
+firebase-adminsdk-*.json

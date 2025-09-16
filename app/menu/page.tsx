@@ -135,32 +135,36 @@ const MenuPage = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="card overflow-hidden hover:scale-105 transition-transform duration-300 flex flex-col"
                 >
-                  <div className="relative h-48">
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      className="object-cover"
-                    />
-                    {item.isPopular && (
-                      <div className="absolute top-4 right-4 bg-secondary-500 text-white px-2 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
-                        <FiStar size={14} />
-                        <span>Yêu thích</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-6 flex flex-col flex-grow">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-xl font-serif font-semibold text-primary-800">
-                        {item.name}
-                      </h3>
-                      <span className="text-lg font-bold text-primary-600">
-                        {formatPrice(item.price)}
-                      </span>
+                  <Link href={`/product/${item.id}`} className="block">
+                    <div className="relative h-48">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className="object-cover"
+                      />
+                      {item.isPopular && (
+                        <div className="absolute top-4 right-4 bg-secondary-500 text-white px-2 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
+                          <FiStar size={14} />
+                          <span>Yêu thích</span>
+                        </div>
+                      )}
                     </div>
-                    <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
-                      {item.description}
-                    </p>
+                    <div className="p-6 flex flex-col flex-grow">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-xl font-serif font-semibold text-primary-800">
+                          {item.name}
+                        </h3>
+                        <span className="text-lg font-bold text-primary-600">
+                          {formatPrice(item.price)}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
+                        {item.description}
+                      </p>
+                    </div>
+                  </Link>
+                  <div className="p-6 pt-0">
                     <button
                       onClick={() => handleAddToCart(item)}
                       className="bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 w-full flex items-center justify-center space-x-2"

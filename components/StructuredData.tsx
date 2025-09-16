@@ -1,11 +1,12 @@
 import Script from 'next/script'
 
 interface StructuredDataProps {
-  type: 'organization' | 'restaurant' | 'menu' | 'breadcrumb' | 'localBusiness'
+  type: 'organization' | 'restaurant' | 'menu' | 'breadcrumb' | 'localBusiness' | 'product'
   data?: any
+  product?: any
 }
 
-const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) => {
+const StructuredData: React.FC<StructuredDataProps> = ({ type, data, product }) => {
   const getStructuredData = () => {
     switch (type) {
       case 'organization':
@@ -152,6 +153,48 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) => {
           ],
           "priceRange": "$$",
           "paymentAccepted": "Cash, Credit Card, Mobile Payment"
+        }
+
+      case 'product':
+        if (!product) return null
+        return {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": product.name,
+          "description": product.description,
+          "image": product.images || [product.image],
+          "brand": {
+            "@type": "Brand",
+            "name": "MBread Coffee & Tea"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": product.price,
+            "priceCurrency": "VND",
+            "availability": "https://schema.org/InStock",
+            "seller": {
+              "@type": "Organization",
+              "name": "MBread Coffee & Tea"
+            }
+          },
+          "category": product.category,
+          "additionalProperty": [
+            {
+              "@type": "PropertyValue",
+              "name": "Preparation Time",
+              "value": `${product.preparationTime} minutes`
+            },
+            {
+              "@type": "PropertyValue",
+              "name": "Serving Size",
+              "value": product.servingSize
+            },
+            {
+              "@type": "PropertyValue",
+              "name": "Temperature",
+              "value": product.temperature
+            }
+          ]
         }
 
       default:
