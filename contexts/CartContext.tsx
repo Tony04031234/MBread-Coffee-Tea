@@ -10,11 +10,23 @@ export interface CartItem {
   quantity: number
 }
 
+export interface CustomerInfo {
+  name: string
+  phone: string
+  email: string
+  address: string
+  deliveryType: 'pickup' | 'delivery'
+  paymentMethod: 'cash' | 'card' | 'momo' | 'zalopay'
+  notes: string
+}
+
 interface CartState {
   items: CartItem[]
   totalItems: number
   totalPrice: number
   showMobileCart: boolean
+  customerInfo: CustomerInfo
+  currentStep: number
 }
 
 type CartAction =
@@ -24,6 +36,9 @@ type CartAction =
   | { type: 'CLEAR_CART' }
   | { type: 'SHOW_MOBILE_CART' }
   | { type: 'HIDE_MOBILE_CART' }
+  | { type: 'UPDATE_CUSTOMER_INFO'; payload: Partial<CustomerInfo> }
+  | { type: 'SET_CHECKOUT_STEP'; payload: number }
+  | { type: 'RESET_CHECKOUT' }
 
 const CartContext = createContext<{
   state: CartState
@@ -43,19 +58,19 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
             : item
         )
         return {
+          ...state,
           items: updatedItems,
           totalItems: updatedItems.reduce((sum, item) => sum + item.quantity, 0),
-          totalPrice: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-          showMobileCart: state.showMobileCart
+          totalPrice: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
         }
       } else {
         const newItem = { ...action.payload, quantity: addQuantity }
         const updatedItems = [...state.items, newItem]
         return {
+          ...state,
           items: updatedItems,
           totalItems: updatedItems.reduce((sum, item) => sum + item.quantity, 0),
-          totalPrice: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-          showMobileCart: state.showMobileCart
+          totalPrice: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
         }
       }
     }
@@ -63,10 +78,10 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     case 'REMOVE_ITEM': {
       const updatedItems = state.items.filter(item => item.id !== action.payload)
       return {
+        ...state,
         items: updatedItems,
         totalItems: updatedItems.reduce((sum, item) => sum + item.quantity, 0),
-        totalPrice: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-        showMobileCart: state.showMobileCart
+        totalPrice: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
       }
     }
     
@@ -78,19 +93,19 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       ).filter(item => item.quantity > 0)
       
       return {
+        ...state,
         items: updatedItems,
         totalItems: updatedItems.reduce((sum, item) => sum + item.quantity, 0),
-        totalPrice: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-        showMobileCart: state.showMobileCart
+        totalPrice: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
       }
     }
     
     case 'CLEAR_CART':
       return {
+        ...state,
         items: [],
         totalItems: 0,
-        totalPrice: 0,
-        showMobileCart: state.showMobileCart
+        totalPrice: 0
       }
     
     case 'SHOW_MOBILE_CART':
@@ -105,6 +120,36 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         showMobileCart: false
       }
     
+    case 'UPDATE_CUSTOMER_INFO':
+      return {
+        ...state,
+        customerInfo: { ...state.customerInfo, ...action.payload }
+      }
+    
+    case 'SET_CHECKOUT_STEP':
+      return {
+        ...state,
+        currentStep: action.payload
+      }
+    
+    case 'RESET_CHECKOUT':
+      return {
+        ...state,
+        items: [],
+        totalItems: 0,
+        totalPrice: 0,
+        customerInfo: {
+          name: '',
+          phone: '',
+          email: '',
+          address: '',
+          deliveryType: 'pickup',
+          paymentMethod: 'cash',
+          notes: ''
+        },
+        currentStep: 1
+      }
+    
     default:
       return state
   }
@@ -115,7 +160,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     items: [],
     totalItems: 0,
     totalPrice: 0,
-    showMobileCart: false
+    showMobileCart: false,
+    customerInfo: {
+      name: '',
+      phone: '',
+      email: '',
+      address: '',
+      deliveryType: 'pickup',
+      paymentMethod: 'cash',
+      notes: ''
+    },
+    currentStep: 1
   })
 
   return (
