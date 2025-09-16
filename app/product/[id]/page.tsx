@@ -329,6 +329,66 @@ const ProductDetailPage = () => {
     }
   }
 
+  const getAllergenInfo = (allergen: string) => {
+    const allergenMap: { [key: string]: { name: string; severity: string; description: string; symptoms?: string } } = {
+      'Sữa': {
+        name: 'Sữa và các sản phẩm từ sữa',
+        severity: 'Phổ biến',
+        description: 'Sản phẩm này chứa sữa hoặc các thành phần từ sữa như lactose, casein, whey protein.',
+        symptoms: 'Buồn nôn, tiêu chảy, đau bụng, phát ban, khó thở'
+      },
+      'Gluten': {
+        name: 'Gluten (Lúa mì, Lúa mạch, Lúa mạch đen)',
+        severity: 'Phổ biến',
+        description: 'Sản phẩm này chứa gluten từ các loại ngũ cốc như lúa mì, lúa mạch, lúa mạch đen.',
+        symptoms: 'Đau bụng, đầy hơi, tiêu chảy, mệt mỏi, phát ban'
+      },
+      'Đậu phộng': {
+        name: 'Đậu phộng (Lạc)',
+        severity: 'Nghiêm trọng',
+        description: 'Sản phẩm này có thể chứa đậu phộng hoặc dầu đậu phộng.',
+        symptoms: 'Sốc phản vệ, khó thở, sưng mặt, phát ban nghiêm trọng'
+      },
+      'Hạt cây': {
+        name: 'Hạt cây (Hạnh nhân, Óc chó, Hạt điều)',
+        severity: 'Nghiêm trọng',
+        description: 'Sản phẩm này có thể chứa các loại hạt cây như hạnh nhân, óc chó, hạt điều.',
+        symptoms: 'Sốc phản vệ, khó thở, sưng mặt, phát ban nghiêm trọng'
+      },
+      'Trứng': {
+        name: 'Trứng',
+        severity: 'Phổ biến',
+        description: 'Sản phẩm này chứa trứng hoặc các thành phần từ trứng.',
+        symptoms: 'Phát ban, ngứa, buồn nôn, đau bụng, khó thở'
+      },
+      'Đậu nành': {
+        name: 'Đậu nành',
+        severity: 'Trung bình',
+        description: 'Sản phẩm này chứa đậu nành hoặc các thành phần từ đậu nành.',
+        symptoms: 'Phát ban, ngứa, buồn nôn, đau bụng'
+      },
+      'Cá': {
+        name: 'Cá',
+        severity: 'Nghiêm trọng',
+        description: 'Sản phẩm này có thể chứa cá hoặc các thành phần từ cá.',
+        symptoms: 'Sốc phản vệ, khó thở, sưng mặt, phát ban nghiêm trọng'
+      },
+      'Động vật có vỏ': {
+        name: 'Động vật có vỏ (Tôm, Cua, Sò)',
+        severity: 'Nghiêm trọng',
+        description: 'Sản phẩm này có thể chứa động vật có vỏ như tôm, cua, sò.',
+        symptoms: 'Sốc phản vệ, khó thở, sưng mặt, phát ban nghiêm trọng'
+      }
+    }
+
+    return allergenMap[allergen] || {
+      name: allergen,
+      severity: 'Không xác định',
+      description: `Sản phẩm này chứa ${allergen.toLowerCase()}.`,
+      symptoms: 'Các triệu chứng dị ứng có thể khác nhau tùy theo từng người'
+    }
+  }
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-cream-50 flex items-center justify-center">
@@ -599,44 +659,101 @@ const ProductDetailPage = () => {
 
                 {/* Dietary Info */}
                 <div>
-                  <span className="font-medium text-gray-700 block mb-2">Thông tin dinh dưỡng:</span>
-                  <div className="flex flex-wrap gap-2">
+                  <span className="font-medium text-gray-700 block mb-3">🏷️ Thông tin dinh dưỡng:</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {product.caffeine && (
-                      <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs flex items-center space-x-1">
-                        <FiCoffee size={12} />
-                        <span>Có caffeine</span>
-                      </span>
+                      <div className="flex items-center space-x-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                        <FiCoffee className="text-yellow-600" size={16} />
+                        <div>
+                          <span className="font-medium text-yellow-800 block">Có caffeine</span>
+                          <span className="text-xs text-yellow-700">Khoảng 95mg caffeine</span>
+                        </div>
+                      </div>
                     )}
                     {product.dairy && (
-                      <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
-                        Có sữa
-                      </span>
+                      <div className="flex items-center space-x-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                        <span className="text-blue-600 text-lg">🥛</span>
+                        <div>
+                          <span className="font-medium text-blue-800 block">Có sữa</span>
+                          <span className="text-xs text-blue-700">Chứa lactose</span>
+                        </div>
+                      </div>
                     )}
                     {product.gluten && (
-                      <span className="px-2 py-1 bg-orange-100 text-orange-800 rounded-full text-xs">
-                        Có gluten
-                      </span>
+                      <div className="flex items-center space-x-3 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                        <span className="text-orange-600 text-lg">🌾</span>
+                        <div>
+                          <span className="font-medium text-orange-800 block">Có gluten</span>
+                          <span className="text-xs text-orange-700">Từ lúa mì, lúa mạch</span>
+                        </div>
+                      </div>
                     )}
                     {product.vegan && (
-                      <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs flex items-center space-x-1">
-                        <FiCheck size={12} />
-                        <span>Thuần chay</span>
-                      </span>
+                      <div className="flex items-center space-x-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                        <FiCheck className="text-green-600" size={16} />
+                        <div>
+                          <span className="font-medium text-green-800 block">Thuần chay</span>
+                          <span className="text-xs text-green-700">Không có thành phần động vật</span>
+                        </div>
+                      </div>
                     )}
                   </div>
                 </div>
 
                 {/* Ingredients */}
                 <div>
-                  <span className="font-medium text-gray-700 block mb-2">Thành phần:</span>
-                  <p className="text-gray-600 text-sm">{product.ingredients?.join(', ') || 'Nguyên liệu tự nhiên'}</p>
+                  <span className="font-medium text-gray-700 block mb-3">🥘 Thành phần chính:</span>
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <p className="text-gray-700 text-sm leading-relaxed">
+                      {product.ingredients?.join(', ') || 'Nguyên liệu tự nhiên'}
+                    </p>
+                    <div className="mt-3 pt-3 border-t border-gray-200">
+                      <p className="text-xs text-gray-500">
+                        <span className="font-medium">Lưu ý:</span> Tất cả nguyên liệu được chọn lọc kỹ lưỡng và đảm bảo chất lượng tốt nhất.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Allergens */}
                 {product.allergens && product.allergens.length > 0 && (
                   <div>
-                    <span className="font-medium text-gray-700 block mb-2">Dị ứng:</span>
-                    <p className="text-red-600 text-sm">{product.allergens.join(', ')}</p>
+                    <span className="font-medium text-gray-700 block mb-3">⚠️ Thông tin dị ứng:</span>
+                    <div className="space-y-2">
+                      {product.allergens.map((allergen, index) => {
+                        const allergenInfo = getAllergenInfo(allergen)
+                        return (
+                          <div key={index} className="flex items-start space-x-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+                            <div className="flex-shrink-0 mt-0.5">
+                              <span className="text-red-500 text-lg">⚠️</span>
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center space-x-2 mb-1">
+                                <span className="font-semibold text-red-800">{allergenInfo.name}</span>
+                                <span className="text-xs bg-red-200 text-red-800 px-2 py-1 rounded-full font-medium">
+                                  {allergenInfo.severity}
+                                </span>
+                              </div>
+                              <p className="text-sm text-red-700 leading-relaxed">
+                                {allergenInfo.description}
+                              </p>
+                              {allergenInfo.symptoms && (
+                                <div className="mt-2">
+                                  <span className="text-xs font-medium text-red-600 block mb-1">Triệu chứng có thể gặp:</span>
+                                  <p className="text-xs text-red-600">{allergenInfo.symptoms}</p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                    <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                      <p className="text-sm text-yellow-800">
+                        <span className="font-semibold">Lưu ý:</span> Nếu bạn có tiền sử dị ứng với bất kỳ thành phần nào, 
+                        vui lòng tham khảo ý kiến bác sĩ trước khi sử dụng sản phẩm này.
+                      </p>
+                    </div>
                   </div>
                 )}
               </div>
