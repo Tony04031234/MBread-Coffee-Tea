@@ -4,10 +4,13 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { FiStar, FiArrowRight, FiSearch, FiShoppingCart } from 'react-icons/fi'
+import { FiStar, FiArrowRight, FiSearch, FiShoppingCart, FiHeart, FiShare2 } from 'react-icons/fi'
 import { menuItems, categories } from '@/data/menu'
 import { useCart } from '@/contexts/CartContext'
+import { useFavorites } from '@/hooks/useFavorites'
+import { ShareService } from '@/lib/share'
 import CartNotification from '@/components/CartNotification'
+import ShareModal from '@/components/ShareModal'
 import StructuredData from '@/components/StructuredData'
 
 const MenuPage = () => {
@@ -15,8 +18,12 @@ const MenuPage = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [showNotification, setShowNotification] = useState(false)
   const [notificationItem, setNotificationItem] = useState('')
+  const [showShareModal, setShowShareModal] = useState(false)
+  const [shareData, setShareData] = useState<any>(null)
+  const [favoriteSuccess, setFavoriteSuccess] = useState<string | null>(null)
   
   const { dispatch, state: cartState } = useCart()
+  const { toggleFavorite, isFavorite, isLoading: favoritesLoading } = useFavorites()
 
   const filteredItems = menuItems.filter(item => {
     const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory
@@ -44,6 +51,31 @@ const MenuPage = () => {
     setShowNotification(true)
   }
 
+  const handleToggleFavorite = async (item: any) => {
+    const success = await toggleFavorite(item.id, {
+      name: item.name,
+      image: item.image,
+      price: item.price,
+      category: item.category
+    })
+
+    if (success) {
+      setFavoriteSuccess(item.id)
+      setTimeout(() => setFavoriteSuccess(null), 2000)
+    }
+  }
+
+  const handleShare = (item: any) => {
+    const productUrl = `${window.location.origin}/product/${item.id}`
+    const shareData = ShareService.generateProductShareText(
+      item.name,
+      item.description,
+      productUrl
+    )
+    setShareData(shareData)
+    setShowShareModal(true)
+  }
+
   return (
     <div className="min-h-screen bg-cream-50">
       <StructuredData type="menu" />
@@ -54,6 +86,13 @@ const MenuPage = () => {
         cartCount={cartState.totalItems}
         onOpenCart={() => dispatch({ type: 'SHOW_MOBILE_CART' })}
       />
+      {shareData && (
+        <ShareModal
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+          shareData={shareData}
+        />
+      )}
       {/* Header */}
       <section className="bg-primary-800 text-white py-20">
         <div className="container-custom text-center">
@@ -164,7 +203,8 @@ const MenuPage = () => {
                       </p>
                     </div>
                   </Link>
-                  <div className="p-6 pt-0">
+                  <div className="p-6 pt-0 space-y-3">
+                    {/* Main Add to Cart Button */}
                     <button
                       onClick={() => handleAddToCart(item)}
                       className="bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 w-full flex items-center justify-center space-x-2"
@@ -172,6 +212,36 @@ const MenuPage = () => {
                       <FiShoppingCart />
                       <span>Thêm vào giỏ</span>
                     </button>
+                    
+                    {/* Secondary Action Buttons */}
+                    <div className="flex space-x-2">
+                      <button 
+                        onClick={() => handleToggleFavorite(item)}
+                        disabled={favoritesLoading}
+                        className={`flex-1 btn-outline flex items-center justify-center space-x-2 py-2 px-3 text-sm transition-all duration-200 ${
+                          isFavorite(item.id) 
+                            ? 'bg-red-50 border-red-200 text-red-600 hover:bg-red-100' 
+                            : 'hover:bg-gray-50'
+                        } ${favoritesLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      >
+                        <FiHeart className={isFavorite(item.id) ? 'fill-current' : ''} />
+                        <span>
+                          {favoriteSuccess === item.id 
+                            ? (isFavorite(item.id) ? 'Đã thêm!' : 'Đã xóa!')
+                            : isFavorite(item.id) 
+                              ? 'Đã yêu thích' 
+                              : 'Yêu thích'
+                          }
+                        </span>
+                      </button>
+                      <button 
+                        onClick={() => handleShare(item)}
+                        className="flex-1 btn-outline flex items-center justify-center space-x-2 py-2 px-3 text-sm hover:bg-gray-50 transition-colors duration-200"
+                      >
+                        <FiShare2 />
+                        <span>Chia sẻ</span>
+                      </button>
+                    </div>
                   </div>
                 </motion.div>
               ))}

@@ -4,16 +4,23 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { FiStar, FiArrowRight, FiShoppingCart } from 'react-icons/fi'
+import { FiStar, FiArrowRight, FiShoppingCart, FiHeart, FiShare2 } from 'react-icons/fi'
 import { menuItems } from '@/data/menu'
 import { useCart } from '@/contexts/CartContext'
+import { useFavorites } from '@/hooks/useFavorites'
+import { ShareService } from '@/lib/share'
 import CartNotification from '@/components/CartNotification'
+import ShareModal from '@/components/ShareModal'
 
 const FeaturedMenu = () => {
   const [showNotification, setShowNotification] = useState(false)
   const [notificationItem, setNotificationItem] = useState('')
+  const [showShareModal, setShowShareModal] = useState(false)
+  const [shareData, setShareData] = useState<any>(null)
+  const [favoriteSuccess, setFavoriteSuccess] = useState<string | null>(null)
   
   const { dispatch, state: cartState } = useCart()
+  const { toggleFavorite, isFavorite, isLoading: favoritesLoading } = useFavorites()
   const featuredItems = menuItems.filter(item => item.isPopular).slice(0, 6)
 
   const handleAddToCart = (item: any) => {
@@ -31,6 +38,31 @@ const FeaturedMenu = () => {
     setShowNotification(true)
   }
 
+  const handleToggleFavorite = async (item: any) => {
+    const success = await toggleFavorite(item.id, {
+      name: item.name,
+      image: item.image,
+      price: item.price,
+      category: item.category
+    })
+
+    if (success) {
+      setFavoriteSuccess(item.id)
+      setTimeout(() => setFavoriteSuccess(null), 2000)
+    }
+  }
+
+  const handleShare = (item: any) => {
+    const productUrl = `${window.location.origin}/product/${item.id}`
+    const shareData = ShareService.generateProductShareText(
+      item.name,
+      item.description,
+      productUrl
+    )
+    setShareData(shareData)
+    setShowShareModal(true)
+  }
+
   return (
     <section className="section-padding bg-white">
       <CartNotification
@@ -40,6 +72,13 @@ const FeaturedMenu = () => {
         cartCount={cartState.totalItems}
         onOpenCart={() => dispatch({ type: 'SHOW_MOBILE_CART' })}
       />
+      {shareData && (
+        <ShareModal
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+          shareData={shareData}
+        />
+      )}
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -87,17 +126,49 @@ const FeaturedMenu = () => {
                 <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
                   {item.description}
                 </p>
-                <div className="flex items-center justify-between mt-auto">
-                  <span className="text-2xl font-bold text-primary-600">
-                    {item.price.toLocaleString('vi-VN')}đ
-                  </span>
-                  <button
-                    onClick={() => handleAddToCart(item)}
-                    className="text-primary-600 hover:text-primary-700 font-medium flex items-center space-x-1 transition-colors duration-200"
-                  >
-                    <FiShoppingCart size={16} />
-                    <span>Đặt món</span>
-                  </button>
+                <div className="space-y-3 mt-auto">
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl font-bold text-primary-600">
+                      {item.price.toLocaleString('vi-VN')}đ
+                    </span>
+                    <button
+                      onClick={() => handleAddToCart(item)}
+                      className="text-primary-600 hover:text-primary-700 font-medium flex items-center space-x-1 transition-colors duration-200"
+                    >
+                      <FiShoppingCart size={16} />
+                      <span>Đặt món</span>
+                    </button>
+                  </div>
+                  
+                  {/* Secondary Action Buttons */}
+                  <div className="flex space-x-2">
+                    <button 
+                      onClick={() => handleToggleFavorite(item)}
+                      disabled={favoritesLoading}
+                      className={`flex-1 btn-outline flex items-center justify-center space-x-2 py-2 px-3 text-sm transition-all duration-200 ${
+                        isFavorite(item.id) 
+                          ? 'bg-red-50 border-red-200 text-red-600 hover:bg-red-100' 
+                          : 'hover:bg-gray-50'
+                      } ${favoritesLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    >
+                      <FiHeart className={isFavorite(item.id) ? 'fill-current' : ''} />
+                      <span>
+                        {favoriteSuccess === item.id 
+                          ? (isFavorite(item.id) ? 'Đã thêm!' : 'Đã xóa!')
+                          : isFavorite(item.id) 
+                            ? 'Đã yêu thích' 
+                            : 'Yêu thích'
+                        }
+                      </span>
+                    </button>
+                    <button 
+                      onClick={() => handleShare(item)}
+                      className="flex-1 btn-outline flex items-center justify-center space-x-2 py-2 px-3 text-sm hover:bg-gray-50 transition-colors duration-200"
+                    >
+                      <FiShare2 />
+                      <span>Chia sẻ</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </motion.div>

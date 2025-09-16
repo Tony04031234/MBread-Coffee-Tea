@@ -23,7 +23,10 @@ import {
 } from 'react-icons/fi'
 import { menuItems, categories } from '@/data/menu'
 import { useCart } from '@/contexts/CartContext'
+import { useFavorites } from '@/hooks/useFavorites'
+import { ShareService } from '@/lib/share'
 import CartNotification from '@/components/CartNotification'
+import ShareModal from '@/components/ShareModal'
 import StructuredData from '@/components/StructuredData'
 
 interface ProductVariant {
@@ -64,6 +67,7 @@ const ProductDetailPage = () => {
   const params = useParams()
   const router = useRouter()
   const { dispatch, state: cartState } = useCart()
+  const { toggleFavorite, isFavorite, isLoading: favoritesLoading } = useFavorites()
   
   const [product, setProduct] = useState<ProductDetail | null>(null)
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null)
@@ -73,6 +77,8 @@ const ProductDetailPage = () => {
   const [notificationItem, setNotificationItem] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [relatedProducts, setRelatedProducts] = useState<any[]>([])
+  const [showShareModal, setShowShareModal] = useState(false)
+  const [favoriteSuccess, setFavoriteSuccess] = useState(false)
 
   // Enhanced product data with variants and additional info
   const enhancedProducts: ProductDetail[] = [
@@ -253,6 +259,37 @@ const ProductDetailPage = () => {
     setShowNotification(true)
   }
 
+  const handleToggleFavorite = async () => {
+    if (!product) return
+
+    const success = await toggleFavorite(product.id, {
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      category: product.category
+    })
+
+    if (success) {
+      setFavoriteSuccess(true)
+      setTimeout(() => setFavoriteSuccess(false), 2000)
+    }
+  }
+
+  const handleShare = () => {
+    setShowShareModal(true)
+  }
+
+  const getShareData = () => {
+    if (!product) return null
+    
+    const productUrl = `${window.location.origin}/product/${product.id}`
+    return ShareService.generateProductShareText(
+      product.name,
+      product.description,
+      productUrl
+    )
+  }
+
   const nextImage = () => {
     if (product?.images) {
       setSelectedImageIndex((prev) => 
@@ -319,10 +356,17 @@ const ProductDetailPage = () => {
         cartCount={cartState.totalItems}
         onOpenCart={() => dispatch({ type: 'SHOW_MOBILE_CART' })}
       />
+      {getShareData() && (
+        <ShareModal
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+          shareData={getShareData()!}
+        />
+      )}
 
       {/* Header */}
       <section className="bg-primary-800 text-white py-8 md:py-12">
-        <div className="container-custom">
+        <div className="container-custom px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -331,16 +375,17 @@ const ProductDetailPage = () => {
           >
             <button
               onClick={() => router.back()}
-              className="p-2 hover:bg-white/10 rounded-full transition-colors duration-200"
+              className="flex items-center space-x-2 p-2 hover:bg-white/10 rounded-full transition-colors duration-200"
             >
               <FiArrowLeft size={20} />
-            </button>
+          
             <div className="flex items-center space-x-2">
               <span className="text-2xl">{getCategoryIcon(product.category)}</span>
               <span className="text-sm opacity-90">
                 {categories.find(c => c.id === product.category)?.name}
               </span>
             </div>
+            </button>
           </motion.div>
           
           <motion.div
@@ -358,7 +403,7 @@ const ProductDetailPage = () => {
         </div>
       </section>
 
-      <div className="container-custom py-8 md:py-12">
+      <div className="container-custom py-8 md:py-12 px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
           {/* Product Images */}
           <motion.div
@@ -449,9 +494,9 @@ const ProductDetailPage = () => {
                     </span>
                   )}
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1">
                   {getTemperatureIcon(product.temperature)}
-                  <span className="text-sm text-gray-600 capitalize">
+                  <span className="text-sm text-gray-600 capitalize font-semibold">
                     {product.temperature === 'hot' ? 'Nóng' : 
                      product.temperature === 'cold' ? 'Lạnh' : 'Nhiệt độ phòng'}
                   </span>
@@ -582,11 +627,29 @@ const ProductDetailPage = () => {
 
             {/* Action Buttons */}
             <div className="flex space-x-3">
-              <button className="flex-1 btn-outline flex items-center justify-center space-x-2">
-                <FiHeart />
-                <span>Yêu thích</span>
+              <button 
+                onClick={handleToggleFavorite}
+                disabled={favoritesLoading}
+                className={`flex-1 btn-outline flex items-center justify-center space-x-2 transition-all duration-200 ${
+                  isFavorite(product?.id || '') 
+                    ? 'bg-red-50 border-red-200 text-red-600 hover:bg-red-100' 
+                    : 'hover:bg-gray-50'
+                } ${favoritesLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              >
+                <FiHeart className={isFavorite(product?.id || '') ? 'fill-current' : ''} />
+                <span>
+                  {favoriteSuccess 
+                    ? (isFavorite(product?.id || '') ? 'Đã thêm!' : 'Đã xóa!')
+                    : isFavorite(product?.id || '') 
+                      ? 'Đã yêu thích' 
+                      : 'Yêu thích'
+                  }
+                </span>
               </button>
-              <button className="flex-1 btn-outline flex items-center justify-center space-x-2">
+              <button 
+                onClick={handleShare}
+                className="flex-1 btn-outline flex items-center justify-center space-x-2 hover:bg-gray-50 transition-colors duration-200"
+              >
                 <FiShare2 />
                 <span>Chia sẻ</span>
               </button>
