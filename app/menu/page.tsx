@@ -89,7 +89,7 @@ const MenuPage = () => {
             </div>
 
             {/* Category Filter */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 sticky top-0 bg-white">
               <button
                 onClick={() => setSelectedCategory('all')}
                 className={`px-4 py-2 rounded-full font-medium transition-colors duration-200 ${

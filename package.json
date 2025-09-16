@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "firebase": "^12.2.1",
+    "firebase-admin": "^13.5.0",
     "framer-motion": "^10.16.16",
     "next": "14.0.4",
     "next-auth": "^4.24.5",

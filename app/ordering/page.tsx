@@ -3,11 +3,13 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiPlus, FiMinus, FiShoppingCart, FiTrash2, FiUser, FiPhone, FiMapPin, FiClock, FiCreditCard, FiCheck, FiX, FiChevronLeft, FiChevronRight, FiSearch, FiNavigation } from 'react-icons/fi'
+import { FiPlus, FiMinus, FiShoppingCart, FiTrash2, FiUser, FiPhone, FiMapPin, FiClock, FiCreditCard, FiCheck, FiX, FiChevronLeft, FiChevronRight, FiSearch, FiNavigation, FiLogIn } from 'react-icons/fi'
 import { menuItems, categories } from '@/data/menu'
 import { useCart } from '@/contexts/CartContext'
 import { useAddress } from '@/hooks/useAddress'
 import { AddressSuggestion } from '@/lib/googleMaps'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 interface CartItem {
   id: string
@@ -36,6 +38,8 @@ interface OrderSummary {
 }
 
 const OrderingPage = () => {
+  const { data: session, status } = useSession()
+  const router = useRouter()
   const { state: cartState, dispatch } = useCart()
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [showCart, setShowCart] = useState(false)
@@ -51,6 +55,8 @@ const OrderingPage = () => {
     paymentMethod: 'cash',
     notes: ''
   })
+  const [userProfile, setUserProfile] = useState<any>(null)
+  const [isLoadingProfile, setIsLoadingProfile] = useState(false)
 
   // Use the address hook
   const {
@@ -64,6 +70,39 @@ const OrderingPage = () => {
     getPlaceDetails,
     clearSuggestions
   } = useAddress()
+
+  // Load user profile data for auto-fill
+  const loadUserProfile = async () => {
+    if (!session?.user?.id) return
+    
+    try {
+      setIsLoadingProfile(true)
+      const response = await fetch('/api/user/profile')
+      const data = await response.json()
+      
+      if (response.ok && data.user) {
+        setUserProfile(data.user)
+        // Auto-fill customer info with profile data
+        setCustomerInfo(prev => ({
+          ...prev,
+          name: data.user.name || '',
+          phone: data.user.phone || '',
+          email: data.user.email || session.user?.email || ''
+        }))
+      }
+    } catch (error) {
+      console.error('Error loading user profile:', error)
+    } finally {
+      setIsLoadingProfile(false)
+    }
+  }
+
+  // Load profile when user signs in
+  useEffect(() => {
+    if (session?.user?.id && !userProfile) {
+      loadUserProfile()
+    }
+  }, [session?.user?.id])
 
   const filteredItems = selectedCategory === 'all' 
     ? menuItems 
@@ -160,28 +199,66 @@ const OrderingPage = () => {
   const handleSubmitOrder = async () => {
     setIsSubmitting(true)
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    setIsSubmitting(false)
-    setOrderSuccess(true)
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      clearCart()
-      setCustomerInfo({
-        name: '',
-        phone: '',
-        email: '',
-        address: '',
-        deliveryType: 'pickup',
-        paymentMethod: 'cash',
-        notes: ''
+    try {
+      const orderData = {
+        items: cartState.items,
+        customerInfo: {
+          name: customerInfo.name,
+          phone: customerInfo.phone,
+          email: customerInfo.email || (session?.user?.email || ''),
+          address: customerInfo.address,
+          deliveryType: customerInfo.deliveryType,
+          paymentMethod: customerInfo.paymentMethod,
+          notes: customerInfo.notes
+        },
+        isGuestOrder: !session?.user?.id // Flag to indicate if this is a guest order
+      }
+
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
       })
-      setCurrentStep(1)
-      setOrderSuccess(false)
-      setShowCart(false)
-    }, 3000)
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setOrderSuccess(true)
+        
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          clearCart()
+          setCustomerInfo({
+            name: '',
+            phone: '',
+            email: '',
+            address: '',
+            deliveryType: 'pickup',
+            paymentMethod: 'cash',
+            notes: ''
+          })
+          setCurrentStep(1)
+          setOrderSuccess(false)
+          setShowCart(false)
+          
+          // Redirect based on user status
+          if (session?.user?.id) {
+            router.push('/orders')
+          } else {
+            router.push('/')
+          }
+        }, 3000)
+      } else {
+        alert(result.message || 'Đã xảy ra lỗi, vui lòng thử lại')
+      }
+    } catch (error) {
+      console.error('Order error:', error)
+      alert('Đã xảy ra lỗi, vui lòng thử lại')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   // Mobile cart toggle
@@ -221,7 +298,10 @@ const OrderingPage = () => {
                 Đặt món thành công!
               </h3>
               <p className="text-gray-600 mb-4">
-                Cảm ơn bạn đã đặt hàng. Chúng tôi sẽ liên hệ với bạn trong vòng 15 phút.
+                {session?.user?.id 
+                  ? 'Cảm ơn bạn đã đặt hàng. Bạn có thể theo dõi đơn hàng trong trang đơn hàng của mình.'
+                  : 'Cảm ơn bạn đã đặt hàng. Chúng tôi sẽ liên hệ với bạn trong vòng 15 phút.'
+                }
               </p>
               <p className="text-sm text-gray-500">
                 Trang sẽ tự động chuyển về trang chủ...
@@ -248,6 +328,80 @@ const OrderingPage = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Guest Ordering Info for Non-Signed-In Users */}
+      {!session && (
+        <section className="bg-blue-50 border-b border-blue-200 py-6">
+          <div className="container-custom px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="bg-white rounded-xl shadow-lg p-6"
+            >
+              <div className="flex items-center justify-center space-x-3 mb-4">
+                <FiShoppingCart className="text-primary-600 text-2xl" />
+                <h2 className="text-xl font-serif font-bold text-primary-800">
+                  Đặt món không cần đăng ký
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-gray-600 mb-4">
+                    Bạn có thể đặt món ngay mà không cần đăng ký tài khoản. 
+                    Chỉ cần điền thông tin liên hệ để chúng tôi có thể giao hàng.
+                  </p>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <div className="flex items-center space-x-2">
+                      <FiCheck className="text-green-600" />
+                      <span>Đặt món nhanh chóng</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <FiCheck className="text-green-600" />
+                      <span>Không cần đăng ký</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <FiCheck className="text-green-600" />
+                      <span>Giao hàng tận nơi</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-primary-50 p-4 rounded-lg">
+                  <h3 className="font-medium text-primary-800 mb-3">Hoặc đăng nhập để:</h3>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <div className="flex items-center space-x-2">
+                      <FiUser className="text-primary-600" />
+                      <span>Theo dõi đơn hàng</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <FiUser className="text-primary-600" />
+                      <span>Tích lũy điểm thưởng</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <FiUser className="text-primary-600" />
+                      <span>Lưu địa chỉ giao hàng</span>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex space-x-2">
+                    <button
+                      onClick={() => router.push('/auth/signin')}
+                      className="btn-primary text-sm px-4 py-2"
+                    >
+                      Đăng nhập
+                    </button>
+                    <button
+                      onClick={() => router.push('/auth/signup')}
+                      className="btn-outline text-sm px-4 py-2"
+                    >
+                      Đăng ký
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
 
 
       <div className="container-custom py-4 md:py-8 px-4">
@@ -353,6 +507,11 @@ const OrderingPage = () => {
               addressSuggestions={addressSuggestions}
               selectAddress={selectAddress}
               isSearching={isSearching}
+              session={session}
+              router={router}
+              userProfile={userProfile}
+              isLoadingProfile={isLoadingProfile}
+              loadUserProfile={loadUserProfile}
             />
           </div>
         </div>
@@ -413,6 +572,11 @@ const OrderingPage = () => {
                       addressSuggestions={addressSuggestions}
                       selectAddress={selectAddress}
                       isSearching={isSearching}
+                      session={session}
+                      router={router}
+                      userProfile={userProfile}
+                      isLoadingProfile={isLoadingProfile}
+                      loadUserProfile={loadUserProfile}
                     />
                   </div>
                 </div>
@@ -450,6 +614,13 @@ interface CartSectionProps {
   addressSuggestions: AddressSuggestion[]
   selectAddress: (suggestion: AddressSuggestion) => void
   isSearching: boolean
+  // Session
+  session: any
+  router: any
+  // Profile data
+  userProfile: any
+  isLoadingProfile: boolean
+  loadUserProfile: () => void
 }
 
 const CartSection: React.FC<CartSectionProps> = ({
@@ -475,7 +646,14 @@ const CartSection: React.FC<CartSectionProps> = ({
   setShowAddressSuggestions,
   addressSuggestions,
   selectAddress,
-  isSearching
+  isSearching,
+  // Session
+  session,
+  router,
+  // Profile data
+  userProfile,
+  isLoadingProfile,
+  loadUserProfile
 }) => {
   const isFormValid = () => {
     if (currentStep === 1) return true
@@ -512,9 +690,41 @@ const CartSection: React.FC<CartSectionProps> = ({
           <FiShoppingCart className="text-gray-400 text-4xl mx-auto mb-4" />
           <p className="text-gray-500">Giỏ hàng trống</p>
           <p className="text-sm text-gray-400 mt-2">Thêm món ăn để bắt đầu đặt hàng</p>
+          {!session && (
+            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-blue-700">
+                💡 Bạn có thể đặt món mà không cần đăng ký tài khoản
+              </p>
+            </div>
+          )}
         </div>
       ) : (
         <div className="space-y-4">
+          {/* User Status Indicator */}
+          {!session && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+              <div className="flex items-center space-x-2">
+                <FiUser className="text-yellow-600" />
+                <span className="text-sm text-yellow-800 font-medium">Đặt món không cần đăng ký</span>
+              </div>
+              <p className="text-xs text-yellow-700 mt-1">
+                Chỉ cần điền thông tin liên hệ để hoàn tất đơn hàng
+              </p>
+            </div>
+          )}
+          
+          {session && (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+              <div className="flex items-center space-x-2">
+                <FiUser className="text-green-600" />
+                <span className="text-sm text-green-800 font-medium">Chào mừng, {session.user?.name}!</span>
+              </div>
+              <p className="text-xs text-green-700 mt-1">
+                Bạn có thể theo dõi đơn hàng và tích lũy điểm thưởng
+              </p>
+            </div>
+          )}
+
           {/* Cart Items */}
           <div className="space-y-3 overflow-y-auto pr-2">
             {cart.map((item) => (
@@ -611,9 +821,81 @@ const CartSection: React.FC<CartSectionProps> = ({
             {/* Step Content */}
             {currentStep === 1 && (
               <div className="space-y-4">
-                <h3 className="text-lg font-serif font-semibold text-primary-800">
-                  Thông tin khách hàng
-                </h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-serif font-semibold text-primary-800">
+                    Thông tin khách hàng
+                  </h3>
+                  <div className="flex items-center space-x-2">
+                    {session && userProfile && (
+                      <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                        Đã tự động điền
+                      </span>
+                    )}
+                    {!session && (
+                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                        Khách
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Auto-fill notification for signed-in users
+                {session && userProfile && (
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <FiUser className="text-green-600" />
+                        <span className="text-sm text-green-800 font-medium">
+                          Thông tin đã được tự động điền từ hồ sơ của bạn
+                        </span>
+                      </div>
+                      <button
+                        onClick={loadUserProfile}
+                        disabled={isLoadingProfile}
+                        className="text-xs text-green-700 hover:text-green-800 underline disabled:opacity-50"
+                      >
+                        {isLoadingProfile ? 'Đang tải...' : 'Làm mới'}
+                      </button>
+                    </div>
+                    <p className="text-xs text-green-700 mt-1">
+                      Bạn có thể chỉnh sửa thông tin nếu cần thiết
+                    </p>
+                  </div>
+                )}
+                   */}
+
+                {/* Loading state for profile data */}
+                {session && isLoadingProfile && (
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                    <div className="flex items-center space-x-2">
+                      <div className="spinner w-4 h-4"></div>
+                      <span className="text-sm text-blue-800">Đang tải thông tin từ hồ sơ...</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Manual load profile button for signed-in users without profile data */}
+                {session && !userProfile && !isLoadingProfile && (
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <FiUser className="text-blue-600" />
+                        <span className="text-sm text-blue-800 font-medium">
+                          Tự động điền thông tin từ hồ sơ
+                        </span>
+                      </div>
+                      <button
+                        onClick={loadUserProfile}
+                        className="text-xs bg-blue-600 text-white px-3 py-1 rounded-full hover:bg-blue-700 transition-colors"
+                      >
+                        Điền tự động
+                      </button>
+                    </div>
+                    <p className="text-xs text-blue-700 mt-1">
+                      Nhấn để tự động điền thông tin từ hồ sơ của bạn
+                    </p>
+                  </div>
+                )}
                 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">

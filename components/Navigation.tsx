@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useSession, signOut } from 'next-auth/react'
-import { FiMenu, FiX, FiCoffee, FiShoppingCart, FiUser, FiLogOut, FiPlus, FiMinus, FiTrash2, FiPhone, FiMapPin, FiClock, FiCreditCard, FiCheck, FiChevronLeft, FiChevronRight, FiSearch, FiNavigation } from 'react-icons/fi'
+import { FiMenu, FiX, FiCoffee, FiShoppingCart, FiUser, FiLogOut, FiPlus, FiMinus, FiTrash2, FiPhone, FiMapPin, FiClock, FiCreditCard, FiCheck, FiChevronLeft, FiChevronRight, FiSearch, FiNavigation, FiSettings, FiShoppingBag } from 'react-icons/fi'
 import Image from 'next/image'
 import { useCart } from '@/contexts/CartContext'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -40,9 +40,23 @@ const Navigation = () => {
   const pathname = usePathname()
   const { data: session, status } = useSession()
   const { state: cartState, dispatch } = useCart()
-  
+  const router = useRouter()
   // Use global state for mobile cart visibility
   const showGlobalCart = cartState.showMobileCart
+
+  // Handle body scroll lock when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isMenuOpen])
 
   const navItems = [
     { href: '/', label: 'Trang chủ' },
@@ -84,8 +98,8 @@ const Navigation = () => {
   const isFormValid = () => {
     if (currentStep === 1) return true
     if (currentStep === 2) {
-      return customerInfo.name && customerInfo.phone && 
-             (customerInfo.deliveryType === 'pickup' || customerInfo.address)
+      return customerInfo.name && customerInfo.phone &&
+        (customerInfo.deliveryType === 'pickup' || customerInfo.address)
     }
     return true
   }
@@ -95,7 +109,7 @@ const Navigation = () => {
     try {
       const address = await detectCurrentLocation()
       if (address) {
-        setCustomerInfo({...customerInfo, address})
+        setCustomerInfo({ ...customerInfo, address })
       }
     } catch (error) {
       alert('Không thể lấy vị trí hiện tại. Vui lòng nhập địa chỉ thủ công.')
@@ -103,7 +117,7 @@ const Navigation = () => {
   }
 
   const handleAddressChange = (value: string) => {
-    setCustomerInfo({...customerInfo, address: value})
+    setCustomerInfo({ ...customerInfo, address: value })
     searchAddress(value)
   }
 
@@ -112,11 +126,11 @@ const Navigation = () => {
       // Get detailed place information
       const placeDetails = await getPlaceDetails(suggestion.placeId)
       const address = placeDetails?.fullAddress || suggestion.fullAddress
-      setCustomerInfo({...customerInfo, address})
+      setCustomerInfo({ ...customerInfo, address })
       clearSuggestions()
     } catch (error) {
       // Fallback to basic address
-      setCustomerInfo({...customerInfo, address: suggestion.fullAddress})
+      setCustomerInfo({ ...customerInfo, address: suggestion.fullAddress })
       clearSuggestions()
     }
   }
@@ -132,7 +146,7 @@ const Navigation = () => {
   }, [])
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav className="bg-white shadow-lg sticky top-0 z-50 relative">
       <div className="container-custom px-4">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
@@ -150,8 +164,8 @@ const Navigation = () => {
                 key={item.href}
                 href={item.href}
                 className={`text-sm font-medium transition-colors duration-200 whitespace-nowrap ${isActive(item.href)
-                    ? 'text-primary-600 border-b-2 border-primary-600'
-                    : 'text-gray-700 hover:text-primary-600'
+                  ? 'text-primary-600 border-b-2 border-primary-600'
+                  : 'text-gray-700 hover:text-primary-600'
                   }`}
               >
                 {item.label}
@@ -167,14 +181,14 @@ const Navigation = () => {
                 <button
                   onClick={(e) => {
                     e.stopPropagation()
-                    setIsUserMenuOpen(!isUserMenuOpen)
+                    router.push('/profile')
                   }}
-                  className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 transition-colors duration-200"
+                  className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 transition-colors duration-200 text-sm"
                 >
                   <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
                     <FiUser className="text-primary-600" />
                   </div>
-                  <span className="font-medium">{session.user?.name}</span>
+                  {/* <span className="font-medium text-sm">{session.user?.name}</span> */}
                 </button>
 
                 {isUserMenuOpen && (
@@ -259,99 +273,142 @@ const Navigation = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 py-4">
-            <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`font-medium transition-colors duration-200 ${isActive(item.href)
-                      ? 'text-primary-600'
-                      : 'text-gray-700 hover:text-primary-600'
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <Link
-                href="/ordering"
-                onClick={() => setIsMenuOpen(false)}
-                className="btn-primary flex items-center justify-center space-x-2 mt-4 relative"
-              >
-                <FiShoppingCart />
-                <span className="text-sm">Đặt món</span>
-                {cartState.totalItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {cartState.totalItems}
-                  </span>
-                )}
-              </Link>
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="lg:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 max-h-[calc(100vh-80px)] overflow-y-auto"
+            >
+              <div className="px-4 py-6 space-y-6">
+              {/* Navigation Links */}
+              <div className="space-y-2">
+                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide px-3">Menu</h3>
+                <div className="space-y-1">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`block py-3 px-4 rounded-lg font-medium transition-colors duration-200 ${
+                        isActive(item.href)
+                          ? 'text-primary-600 bg-primary-50 border-l-4 border-primary-600'
+                          : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
 
-              {/* Mobile User Menu */}
-              <div className="">
+              {/* Order Button */}
+              <div className="pt-2">
+                <Link
+                  href="/ordering"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="btn-primary w-full flex items-center justify-center space-x-2 relative py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+                >
+                  <FiShoppingCart size={20} />
+                  <span>Đặt món ngay</span>
+                  {cartState.totalItems > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold animate-pulse">
+                      {cartState.totalItems}
+                    </span>
+                  )}
+                </Link>
+              </div>
+
+              {/* User Section */}
+              <div className="pt-4 border-t border-gray-200">
+                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide px-3 mb-4">Tài khoản</h3>
                 {status === 'loading' ? (
-                  <div className="w-full h-10 bg-gray-200 rounded animate-pulse"></div>
+                  <div className="w-full h-12 bg-gray-200 rounded-lg animate-pulse"></div>
                 ) : session ? (
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2 text-gray-700">
-                      <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                        <FiUser className="text-primary-600" />
+                  <div className="space-y-4">
+                    {/* User Info */}
+                    <div className="flex items-center space-x-3 p-4 bg-gradient-to-r from-primary-50 to-primary-100 rounded-lg border border-primary-200">
+                      <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center">
+                        <FiUser className="text-white" />
                       </div>
-                      <div>
-                        <p className="font-medium">{session.user?.name}</p>
-                        <p className="text-xs text-gray-500">{session.user?.email}</p>
+                      <div className="flex-1">
+                        <p className="font-semibold text-gray-900">{session.user?.name}</p>
+                        <p className="text-sm text-gray-600">{session.user?.email}</p>
+                        <div className="flex items-center mt-1">
+                          <span className="text-xs bg-primary-600 text-white px-2 py-1 rounded-full">
+                            {session.user?.role === 'ADMIN' ? 'Quản trị viên' : 'Khách hàng'}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                    <Link
-                      href="/profile"
-                      onClick={() => setIsMenuOpen(false)}
-                      className="block text-sm text-gray-600 hover:text-primary-600"
-                    >
-                      Thông tin cá nhân
-                    </Link>
-                    <Link
-                      href="/orders"
-                      onClick={() => setIsMenuOpen(false)}
-                      className="block text-sm text-gray-600 hover:text-primary-600"
-                    >
-                      Đơn hàng của tôi
-                    </Link>
-                    {session.user?.role === 'ADMIN' && (
+
+                    {/* User Menu Links */}
+                    <div className="space-y-1">
                       <Link
-                        href="/admin"
+                        href="/profile"
                         onClick={() => setIsMenuOpen(false)}
-                        className="block text-sm text-gray-600 hover:text-primary-600"
+                        className="flex items-center space-x-3 py-3 px-4 text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-colors duration-200"
                       >
-                        Quản trị
+                        <FiUser size={18} />
+                        <span>Thông tin cá nhân</span>
                       </Link>
-                    )}
-                    <button
-                      onClick={() => {
-                        signOut()
-                        setIsMenuOpen(false)
-                      }}
-                      className="w-full bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 mt-2"
-                    >
-                      <FiLogOut />
-                      <span className="text-sm">Đăng xuất</span>
-                    </button>
+                      <Link
+                        href="/orders"
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex items-center space-x-3 py-3 px-4 text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                      >
+                        <FiShoppingBag size={18} />
+                        <span>Đơn hàng của tôi</span>
+                      </Link>
+                      {session.user?.role === 'ADMIN' && (
+                        <Link
+                          href="/admin"
+                          onClick={() => setIsMenuOpen(false)}
+                          className="flex items-center space-x-3 py-3 px-4 text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                        >
+                          <FiSettings size={18} />
+                          <span>Quản trị</span>
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 ) : (
-                  <Link
-                    href="/auth/signin"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="btn-secondary flex items-center justify-center space-x-2"
-                  >
-                    <FiUser />
-                    <span className="text-sm">Đăng nhập</span>
-                  </Link>
+                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                    <FiUser className="text-gray-400 text-3xl mx-auto mb-3" />
+                    <p className="text-gray-600 mb-4">Đăng nhập để trải nghiệm tốt hơn</p>
+                    <Link
+                      href="/auth/signin"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="btn-primary w-full flex items-center justify-center space-x-2"
+                    >
+                      <FiUser />
+                      <span>Đăng nhập</span>
+                    </Link>
+                  </div>
                 )}
               </div>
-            </div>
-          </div>
-        )}
+
+              {/* Sign Out Button - Always at Bottom */}
+              {session && (
+                <div className="pt-4 border-t border-gray-200">
+                  <button
+                    onClick={() => {
+                      signOut()
+                      setIsMenuOpen(false)
+                    }}
+                    className="w-full bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700 font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 border border-red-200 hover:border-red-300"
+                  >
+                    <FiLogOut />
+                    <span>Đăng xuất</span>
+                  </button>
+                </div>
+              )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Global Cart Button - Mobile Only */}
@@ -408,7 +465,7 @@ const Navigation = () => {
                     </button>
                   </div>
                 </div>
-                
+
                 <div className="flex-1 overflow-y-auto">
                   <div className="p-4">
                     {cartState.items.length === 0 ? (
@@ -416,17 +473,52 @@ const Navigation = () => {
                         <FiShoppingCart className="text-gray-400 text-4xl mx-auto mb-4" />
                         <p className="text-gray-500 mb-4">Giỏ hàng trống</p>
                         <p className="text-sm text-gray-400 mb-6">Thêm món ăn để bắt đầu đặt hàng</p>
-                            <Link
-                              href="/menu"
-                              className="btn-primary w-full flex items-center justify-center space-x-2"
-                              onClick={() => dispatch({ type: 'HIDE_MOBILE_CART' })}
-                            >
+
+                        {/* User Status for Empty Cart */}
+                        {!session && (
+                          <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                            <p className="text-sm text-blue-700">
+                              💡 Bạn có thể đặt món mà không cần đăng ký tài khoản
+                            </p>
+                          </div>
+                        )}
+
+                        <Link
+                          href="/menu"
+                          className="btn-primary w-full flex items-center justify-center space-x-2"
+                          onClick={() => dispatch({ type: 'HIDE_MOBILE_CART' })}
+                        >
                           <FiPlus />
                           <span>Thêm món</span>
                         </Link>
                       </div>
                     ) : (
                       <div className="space-y-4">
+                        {/* User Status Indicator */}
+                        {!session && (
+                          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                            <div className="flex items-center space-x-2">
+                              <FiUser className="text-yellow-600" />
+                              <span className="text-sm text-yellow-800 font-medium">Đặt món không cần đăng ký</span>
+                            </div>
+                            <p className="text-xs text-yellow-700 mt-1">
+                              Chỉ cần điền thông tin liên hệ để hoàn tất đơn hàng
+                            </p>
+                          </div>
+                        )}
+
+                        {session && (
+                          <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                            <div className="flex items-center space-x-2">
+                              <FiUser className="text-green-600" />
+                              <span className="text-sm text-green-800 font-medium">Chào mừng, {session.user?.name}!</span>
+                            </div>
+                            <p className="text-xs text-green-700 mt-1">
+                              Bạn có thể theo dõi đơn hàng và tích lũy điểm thưởng
+                            </p>
+                          </div>
+                        )}
+
                         {/* Cart Items */}
                         <div className="space-y-3 overflow-y-auto pr-2">
                           {cartState.items.map((item) => (
@@ -504,17 +596,15 @@ const Navigation = () => {
                           <div className="flex items-center justify-between">
                             {[1, 2, 3].map((step) => (
                               <div key={step} className="flex items-center">
-                                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                                  step <= currentStep 
-                                    ? 'bg-primary-600 text-white' 
+                                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${step <= currentStep
+                                    ? 'bg-primary-600 text-white'
                                     : 'bg-gray-200 text-gray-600'
-                                }`}>
+                                  }`}>
                                   {step}
                                 </div>
                                 {step < 3 && (
-                                  <div className={`w-8 h-0.5 mx-2 ${
-                                    step < currentStep ? 'bg-primary-600' : 'bg-gray-200'
-                                  }`} />
+                                  <div className={`w-8 h-0.5 mx-2 ${step < currentStep ? 'bg-primary-600' : 'bg-gray-200'
+                                    }`} />
                                 )}
                               </div>
                             ))}
@@ -523,10 +613,17 @@ const Navigation = () => {
                           {/* Step Content */}
                           {currentStep === 1 && (
                             <div className="space-y-4">
-                              <h3 className="text-lg font-serif font-semibold text-primary-800">
-                                Thông tin khách hàng
-                              </h3>
-                              
+                              <div className="flex items-center justify-between">
+                                <h3 className="text-lg font-serif font-semibold text-primary-800">
+                                  Thông tin khách hàng
+                                </h3>
+                                {!session && (
+                                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                                    Khách
+                                  </span>
+                                )}
+                              </div>
+
                               <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                   <FiUser className="inline mr-2" />
@@ -535,7 +632,7 @@ const Navigation = () => {
                                 <input
                                   type="text"
                                   value={customerInfo.name}
-                                  onChange={(e) => setCustomerInfo({...customerInfo, name: e.target.value})}
+                                  onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
                                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                   placeholder="Nhập họ và tên"
                                 />
@@ -549,7 +646,7 @@ const Navigation = () => {
                                 <input
                                   type="tel"
                                   value={customerInfo.phone}
-                                  onChange={(e) => setCustomerInfo({...customerInfo, phone: e.target.value})}
+                                  onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
                                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                   placeholder="Nhập số điện thoại"
                                 />
@@ -562,7 +659,7 @@ const Navigation = () => {
                                 <input
                                   type="email"
                                   value={customerInfo.email}
-                                  onChange={(e) => setCustomerInfo({...customerInfo, email: e.target.value})}
+                                  onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
                                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                   placeholder="Nhập email (tùy chọn)"
                                 />
@@ -579,7 +676,7 @@ const Navigation = () => {
                                       type="radio"
                                       value="pickup"
                                       checked={customerInfo.deliveryType === 'pickup'}
-                                      onChange={(e) => setCustomerInfo({...customerInfo, deliveryType: e.target.value})}
+                                      onChange={(e) => setCustomerInfo({ ...customerInfo, deliveryType: e.target.value })}
                                       className="mr-2"
                                     />
                                     <span>Mang đi</span>
@@ -589,7 +686,7 @@ const Navigation = () => {
                                       type="radio"
                                       value="delivery"
                                       checked={customerInfo.deliveryType === 'delivery'}
-                                      onChange={(e) => setCustomerInfo({...customerInfo, deliveryType: e.target.value})}
+                                      onChange={(e) => setCustomerInfo({ ...customerInfo, deliveryType: e.target.value })}
                                       className="mr-2"
                                     />
                                     <span>Giao hàng (+15.000đ)</span>
@@ -603,7 +700,7 @@ const Navigation = () => {
                                     <FiMapPin className="inline mr-2" />
                                     Địa chỉ giao hàng *
                                   </label>
-                                  
+
                                   {/* Location Detection Button */}
                                   <div className="mb-3">
                                     <button
@@ -679,7 +776,7 @@ const Navigation = () => {
                               <h3 className="text-lg font-serif font-semibold text-primary-800">
                                 Phương thức thanh toán
                               </h3>
-                              
+
                               <div className="space-y-3">
                                 {[
                                   { id: 'cash', label: 'Tiền mặt', icon: '💵' },
@@ -693,7 +790,7 @@ const Navigation = () => {
                                       name="paymentMethod"
                                       value={method.id}
                                       checked={customerInfo.paymentMethod === method.id}
-                                      onChange={(e) => setCustomerInfo({...customerInfo, paymentMethod: e.target.value})}
+                                      onChange={(e) => setCustomerInfo({ ...customerInfo, paymentMethod: e.target.value })}
                                       className="mr-3"
                                     />
                                     <span className="mr-3">{method.icon}</span>
@@ -708,7 +805,7 @@ const Navigation = () => {
                                 </label>
                                 <textarea
                                   value={customerInfo.notes}
-                                  onChange={(e) => setCustomerInfo({...customerInfo, notes: e.target.value})}
+                                  onChange={(e) => setCustomerInfo({ ...customerInfo, notes: e.target.value })}
                                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                   rows={3}
                                   placeholder="Ghi chú cho đơn hàng (tùy chọn)"
@@ -739,7 +836,7 @@ const Navigation = () => {
                               <h3 className="text-lg font-serif font-semibold text-primary-800">
                                 Xác nhận đơn hàng
                               </h3>
-                              
+
                               <div className="bg-gray-50 p-4 rounded-lg space-y-2">
                                 <div className="flex justify-between">
                                   <span className="font-medium">Khách hàng:</span>
@@ -763,8 +860,8 @@ const Navigation = () => {
                                   <span className="font-medium">Thanh toán:</span>
                                   <span>
                                     {customerInfo.paymentMethod === 'cash' ? 'Tiền mặt' :
-                                     customerInfo.paymentMethod === 'card' ? 'Thẻ' :
-                                     customerInfo.paymentMethod === 'momo' ? 'MoMo' : 'ZaloPay'}
+                                      customerInfo.paymentMethod === 'card' ? 'Thẻ' :
+                                        customerInfo.paymentMethod === 'momo' ? 'MoMo' : 'ZaloPay'}
                                   </span>
                                 </div>
                               </div>
@@ -778,12 +875,58 @@ const Navigation = () => {
                                   <span>Quay lại</span>
                                 </button>
                                 <button
-                                  onClick={() => {
-                                    // Simulate order submission
-                                    alert('Đặt món thành công!')
-                                    dispatch({ type: 'HIDE_MOBILE_CART' })
-                                    setCurrentStep(1)
-                                    clearCart()
+                                  onClick={async () => {
+                                    try {
+                                      const orderData = {
+                                        items: cartState.items,
+                                        customerInfo: {
+                                          name: customerInfo.name,
+                                          phone: customerInfo.phone,
+                                          email: customerInfo.email || (session?.user?.email || ''),
+                                          address: customerInfo.address,
+                                          deliveryType: customerInfo.deliveryType,
+                                          paymentMethod: customerInfo.paymentMethod,
+                                          notes: customerInfo.notes
+                                        },
+                                        isGuestOrder: !session?.user?.id
+                                      }
+
+                                      const response = await fetch('/api/orders', {
+                                        method: 'POST',
+                                        headers: {
+                                          'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify(orderData)
+                                      })
+
+                                      const result = await response.json()
+
+                                      if (response.ok) {
+                                        if (session?.user?.id) {
+                                          alert('Đặt món thành công! Đơn hàng của bạn đang được xử lý.')
+                                        } else {
+                                          alert('Đặt món thành công! Chúng tôi sẽ liên hệ với bạn trong vòng 15 phút.')
+                                        }
+                                        dispatch({ type: 'HIDE_MOBILE_CART' })
+                                        setCurrentStep(1)
+                                        clearCart()
+                                        // Reset form
+                                        setCustomerInfo({
+                                          name: '',
+                                          phone: '',
+                                          email: '',
+                                          address: '',
+                                          deliveryType: 'pickup',
+                                          paymentMethod: 'cash',
+                                          notes: ''
+                                        })
+                                      } else {
+                                        alert(result.message || 'Đã xảy ra lỗi, vui lòng thử lại')
+                                      }
+                                    } catch (error) {
+                                      console.error('Order error:', error)
+                                      alert('Đã xảy ra lỗi, vui lòng thử lại')
+                                    }
                                   }}
                                   className="flex-1 btn-primary py-3 flex items-center justify-center space-x-2"
                                 >
