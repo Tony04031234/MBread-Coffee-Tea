@@ -1,0 +1,174 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  phone     String?
+  password  String
+  role      String   @default("CUSTOMER") // CUSTOMER, ADMIN, STAFF
+  points    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  orders    Order[]
+  reviews   Review[]
+  addresses Address[]
+
+  @@map("users")
+}
+
+model Address {
+  id          String  @id @default(cuid())
+  userId      String
+  street      String
+  city        String
+  district    String
+  ward        String
+  isDefault   Boolean @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders      Order[]
+
+  @@map("addresses")
+}
+
+model Category {
+  id          String @id @default(cuid())
+  name        String
+  slug        String @unique
+  description String?
+  icon        String?
+  isActive    Boolean @default(true)
+  sortOrder   Int     @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  items       MenuItem[]
+
+  @@map("categories")
+}
+
+model MenuItem {
+  id          String  @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  image       String
+  categoryId  String
+  isPopular   Boolean @default(false)
+  isActive    Boolean @default(true)
+  sortOrder   Int     @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  category    Category @relation(fields: [categoryId], references: [id])
+  orderItems  OrderItem[]
+  reviews     Review[]
+
+  @@map("menu_items")
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique
+  userId          String?
+  customerName    String
+  customerPhone   String
+  customerEmail   String?
+  deliveryType    String      @default("PICKUP") // PICKUP, DELIVERY
+  paymentMethod   String      @default("CASH") // CASH, CARD, MOMO, ZALOPAY
+  status          String      @default("PENDING") // PENDING, CONFIRMED, PREPARING, READY, DELIVERING, DELIVERED, CANCELLED
+  subtotal        Float
+  tax             Float
+  deliveryFee     Float       @default(0)
+  discount        Float       @default(0)
+  total           Float
+  notes           String?
+  addressId       String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  // Relations
+  user            User?       @relation(fields: [userId], references: [id])
+  address         Address?    @relation(fields: [addressId], references: [id])
+  items           OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  menuItemId String
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+
+  // Relations
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem  MenuItem @relation(fields: [menuItemId], references: [id])
+
+  @@map("order_items")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  menuItemId String?
+  rating    Int      // 1-5 stars
+  comment   String?
+  isVerified Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id])
+  menuItem  MenuItem? @relation(fields: [menuItemId], references: [id])
+
+  @@map("reviews")
+}
+
+model Promotion {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  type        String   // PERCENTAGE, FIXED_AMOUNT, FREE_DELIVERY
+  value       Float
+  minOrderAmount Float?
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("promotions")
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}
+
+// Note: SQLite doesn't support enums, so we use strings with comments above
