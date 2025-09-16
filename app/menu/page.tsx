@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { FiStar, FiArrowRight, FiSearch, FiShoppingCart, FiHeart, FiShare2 } from 'react-icons/fi'
 import { menuItems, categories } from '@/data/menu'
@@ -15,6 +16,7 @@ import Toast from '@/components/Toast'
 import StructuredData from '@/components/StructuredData'
 
 const MenuPage = () => {
+  const searchParams = useSearchParams()
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [searchTerm, setSearchTerm] = useState('')
   const [showNotification, setShowNotification] = useState(false)
@@ -27,6 +29,14 @@ const MenuPage = () => {
   
   const { dispatch, state: cartState } = useCart()
   const { toggleFavorite, isFavorite, isLoading: favoritesLoading, isSignedIn } = useFavorites()
+
+  // Handle URL search parameters for category filtering
+  useEffect(() => {
+    const categoryParam = searchParams.get('category')
+    if (categoryParam && ['coffee', 'tea', 'pastry', 'special'].includes(categoryParam)) {
+      setSelectedCategory(categoryParam)
+    }
+  }, [searchParams])
 
   const filteredItems = menuItems.filter(item => {
     const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory
@@ -119,10 +129,10 @@ const MenuPage = () => {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">
-              Thực đơn
+              Thực Đơn {selectedCategory === 'all' ? '' : `- ${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}`}
             </h1>
-            <p className="text-xl opacity-90 max-w-2xl mx-auto">
-              Khám phá những món ăn và đồ uống tuyệt vời tại MBread Coffee & Tea
+            <p className="text-xl opacity-90 mx-auto">
+              Khám phá những món bánh và đồ uống tuyệt vời tại MBread Coffee & Tea
             </p>
           </motion.div>
         </div>
@@ -189,9 +199,9 @@ const MenuPage = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="card overflow-hidden hover:scale-105 transition-transform duration-300 flex flex-col"
+                  className="card overflow-hidden hover:scale-105 transition-transform duration-300 flex flex-col h-full"
                 >
-                  <Link href={`/product/${item.id}`} className="block">
+                  <Link href={`/product/${item.id}`} className="block flex flex-col flex-grow">
                     <div className="relative h-48">
                       <Image
                         src={item.image}
@@ -208,19 +218,21 @@ const MenuPage = () => {
                     </div>
                     <div className="p-6 flex flex-col flex-grow">
                       <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-xl font-serif font-semibold text-primary-800 hover:text-primary-600 transition-colors duration-200">
+                        <h3 className="text-xl font-serif font-bold text-primary-600 hover:text-primary-700 transition-colors duration-200 hover:underline">
                           {item.name}
                         </h3>
                         <span className="text-lg font-bold text-primary-600">
                           {formatPrice(item.price)}
                         </span>
                       </div>
-                      <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
+                      <p className="text-gray-600 leading-relaxed flex-grow">
                         {item.description}
                       </p>
                     </div>
                   </Link>
-                  <div className="p-6 pt-0 space-y-3">
+                  
+                  {/* Fixed Button Section at Bottom */}
+                  <div className="p-6 pt-0 mt-auto space-y-3">
                     {/* Main Add to Cart Button */}
                     <button
                       onClick={() => handleAddToCart(item)}

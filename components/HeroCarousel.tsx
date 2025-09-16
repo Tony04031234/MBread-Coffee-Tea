@@ -15,24 +15,24 @@ const HeroCarousel = () => {
       image: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200',
       title: 'Khám phá hương vị cà phê tuyệt vời',
       subtitle: 'Tại MBread Coffee & Tea, mỗi ly cà phê đều được pha chế với tình yêu và sự tận tâm',
-      cta: 'Xem thực đơn',
-      link: '/menu'
+      cta: 'Thưởng thức cà phê',
+      link: '/menu?category=coffee'
     },
     {
       id: 2,
       image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200',
       title: 'Trà cao cấp từ khắp nơi trên thế giới',
       subtitle: 'Thưởng thức những loại trà đặc sản với hương vị độc đáo và tinh tế',
-      cta: 'Đặt món ngay',
-      link: '/ordering'
+      cta: 'Khám phá trà',
+      link: '/menu?category=tea'
     },
     {
       id: 3,
       image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1200',
       title: 'Bánh ngọt tươi ngon mỗi ngày',
       subtitle: 'Những chiếc bánh được làm thủ công với nguyên liệu tươi ngon nhất',
-      cta: 'Khám phá',
-      link: '/gallery'
+      cta: 'Xem bánh ngọt',
+      link: '/menu?category=pastry'
     }
   ]
 
@@ -57,7 +57,7 @@ const HeroCarousel = () => {
   }
 
   return (
-    <section className="relative h-[75vh] overflow-hidden">
+    <section className="relative md:h-[75vh] h-[90vh] overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -90,7 +90,7 @@ const HeroCarousel = () => {
               transition={{ duration: 0.5 }}
               className="max-w-4xl text-white"
             >
-              <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
+              <h1 className="text-4xl md:text-7xl font-serif font-bold mb-6 leading-tight">
                 {slides[currentSlide].title}
               </h1>
               <p className="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed">

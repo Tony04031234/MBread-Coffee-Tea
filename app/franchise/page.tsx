@@ -249,27 +249,32 @@ const FranchisePage = () => {
 
           {/* Desktop Process */}
           <div className="hidden lg:block">
-            <div className="space-y-8">
-              {processSteps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                  className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
-                >
-                  <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                    <div className="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-xl">
-                      <h3 className="text-xl font-serif font-bold mb-2">{step.title}</h3>
-                      <p className="opacity-90">{step.description}</p>
+            <div className="relative">
+              {/* Connecting Line */}
+              <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white bg-opacity-30 transform -translate-x-1/2"></div>
+              
+              <div className="space-y-8">
+                {processSteps.map((step, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.2 }}
+                    className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
+                  >
+                    <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+                      <div className="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-xl">
+                        <h3 className="text-xl font-serif font-bold mb-2">{step.title}</h3>
+                        <p className="opacity-90">{step.description}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="relative z-10 w-16 h-16 bg-secondary-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                    {step.step}
-                  </div>
-                  <div className="w-1/2"></div>
-                </motion.div>
-              ))}
+                    <div className="relative z-10 w-16 h-16 bg-secondary-500 rounded-full flex items-center justify-center text-white font-bold text-lg border-4 border-white border-opacity-20">
+                      {step.step}
+                    </div>
+                    <div className="w-1/2"></div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -480,7 +485,7 @@ const FranchisePage = () => {
       </section>
 
       {/* Contact Info */}
-      <section className="section-padding bg-primary-800 text-white">
+      <section className="section-padding bg-cream-50">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -488,29 +493,29 @@ const FranchisePage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary-800 mb-4">
               Liên hệ trực tiếp
             </h2>
-            <p className="text-xl opacity-90">
+            <p className="text-xl text-gray-600">
               Đội ngũ phát triển nhượng quyền của chúng tôi luôn sẵn sàng hỗ trợ bạn
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <FiPhone className="text-3xl text-secondary-400 mx-auto mb-4" />
-              <h3 className="text-xl font-serif font-semibold mb-2">Điện thoại</h3>
-              <p className="opacity-90">094 625 20 20</p>
+              <FiPhone className="text-3xl text-primary-600 mx-auto mb-4" />
+              <h3 className="text-xl font-serif font-semibold text-primary-800 mb-2">Điện thoại</h3>
+              <p className="text-gray-600">094 625 20 20</p>
             </div>
             <div className="text-center">
-              <FiMail className="text-3xl text-secondary-400 mx-auto mb-4" />
-              <h3 className="text-xl font-serif font-semibold mb-2">Email</h3>
-              <p className="opacity-90">pkdmaikhoi@gmail.com</p>
+              <FiMail className="text-3xl text-primary-600 mx-auto mb-4" />
+              <h3 className="text-xl font-serif font-semibold text-primary-800 mb-2">Email</h3>
+              <p className="text-gray-600">pkdmaikhoi@gmail.com</p>
             </div>
             <div className="text-center">
-              <FiMapPin className="text-3xl text-secondary-400 mx-auto mb-4" />
-              <h3 className="text-xl font-serif font-semibold mb-2">Địa chỉ</h3>
-              <p className="opacity-90">7 Đường Số 7, An Lạc A, Bình Tân, TP.HCM</p>
+              <FiMapPin className="text-3xl text-primary-600 mx-auto mb-4" />
+              <h3 className="text-xl font-serif font-semibold text-primary-800 mb-2">Địa chỉ</h3>
+              <p className="text-gray-600">7 Đường Số 7, An Lạc A, Bình Tân, TP.HCM</p>
             </div>
           </div>
         </div>

@@ -153,7 +153,7 @@ const FeaturedMenu = () => {
                       className="text-primary-600 hover:text-primary-700 font-medium flex items-center space-x-1 transition-colors duration-200"
                     >
                       <FiShoppingCart size={16} />
-                      <span>Đặt món</span>
+                      <span>Đặt nước</span>
                     </button>
                   </div>
                   

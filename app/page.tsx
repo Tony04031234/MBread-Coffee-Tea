@@ -40,7 +40,7 @@ const HomePage = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-5xl mx-auto"
           >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary-800 mb-6">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-primary-800 mb-6">
               Chào mừng đến với MBread Coffee & Tea
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed mb-8 max-w-4xl mx-auto">
@@ -59,12 +59,13 @@ const HomePage = () => {
               </Link>
             </div>
             
-            {/* About App Link */}
+            {/* About App Link
             <div className="mt-8">
               <Link href="/about-app" className="text-primary-600 hover:text-primary-700 underline font-semibold">
                 📱 Tìm hiểu về ứng dụng và chính sách dữ liệu
               </Link>
             </div>
+             */}
           </motion.div>
         </div>
       </section>
@@ -182,29 +183,29 @@ const HomePage = () => {
             </div>
             
             {/* Legal Links */}
-            <div className="mt-8 pt-6 border-t border-gray-200">
-              <div className="bg-white/80 p-6 rounded-lg shadow-sm">
-                <h3 className="text-lg font-semibold text-primary-800 mb-4 text-center">
+            <div className="mt-8 pt-6 ">
+              <div className="bg-white/80 p-6 rounded-lg shadow-sm border border-gray-200 ">
+                <h3 className="md:text-2xl text-xl font-semibold text-primary-800 mb-4 text-center">
                   Thông tin pháp lý
                 </h3>
-                <p className="text-sm text-gray-600 mb-4 text-center">
+                <p className="md:text-lg text-base text-gray-600 mb-4 text-center">
                   Bằng việc sử dụng dịch vụ của chúng tôi, bạn đồng ý với các điều khoản sau:
                 </p>
                 <div className="flex flex-wrap justify-center gap-6">
-                  <Link href="/about-app" className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 underline font-semibold">
+                  <Link href="/about-app" className="flex items-center space-x-2 text-primary-600 hover:text-primary-700  font-semibold">
                     <span>📱</span>
-                    <span>Về ứng dụng</span>
+                    <span className="underline">Về ứng dụng</span>
                   </Link>
-                  <Link href="/privacy" className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 underline font-semibold">
+                  <Link href="/privacy" className="flex items-center space-x-2 text-primary-600 hover:text-primary-700  font-semibold">
                     <span>🔒</span>
-                    <span>Chính sách bảo mật</span>
+                    <span className="underline">Chính sách bảo mật</span>
                   </Link>
-                  <Link href="/terms" className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 underline font-semibold">
+                  <Link href="/terms" className="flex items-center space-x-2 text-primary-600 hover:text-primary-700  font-semibold">
                     <span>📋</span>
-                    <span>Điều khoản dịch vụ</span>
+                    <span className="underline">Điều khoản dịch vụ</span>
                   </Link>
                 </div>
-                <p className="text-xs text-gray-500 mt-4 text-center">
+                <p className="md:text-base text-sm text-gray-500 mt-4 text-center">
                   Chính sách bảo mật của chúng tôi giải thích cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu Google của bạn.
                 </p>
               </div>

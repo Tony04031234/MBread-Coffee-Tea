@@ -49,7 +49,7 @@ const AboutAppPage = () => {
                   Ứng dụng đặt hàng và quản lý cà phê & trà trực tuyến
                 </p>
                 <p className="text-sm text-gray-500">
-                  Website: mbread-coffee-tea.com | Email: pkdmaikhoi@gmail.com
+                  Website: www.mbreadcoffeetea.com | Email: pkdmaikhoi@gmail.com
                 </p>
               </div>
             </div>

@@ -196,7 +196,7 @@ const OrderingPage = () => {
             {/* Category Filter */}
             <div className="bg-white rounded-xl shadow-lg p-4 md:p-6 mb-4 md:mb-8">
               <h2 className="text-xl md:text-2xl font-serif font-bold text-primary-800 mb-4">
-                Chọn món nước
+                Chọn món nước & bánh
               </h2>
               <div className="flex flex-wrap gap-2 md:gap-3">
                 <button
@@ -244,8 +244,8 @@ const OrderingPage = () => {
                         className="object-cover"
                       />
                     </div>
-                    <div className="p-4 md:p-6 flex flex-col flex-grow">
-                      <h3 className="text-lg md:text-xl font-serif font-semibold text-primary-800 hover:text-primary-600 transition-colors duration-200 mb-2">
+                    <div className="p-4 flex flex-col flex-grow">
+                      <h3 className="text-lg md:text-xl font-serif font-bold text-primary-600 hover:text-primary-700 transition-colors duration-200 mb-2 hover:underline">
                         {item.name}
                       </h3>
                       <p className="text-sm md:text-base text-gray-600 leading-relaxed flex-grow">
