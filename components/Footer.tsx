@@ -60,6 +60,16 @@ const Footer = () => {
                   Nhượng quyền
                 </Link>
               </li>
+              <li>
+                <Link href="/privacy" className="text-gray-300 hover:text-secondary-400 transition-colors duration-200">
+                  Chính sách bảo mật
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="text-gray-300 hover:text-secondary-400 transition-colors duration-200">
+                  Điều khoản dịch vụ
+                </Link>
+              </li>
             </ul>
           </div>
 
