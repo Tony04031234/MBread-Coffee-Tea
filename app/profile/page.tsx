@@ -57,6 +57,15 @@ interface DeliveryAddress {
   isDefault: boolean
 }
 
+interface FavoriteItem {
+  id: string
+  name: string
+  image: string
+  price: number
+  category: string
+  addedAt: string
+}
+
 const ProfilePage = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
@@ -70,7 +79,7 @@ const ProfilePage = () => {
   })
   const [orders, setOrders] = useState<Order[]>([])
   const [deliveryAddresses, setDeliveryAddresses] = useState<DeliveryAddress[]>([])
-  const [favorites, setFavorites] = useState<string[]>([])
+  const [favorites, setFavorites] = useState<FavoriteItem[]>([])
   const [activeTab, setActiveTab] = useState<'profile' | 'orders' | 'addresses' | 'favorites'>('profile')
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
@@ -169,9 +178,11 @@ const ProfilePage = () => {
         setOrders(data.orders || [])
       } else {
         console.error('Error loading orders:', data.message)
+        setOrders([])
       }
     } catch (error) {
       console.error('Error loading orders:', error)
+      setOrders([])
     }
   }
 
@@ -211,8 +222,20 @@ const ProfilePage = () => {
   }
 
   const loadFavorites = async () => {
-    // For now, we'll use mock data. In a real app, this would come from an API
-    setFavorites(['item1', 'item2', 'item3'])
+    try {
+      const response = await fetch('/api/user/favorites')
+      const data = await response.json()
+      
+      if (response.ok) {
+        setFavorites(data.favorites || [])
+      } else {
+        console.error('Error loading favorites:', data.message)
+        setFavorites([])
+      }
+    } catch (error) {
+      console.error('Error loading favorites:', error)
+      setFavorites([])
+    }
   }
 
   const handleQuickAction = (action: string) => {
@@ -287,6 +310,58 @@ const ProfilePage = () => {
     } catch (error) {
       console.error('Error adding address:', error)
       alert('Có lỗi xảy ra khi thêm địa chỉ')
+    }
+  }
+
+  const handleRemoveFavorite = async (productId: string) => {
+    if (confirm('Bạn có chắc chắn muốn xóa món này khỏi danh sách yêu thích?')) {
+      try {
+        const response = await fetch('/api/user/favorites', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ productId })
+        })
+
+        const data = await response.json()
+
+        if (response.ok) {
+          setSuccessMessage('Đã xóa khỏi danh sách yêu thích!')
+          setShowSuccessMessage(true)
+          setTimeout(() => setShowSuccessMessage(false), 3000)
+          loadFavorites() // Reload favorites
+        } else {
+          alert(data.message || 'Có lỗi xảy ra khi xóa món yêu thích')
+        }
+      } catch (error) {
+        console.error('Error removing favorite:', error)
+        alert('Có lỗi xảy ra khi xóa món yêu thích')
+      }
+    }
+  }
+
+  const handleDeleteAddress = async (addressId: string) => {
+    if (confirm('Bạn có chắc chắn muốn xóa địa chỉ này?')) {
+      try {
+        const response = await fetch(`/api/user/addresses/${addressId}`, {
+          method: 'DELETE'
+        })
+
+        const data = await response.json()
+
+        if (response.ok) {
+          setSuccessMessage('Đã xóa địa chỉ thành công!')
+          setShowSuccessMessage(true)
+          setTimeout(() => setShowSuccessMessage(false), 3000)
+          loadDeliveryAddresses() // Reload addresses
+        } else {
+          alert(data.message || 'Có lỗi xảy ra khi xóa địa chỉ')
+        }
+      } catch (error) {
+        console.error('Error deleting address:', error)
+        alert('Có lỗi xảy ra khi xóa địa chỉ')
+      }
     }
   }
 
@@ -780,7 +855,10 @@ const ProfilePage = () => {
                             <span className="text-sm text-gray-600">
                               Tổng cộng: <span className="font-bold text-primary-600">{formatPrice(order.orderSummary.total)}</span>
                             </span>
-                            <button className="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                            <button 
+                              onClick={() => router.push(`/orders`)}
+                              className="text-primary-600 hover:text-primary-700 text-sm font-medium"
+                            >
                               Xem chi tiết
                             </button>
                           </div>
@@ -835,10 +913,19 @@ const ProfilePage = () => {
                           <p className="text-gray-600 mb-2">{address.address}</p>
                           <p className="text-sm text-gray-500">SĐT: {address.phone}</p>
                           <div className="flex space-x-2 mt-3">
-                            <button className="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                            <button 
+                              onClick={() => {
+                                // TODO: Implement edit address functionality
+                                alert('Chức năng chỉnh sửa địa chỉ sẽ được cập nhật sớm!')
+                              }}
+                              className="text-primary-600 hover:text-primary-700 text-sm font-medium"
+                            >
                               Chỉnh sửa
                             </button>
-                            <button className="text-red-600 hover:text-red-700 text-sm font-medium">
+                            <button 
+                              onClick={() => handleDeleteAddress(address.id)}
+                              className="text-red-600 hover:text-red-700 text-sm font-medium"
+                            >
                               Xóa
                             </button>
                           </div>
@@ -887,15 +974,37 @@ const ProfilePage = () => {
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {favorites.map((favorite) => (
-                        <div key={favorite} className="border border-gray-200 rounded-lg p-4">
-                          <div className="w-full h-32 bg-gray-200 rounded-lg mb-3"></div>
-                          <h3 className="font-medium text-primary-800 mb-2">Món yêu thích</h3>
-                          <p className="text-gray-600 text-sm mb-3">Mô tả món ăn...</p>
+                        <div key={favorite.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                          <div className="w-full h-32 rounded-lg mb-3 overflow-hidden">
+                            <Image
+                              src={favorite.image}
+                              alt={favorite.name}
+                              width={200}
+                              height={128}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <h3 className="font-medium text-primary-800 mb-2">{favorite.name}</h3>
+                          <p className="text-gray-600 text-sm mb-3 capitalize">{favorite.category}</p>
                           <div className="flex items-center justify-between">
-                            <span className="font-bold text-primary-600">50.000đ</span>
-                            <button className="btn-primary text-sm px-3 py-1">
-                              Đặt ngay
-                            </button>
+                            <span className="font-bold text-primary-600">{formatPrice(favorite.price)}</span>
+                            <div className="flex space-x-2">
+                              <button 
+                                onClick={() => router.push(`/product/${favorite.id}`)}
+                                className="btn-primary text-sm px-3 py-1"
+                              >
+                                Xem chi tiết
+                              </button>
+                              <button 
+                                onClick={() => handleRemoveFavorite(favorite.id)}
+                                className="bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700 text-sm px-3 py-1 rounded-lg transition-colors duration-200"
+                              >
+                                Xóa
+                              </button>
+                            </div>
+                          </div>
+                          <div className="mt-2 text-xs text-gray-500">
+                            Thêm vào: {new Date(favorite.addedAt).toLocaleDateString('vi-VN')}
                           </div>
                         </div>
                       ))}
