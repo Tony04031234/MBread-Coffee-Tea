@@ -133,6 +133,7 @@ export const useFavorites = () => {
     toggleFavorite,
     isFavorite,
     getFavoritesCount,
-    loadFavorites
+    loadFavorites,
+    isSignedIn: !!session?.user?.id
   }
 }

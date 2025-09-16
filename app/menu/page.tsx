@@ -11,6 +11,7 @@ import { useFavorites } from '@/hooks/useFavorites'
 import { ShareService } from '@/lib/share'
 import CartNotification from '@/components/CartNotification'
 import ShareModal from '@/components/ShareModal'
+import Toast from '@/components/Toast'
 import StructuredData from '@/components/StructuredData'
 
 const MenuPage = () => {
@@ -21,9 +22,11 @@ const MenuPage = () => {
   const [showShareModal, setShowShareModal] = useState(false)
   const [shareData, setShareData] = useState<any>(null)
   const [favoriteSuccess, setFavoriteSuccess] = useState<string | null>(null)
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState('')
   
   const { dispatch, state: cartState } = useCart()
-  const { toggleFavorite, isFavorite, isLoading: favoritesLoading } = useFavorites()
+  const { toggleFavorite, isFavorite, isLoading: favoritesLoading, isSignedIn } = useFavorites()
 
   const filteredItems = menuItems.filter(item => {
     const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory
@@ -52,6 +55,13 @@ const MenuPage = () => {
   }
 
   const handleToggleFavorite = async (item: any) => {
+    // Show toast for non-signed-in users
+    if (!isSignedIn) {
+      setToastMessage('Đăng nhập để lưu sản phẩm yêu thích và đồng bộ trên tất cả thiết bị!')
+      setShowToast(true)
+      return
+    }
+
     const success = await toggleFavorite(item.id, {
       name: item.name,
       image: item.image,
@@ -93,6 +103,13 @@ const MenuPage = () => {
           shareData={shareData}
         />
       )}
+      <Toast
+        show={showToast}
+        message={toastMessage}
+        type="info"
+        onClose={() => setShowToast(false)}
+        showSignInLink={true}
+      />
       {/* Header */}
       <section className="bg-primary-800 text-white py-20">
         <div className="container-custom text-center">

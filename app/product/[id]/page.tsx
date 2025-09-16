@@ -27,6 +27,7 @@ import { useFavorites } from '@/hooks/useFavorites'
 import { ShareService } from '@/lib/share'
 import CartNotification from '@/components/CartNotification'
 import ShareModal from '@/components/ShareModal'
+import Toast from '@/components/Toast'
 import StructuredData from '@/components/StructuredData'
 
 interface ProductVariant {
@@ -67,7 +68,7 @@ const ProductDetailPage = () => {
   const params = useParams()
   const router = useRouter()
   const { dispatch, state: cartState } = useCart()
-  const { toggleFavorite, isFavorite, isLoading: favoritesLoading } = useFavorites()
+  const { toggleFavorite, isFavorite, isLoading: favoritesLoading, isSignedIn } = useFavorites()
   
   const [product, setProduct] = useState<ProductDetail | null>(null)
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null)
@@ -79,6 +80,8 @@ const ProductDetailPage = () => {
   const [relatedProducts, setRelatedProducts] = useState<any[]>([])
   const [showShareModal, setShowShareModal] = useState(false)
   const [favoriteSuccess, setFavoriteSuccess] = useState(false)
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState('')
 
   // Enhanced product data with variants and additional info
   const enhancedProducts: ProductDetail[] = [
@@ -262,6 +265,13 @@ const ProductDetailPage = () => {
   const handleToggleFavorite = async () => {
     if (!product) return
 
+    // Show toast for non-signed-in users
+    if (!isSignedIn) {
+      setToastMessage('Đăng nhập để lưu sản phẩm yêu thích và đồng bộ trên tất cả thiết bị!')
+      setShowToast(true)
+      return
+    }
+
     const success = await toggleFavorite(product.id, {
       name: product.name,
       image: product.image,
@@ -363,6 +373,13 @@ const ProductDetailPage = () => {
           shareData={getShareData()!}
         />
       )}
+      <Toast
+        show={showToast}
+        message={toastMessage}
+        type="info"
+        onClose={() => setShowToast(false)}
+        showSignInLink={true}
+      />
 
       {/* Header */}
       <section className="bg-primary-800 text-white py-8 md:py-12">
