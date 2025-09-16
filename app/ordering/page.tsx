@@ -196,7 +196,7 @@ const OrderingPage = () => {
             {/* Category Filter */}
             <div className="bg-white rounded-xl shadow-lg p-4 md:p-6 mb-4 md:mb-8">
               <h2 className="text-xl md:text-2xl font-serif font-bold text-primary-800 mb-4">
-                Chọn món
+                Chọn món nước
               </h2>
               <div className="flex flex-wrap gap-2 md:gap-3">
                 <button
@@ -235,7 +235,7 @@ const OrderingPage = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col"
                 >
-                  <Link href={`/product/${item.id}`} className="block">
+                  <Link href={`/product/${item.id}`} className="block flex-grow">
                     <div className="relative h-40 md:h-48">
                       <Image
                         src={item.image}
@@ -248,12 +248,12 @@ const OrderingPage = () => {
                       <h3 className="text-lg md:text-xl font-serif font-semibold text-primary-800 hover:text-primary-600 transition-colors duration-200 mb-2">
                         {item.name}
                       </h3>
-                      <p className="text-sm md:text-base text-gray-600 mb-4 leading-relaxed flex-grow">
+                      <p className="text-sm md:text-base text-gray-600 leading-relaxed flex-grow">
                         {item.description}
                       </p>
                     </div>
                   </Link>
-                  <div className="p-4 md:p-6 pt-0">
+                  <div className="p-4 md:p-6 pt-0 mt-auto">
                     <div className="flex items-center justify-between">
                       <span className="text-lg md:text-2xl font-bold text-primary-600">
                         {formatPrice(item.price)}
@@ -263,7 +263,7 @@ const OrderingPage = () => {
                         className="btn-primary flex items-center space-x-2 text-sm md:text-base px-3 md:px-4 py-2 md:py-3"
                       >
                         <FiPlus />
-                        <span>Thêm</span>
+                        <span>Thêm vào giỏ</span>
                       </button>
                     </div>
                   </div>
