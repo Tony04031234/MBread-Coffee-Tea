@@ -136,7 +136,7 @@ const FeaturedMenu = () => {
               </Link>
               <div className="p-6 flex flex-col flex-grow">
                 <Link href={`/product/${item.id}`} className="block mb-2">
-                  <h3 className="text-xl font-serif font-semibold text-primary-800 hover:text-primary-600 transition-colors duration-200">
+                  <h3 className="text-xl font-serif font-bold text-primary-600 hover:text-primary-700 transition-colors duration-200 hover:underline">
                     {item.name}
                   </h3>
                 </Link>

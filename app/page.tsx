@@ -12,16 +12,149 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    // Check if user has seen loading animation recently
+    const hasSeenLoadingRecently = () => {
+      try {
+        const lastSeen = localStorage.getItem('mbread-loading-seen')
+        if (!lastSeen) return false
+        
+        const lastSeenTime = parseInt(lastSeen)
+        const now = Date.now()
+        const timeDifference = now - lastSeenTime
+        
+        // Show loading again after 24 hours (86400000 ms)
+        const shouldShowAgain = timeDifference > 86400000
+        return !shouldShowAgain
+      } catch (error) {
+        // If localStorage fails, default to showing loading
+        return false
+      }
+    }
+
+    // Check if we should skip loading
+    if (hasSeenLoadingRecently()) {
+      setIsLoading(false)
+      return
+    }
+
+    // Show loading animation
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 1000)
+      // Mark that user has seen the loading animation
+      try {
+        localStorage.setItem('mbread-loading-seen', Date.now().toString())
+      } catch (error) {
+        // Ignore localStorage errors
+        console.warn('Could not save loading state to localStorage:', error)
+      }
+    }, 3000)
+    
     return () => clearTimeout(timer)
   }, [])
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="spinner"></div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-800 via-primary-600 to-primary-400">
+        <motion.div 
+          className="flex flex-col items-center space-y-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Logo with jumping animation */}
+          <motion.div
+            animate={{ 
+              y: [0, -20, 0],
+              rotate: [0, 5, -5, 0],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{ 
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="relative"
+          >
+            <Image
+              src="/mbread-logo.png"
+              alt="MBread Logo"
+              width={120}
+              height={120}
+              className="drop-shadow-2xl rounded-full"
+              priority
+            />
+          </motion.div>
+          
+          {/* Loading text with fade animation */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="text-center text-white"
+          >
+            <h1 className="text-3xl md:text-4xl font-serif font-bold mb-2">
+              MBread Coffee & Tea
+            </h1>
+            <motion.p
+              animate={{ opacity: [0.7, 1, 0.7] }}
+              transition={{ 
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="text-lg opacity-90"
+            >
+              Đang tải trải nghiệm tuyệt vời...
+            </motion.p>
+          </motion.div>
+          
+          {/* Animated loading dots */}
+          <div className="flex space-x-2">
+            {[0, 1, 2].map((index) => (
+              <motion.div
+                key={index}
+                className="w-3 h-3 bg-white rounded-full"
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{
+                  duration: 1,
+                  repeat: Infinity,
+                  delay: index * 0.2,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </div>
+          
+          {/* Coffee bean animation */}
+          <motion.div
+            className="flex space-x-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+          >
+            {[0, 1, 2].map((index) => (
+              <motion.div
+                key={index}
+                className="text-2xl"
+                animate={{
+                  rotate: [0, 360],
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  delay: index * 0.5,
+                  ease: "linear"
+                }}
+              >
+                ☕
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
       </div>
     )
   }
