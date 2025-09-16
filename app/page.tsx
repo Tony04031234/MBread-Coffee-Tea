@@ -173,6 +173,21 @@ const HomePage = () => {
                 Cơ hội nhượng quyền
               </Link>
             </div>
+            
+            {/* Legal Links */}
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <p className="text-sm text-gray-500 mb-2">
+                Bằng việc sử dụng dịch vụ của chúng tôi, bạn đồng ý với:
+              </p>
+              <div className="flex flex-wrap justify-center gap-4 text-sm">
+                <Link href="/privacy" className="text-primary-600 hover:text-primary-700 underline">
+                  Chính sách bảo mật
+                </Link>
+                <Link href="/terms" className="text-primary-600 hover:text-primary-700 underline">
+                  Điều khoản dịch vụ
+                </Link>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
