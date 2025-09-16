@@ -85,12 +85,12 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <FiMapPin className="text-secondary-400 shrink-0" />
                 <span className="text-gray-300">
-                  123 Đường Nguyễn Huệ, Quận 1, TP.HCM
+                  7 Đường Số 7, An Lạc A, Bình Tân, TP.HCM
                 </span>
               </div>
               <div className="flex items-center space-x-3">
                 <FiPhone className="text-secondary-400 shrink-0" />
-                <span className="text-gray-300">(028) 1234 5678</span>
+                <span className="text-gray-300">094 625 20 20</span>
               </div>
               <div className="flex items-center space-x-3">
                 <FiMail className="text-secondary-400 shrink-0" />

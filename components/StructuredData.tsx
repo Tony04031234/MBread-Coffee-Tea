@@ -21,14 +21,14 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data, product }) 
           "foundingDate": "2020",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "123 Đường Nguyễn Huệ",
-            "addressLocality": "Quận 1",
+            "streetAddress": "7 Đường Số 7, An Lạc A",
+            "addressLocality": "Bình Tân",
             "addressRegion": "TP. Hồ Chí Minh",
             "addressCountry": "VN"
           },
           "contactPoint": {
             "@type": "ContactPoint",
-            "telephone": "+84-28-1234-5678",
+            "telephone": "+84-94-625-20-20",
             "contactType": "customer service",
             "availableLanguage": ["Vietnamese", "English"]
           },
@@ -45,12 +45,12 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data, product }) 
           "name": "MBread Coffee & Tea",
           "description": "Thương hiệu cà phê và trà cao cấp tại Việt Nam",
           "url": "http://mbreadcoffeetea.com",
-          "telephone": "+84-28-1234-5678",
+          "telephone": "+84-94-625-20-20",
           "email": "info@mbread-coffee-tea.com",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "123 Đường Nguyễn Huệ",
-            "addressLocality": "Quận 1",
+            "streetAddress": "7 Đường Số 7, An Lạc A",
+            "addressLocality": "Bình Tân",
             "addressRegion": "TP. Hồ Chí Minh",
             "addressCountry": "VN"
           },
@@ -122,12 +122,12 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data, product }) 
           "@type": "LocalBusiness",
           "name": "MBread Coffee & Tea",
           "image": "http://mbreadcoffeetea.com/store-image.jpg",
-          "telephone": "+84-28-1234-5678",
+          "telephone": "+84-94-625-20-20",
           "email": "info@mbread-coffee-tea.com",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "123 Đường Nguyễn Huệ",
-            "addressLocality": "Quận 1",
+            "streetAddress": "7 Đường Số 7, An Lạc A",
+            "addressLocality": "Bình Tân",
             "addressRegion": "TP. Hồ Chí Minh",
             "addressCountry": "VN"
           },

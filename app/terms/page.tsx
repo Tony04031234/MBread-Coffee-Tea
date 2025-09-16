@@ -432,8 +432,8 @@ const TermsPage = () => {
               <div>
                 <h3 className="font-semibold text-primary-800 mb-2">Thông tin công ty</h3>
                 <p><strong>Tên:</strong> MBread Coffee & Tea</p>
-                <p><strong>Địa chỉ:</strong> 123 Đường Nguyễn Huệ, Quận 1, TP.HCM</p>
-                <p><strong>Điện thoại:</strong> (028) 1234 5678</p>
+                <p><strong>Địa chỉ:</strong> 7 Đường Số 7, An Lạc A, Bình Tân, TP.HCM</p>
+                <p><strong>Điện thoại:</strong> 094 625 20 20</p>
                 <p><strong>Email:</strong> legal@mbread-coffee-tea.com</p>
               </div>
               

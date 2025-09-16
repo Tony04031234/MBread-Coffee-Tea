@@ -374,8 +374,8 @@ const PrivacyPage = () => {
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                   <li>Gửi email đến: privacy@mbread-coffee-tea.com</li>
-                  <li>Gọi điện đến: (028) 1234 5678</li>
-                  <li>Liên hệ trực tiếp tại cửa hàng: 123 Đường Nguyễn Huệ, Quận 1, TP.HCM</li>
+                  <li>Gọi điện đến: 094 625 20 20</li>
+                  <li>Liên hệ trực tiếp tại cửa hàng: 7 Đường Số 7, An Lạc A, Bình Tân, TP.HCM</li>
                   <li>Chúng tôi sẽ phản hồi trong vòng 30 ngày</li>
                 </ul>
               </div>
@@ -479,11 +479,11 @@ const PrivacyPage = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <FiPhone className="text-primary-600" />
-                <span>(028) 1234 5678</span>
+                <span>094 625 20 20</span>
               </div>
               <div className="flex items-center space-x-3">
                 <FiMapPin className="text-primary-600" />
-                <span>123 Đường Nguyễn Huệ, Quận 1, TP.HCM</span>
+                <span>7 Đường Số 7, An Lạc A, Bình Tân, TP.HCM</span>
               </div>
             </div>
           </div>

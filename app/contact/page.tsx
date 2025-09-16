@@ -143,15 +143,18 @@ const ContactPage = () => {
                 </p>
               </div>
 
-              {/* Embedded Map Placeholder */}
-              <div className="bg-gray-200 rounded-xl h-96 flex items-center justify-center">
-                <div className="text-center">
-                  <FiMapPin className="text-4xl text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">Bản đồ sẽ được tích hợp tại đây</p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    123 Đường Nguyễn Huệ, Quận 1, TP.HCM
-                  </p>
-                </div>
+              {/* Google Maps Integration */}
+              <div className="bg-gray-200 rounded-xl h-96 overflow-hidden">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.325123456789!2d106.629123456789!3d10.761234567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752e1234567890%3A0x1234567890abcdef!2s7%20%C4%90%C6%B0%E1%BB%9Dng%20S%E1%BB%91%207%2C%20An%20L%E1%BA%A1c%20A%2C%20B%C3%ACnh%20T%C3%A2n%2C%20Th%C3%A0nh%20ph%E1%BB%91%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vi%E1%BB%87t%20Nam!5e0!3m2!1svi!2s!4v1234567890123!5m2!1svi!2s"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="MBread Coffee & Tea Location"
+                ></iframe>
               </div>
 
               {/* Social Links */}
