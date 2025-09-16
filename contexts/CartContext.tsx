@@ -18,7 +18,7 @@ interface CartState {
 }
 
 type CartAction =
-  | { type: 'ADD_ITEM'; payload: Omit<CartItem, 'quantity'> }
+  | { type: 'ADD_ITEM'; payload: Omit<CartItem, 'quantity'> & { quantity?: number } }
   | { type: 'REMOVE_ITEM'; payload: string }
   | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } }
   | { type: 'CLEAR_CART' }
@@ -33,12 +33,13 @@ const CartContext = createContext<{
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case 'ADD_ITEM': {
+      const addQuantity = action.payload.quantity || 1
       const existingItem = state.items.find(item => item.id === action.payload.id)
       
       if (existingItem) {
         const updatedItems = state.items.map(item =>
           item.id === action.payload.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + addQuantity }
             : item
         )
         return {
@@ -48,7 +49,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
           showMobileCart: state.showMobileCart
         }
       } else {
-        const newItem = { ...action.payload, quantity: 1 }
+        const newItem = { ...action.payload, quantity: addQuantity }
         const updatedItems = [...state.items, newItem]
         return {
           items: updatedItems,

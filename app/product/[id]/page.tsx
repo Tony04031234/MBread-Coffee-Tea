@@ -254,11 +254,12 @@ const ProductDetailPage = () => {
         id: selectedVariant.id,
         name: `${product.name} - ${selectedVariant.name}`,
         price: selectedVariant.price,
-        image: product.image
+        image: product.image,
+        quantity: quantity
       }
     })
 
-    setNotificationItem(`${product.name} - ${selectedVariant.name}`)
+    setNotificationItem(`${product.name} - ${selectedVariant.name} (${quantity} ${quantity > 1 ? 'sản phẩm' : 'sản phẩm'})`)
     setShowNotification(true)
   }
 
