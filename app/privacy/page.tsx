@@ -46,10 +46,18 @@ const PrivacyPage = () => {
               <FiShield className="text-primary-600 text-2xl" />
               <h2 className="text-2xl font-serif font-bold text-primary-800">Giới thiệu</h2>
             </div>
+            <div className="bg-primary-50 p-6 rounded-lg mb-6">
+              <h3 className="text-xl font-semibold text-primary-800 mb-3">Về ứng dụng MBread Coffee & Tea</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Chính sách bảo mật này áp dụng cho ứng dụng web MBread Coffee & Tea (mbread-coffee-tea.com) 
+                và tất cả các dịch vụ liên quan. Đây là chính sách chính thức của MBread Coffee & Tea, 
+                một công ty cà phê và trà có trụ sở tại Việt Nam.
+              </p>
+            </div>
             <p className="text-gray-700 leading-relaxed mb-4">
               MBread Coffee & Tea ("chúng tôi", "công ty", "dịch vụ") cam kết bảo vệ quyền riêng tư của bạn. 
               Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng, lưu trữ và bảo vệ thông tin cá nhân 
-              của bạn khi bạn sử dụng dịch vụ của chúng tôi.
+              của bạn khi bạn sử dụng dịch vụ của chúng tôi, bao gồm cả việc sử dụng Google OAuth để đăng nhập.
             </p>
             <p className="text-gray-700 leading-relaxed">
               Bằng việc sử dụng dịch vụ của chúng tôi, bạn đồng ý với việc thu thập và sử dụng thông tin theo 
@@ -142,9 +150,24 @@ const PrivacyPage = () => {
               <h2 className="text-2xl font-serif font-bold text-primary-800">Bảo vệ dữ liệu</h2>
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-6">
+              <div className="bg-red-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-primary-800 mb-4">Biện pháp bảo mật cho dữ liệu Google</h3>
+                <p className="text-gray-700 mb-4">
+                  Chúng tôi áp dụng các biện pháp bảo mật nghiêm ngặt để bảo vệ dữ liệu Google của bạn:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li><strong>Mã hóa trong quá trình truyền tải:</strong> Tất cả dữ liệu Google được mã hóa SSL/TLS khi truyền tải</li>
+                  <li><strong>Mã hóa khi lưu trữ:</strong> Dữ liệu Google được mã hóa AES-256 trong cơ sở dữ liệu</li>
+                  <li><strong>Xác thực hai yếu tố:</strong> Tài khoản quản trị có xác thực hai yếu tố bắt buộc</li>
+                  <li><strong>Kiểm soát truy cập:</strong> Chỉ nhân viên được ủy quyền mới có thể truy cập dữ liệu Google</li>
+                  <li><strong>Giám sát bảo mật:</strong> Hệ thống giám sát 24/7 để phát hiện hoạt động bất thường</li>
+                  <li><strong>Cập nhật bảo mật:</strong> Thường xuyên cập nhật và vá lỗ hổng bảo mật</li>
+                </ul>
+              </div>
+
               <div>
-                <h3 className="text-xl font-semibold text-primary-800 mb-3">Biện pháp bảo mật</h3>
+                <h3 className="text-xl font-semibold text-primary-800 mb-3">Biện pháp bảo mật tổng thể</h3>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                   <li>Mã hóa SSL/TLS cho tất cả dữ liệu truyền tải</li>
                   <li>Mã hóa dữ liệu nhạy cảm trong cơ sở dữ liệu</li>
@@ -194,6 +217,68 @@ const PrivacyPage = () => {
             </div>
           </div>
 
+          {/* Google User Data */}
+          <div className="mb-12">
+            <div className="flex items-center space-x-3 mb-6">
+              <FiShield className="text-primary-600 text-2xl" />
+              <h2 className="text-2xl font-serif font-bold text-primary-800">Dữ liệu người dùng Google</h2>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="bg-blue-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-primary-800 mb-4">Dữ liệu Google chúng tôi thu thập</h3>
+                <p className="text-gray-700 mb-4">
+                  Khi bạn sử dụng tính năng đăng nhập bằng Google OAuth, chúng tôi có thể thu thập các thông tin sau từ tài khoản Google của bạn:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Tên đầy đủ từ hồ sơ Google của bạn</li>
+                  <li>Địa chỉ email từ tài khoản Google</li>
+                  <li>Ảnh đại diện (nếu bạn cho phép)</li>
+                  <li>ID duy nhất của tài khoản Google để xác thực</li>
+                </ul>
+              </div>
+
+              <div className="bg-green-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-primary-800 mb-4">Cách chúng tôi sử dụng dữ liệu Google</h3>
+                <p className="text-gray-700 mb-4">
+                  Chúng tôi chỉ sử dụng dữ liệu Google của bạn để:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Tạo và quản lý tài khoản người dùng trên ứng dụng MBread Coffee & Tea</li>
+                  <li>Cung cấp dịch vụ đặt hàng và giao hàng</li>
+                  <li>Gửi thông báo về đơn hàng và dịch vụ</li>
+                  <li>Cải thiện trải nghiệm người dùng và chức năng của ứng dụng</li>
+                </ul>
+                <p className="text-gray-700 mt-4 font-semibold">
+                  Chúng tôi KHÔNG sử dụng dữ liệu Google của bạn cho:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 mt-2">
+                  <li>Quảng cáo có mục tiêu hoặc cá nhân hóa</li>
+                  <li>Bán dữ liệu cho bên thứ ba</li>
+                  <li>Chuyển giao cho nhà môi giới dữ liệu</li>
+                  <li>Đánh giá tín dụng hoặc mục đích cho vay</li>
+                  <li>Tạo cơ sở dữ liệu để bán</li>
+                  <li>Huấn luyện mô hình AI</li>
+                </ul>
+              </div>
+
+              <div className="bg-yellow-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-primary-800 mb-4">Chia sẻ dữ liệu Google</h3>
+                <p className="text-gray-700 mb-4">
+                  Chúng tôi KHÔNG bán, cho thuê hoặc chuyển giao dữ liệu Google của bạn cho bên thứ ba, ngoại trừ:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Các nhà cung cấp dịch vụ đáng tin cậy giúp chúng tôi vận hành ứng dụng (như Firebase, Google Cloud Platform)</li>
+                  <li>Khi được yêu cầu bởi pháp luật hoặc để bảo vệ quyền lợi hợp pháp của chúng tôi</li>
+                  <li>Với sự đồng ý rõ ràng của bạn</li>
+                </ul>
+                <p className="text-gray-700 mt-4">
+                  Tất cả các bên thứ ba này đều được yêu cầu bảo vệ dữ liệu của bạn và chỉ sử dụng cho mục đích cung cấp dịch vụ.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Third Party Services */}
           <div className="mb-12">
             <h2 className="text-2xl font-serif font-bold text-primary-800 mb-6">Dịch vụ bên thứ ba</h2>
@@ -231,40 +316,121 @@ const PrivacyPage = () => {
           <div className="mb-12">
             <h2 className="text-2xl font-serif font-bold text-primary-800 mb-6">Quyền của bạn</h2>
             
-            <div className="space-y-4">
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-green-800 mb-2">Quyền truy cập</h3>
-                <p className="text-gray-700">Bạn có quyền yêu cầu thông tin về dữ liệu cá nhân chúng tôi đang lưu trữ</p>
+            <div className="space-y-6">
+              <div className="bg-blue-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-primary-800 mb-4">Quyền đối với dữ liệu Google</h3>
+                <p className="text-gray-700 mb-4">
+                  Bạn có các quyền sau đối với dữ liệu Google của mình:
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white p-4 rounded-lg">
+                    <h4 className="font-semibold text-green-800 mb-2">Quyền truy cập</h4>
+                    <p className="text-gray-700 text-sm">Xem dữ liệu Google chúng tôi đang lưu trữ về bạn</p>
+                  </div>
+                  
+                  <div className="bg-white p-4 rounded-lg">
+                    <h4 className="font-semibold text-green-800 mb-2">Quyền chỉnh sửa</h4>
+                    <p className="text-gray-700 text-sm">Cập nhật hoặc sửa đổi dữ liệu Google của bạn</p>
+                  </div>
+                  
+                  <div className="bg-white p-4 rounded-lg">
+                    <h4 className="font-semibold text-green-800 mb-2">Quyền xóa</h4>
+                    <p className="text-gray-700 text-sm">Yêu cầu xóa dữ liệu Google của bạn</p>
+                  </div>
+                  
+                  <div className="bg-white p-4 rounded-lg">
+                    <h4 className="font-semibold text-green-800 mb-2">Quyền từ chối</h4>
+                    <p className="text-gray-700 text-sm">Từ chối việc sử dụng dữ liệu Google cho mục đích marketing</p>
+                  </div>
+                </div>
               </div>
-              
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-green-800 mb-2">Quyền chỉnh sửa</h3>
-                <p className="text-gray-700">Bạn có thể cập nhật hoặc sửa đổi thông tin cá nhân bất cứ lúc nào</p>
+
+              <div className="space-y-4">
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h3 className="font-semibold text-green-800 mb-2">Quyền truy cập</h3>
+                  <p className="text-gray-700">Bạn có quyền yêu cầu thông tin về dữ liệu cá nhân chúng tôi đang lưu trữ</p>
+                </div>
+                
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h3 className="font-semibold text-green-800 mb-2">Quyền chỉnh sửa</h3>
+                  <p className="text-gray-700">Bạn có thể cập nhật hoặc sửa đổi thông tin cá nhân bất cứ lúc nào</p>
+                </div>
+                
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h3 className="font-semibold text-green-800 mb-2">Quyền xóa</h3>
+                  <p className="text-gray-700">Bạn có thể yêu cầu xóa tài khoản và dữ liệu cá nhân</p>
+                </div>
+                
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h3 className="font-semibold text-green-800 mb-2">Quyền từ chối</h3>
+                  <p className="text-gray-700">Bạn có thể từ chối nhận email marketing và thông báo</p>
+                </div>
               </div>
-              
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-green-800 mb-2">Quyền xóa</h3>
-                <p className="text-gray-700">Bạn có thể yêu cầu xóa tài khoản và dữ liệu cá nhân</p>
-              </div>
-              
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-green-800 mb-2">Quyền từ chối</h3>
-                <p className="text-gray-700">Bạn có thể từ chối nhận email marketing và thông báo</p>
+
+              <div className="bg-yellow-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-primary-800 mb-4">Cách thực hiện quyền của bạn</h3>
+                <p className="text-gray-700 mb-4">
+                  Để thực hiện bất kỳ quyền nào đối với dữ liệu Google của bạn:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Gửi email đến: privacy@mbread-coffee-tea.com</li>
+                  <li>Gọi điện đến: (028) 1234 5678</li>
+                  <li>Liên hệ trực tiếp tại cửa hàng: 123 Đường Nguyễn Huệ, Quận 1, TP.HCM</li>
+                  <li>Chúng tôi sẽ phản hồi trong vòng 30 ngày</li>
+                </ul>
               </div>
             </div>
           </div>
 
           {/* Data Retention */}
           <div className="mb-12">
-            <h2 className="text-2xl font-serif font-bold text-primary-800 mb-6">Lưu trữ dữ liệu</h2>
+            <h2 className="text-2xl font-serif font-bold text-primary-800 mb-6">Lưu trữ và xóa dữ liệu</h2>
             
-            <div className="space-y-4">
+            <div className="space-y-6">
+              <div className="bg-purple-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-primary-800 mb-4">Chính sách lưu trữ dữ liệu Google</h3>
+                <p className="text-gray-700 mb-4">
+                  Chúng tôi lưu trữ dữ liệu Google của bạn trong thời gian cần thiết để cung cấp dịch vụ:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li><strong>Tài khoản hoạt động:</strong> Dữ liệu Google được lưu trữ cho đến khi bạn xóa tài khoản hoặc yêu cầu xóa</li>
+                  <li><strong>Tài khoản không hoạt động:</strong> Dữ liệu Google sẽ được xóa sau 2 năm không hoạt động</li>
+                  <li><strong>Dữ liệu pháp lý:</strong> Một số dữ liệu có thể được lưu trữ lâu hơn để tuân thủ pháp luật</li>
+                </ul>
+              </div>
+
               <div>
-                <h3 className="text-xl font-semibold text-primary-800 mb-3">Thời gian lưu trữ</h3>
+                <h3 className="text-xl font-semibold text-primary-800 mb-3">Thời gian lưu trữ tổng thể</h3>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                   <li><strong>Tài khoản hoạt động:</strong> Dữ liệu được lưu trữ cho đến khi bạn xóa tài khoản</li>
                   <li><strong>Tài khoản không hoạt động:</strong> Dữ liệu có thể được xóa sau 3 năm không hoạt động</li>
                   <li><strong>Dữ liệu pháp lý:</strong> Một số dữ liệu có thể được lưu trữ lâu hơn để tuân thủ pháp luật</li>
+                </ul>
+              </div>
+
+              <div className="bg-green-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-primary-800 mb-4">Quyền xóa dữ liệu</h3>
+                <p className="text-gray-700 mb-4">
+                  Bạn có quyền yêu cầu xóa dữ liệu Google của mình bất cứ lúc nào:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Liên hệ với chúng tôi qua email: privacy@mbread-coffee-tea.com</li>
+                  <li>Chúng tôi sẽ xóa dữ liệu Google của bạn trong vòng 30 ngày</li>
+                  <li>Bạn sẽ nhận được xác nhận khi việc xóa hoàn tất</li>
+                  <li>Một số dữ liệu có thể được giữ lại để tuân thủ nghĩa vụ pháp lý</li>
+                </ul>
+              </div>
+
+              <div className="bg-orange-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-primary-800 mb-4">Tự động xóa dữ liệu</h3>
+                <p className="text-gray-700 mb-4">
+                  Chúng tôi có các quy trình tự động để xóa dữ liệu:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Dữ liệu tạm thời được xóa sau 24 giờ</li>
+                  <li>Logs hệ thống được xóa sau 90 ngày</li>
+                  <li>Dữ liệu sao lưu cũ được xóa sau 1 năm</li>
+                  <li>Dữ liệu Google không hoạt động được xóa sau 2 năm</li>
                 </ul>
               </div>
             </div>

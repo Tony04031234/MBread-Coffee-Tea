@@ -61,6 +61,11 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link href="/about-app" className="text-gray-300 hover:text-secondary-400 transition-colors duration-200">
+                  Về ứng dụng
+                </Link>
+              </li>
+              <li>
                 <Link href="/privacy" className="text-gray-300 hover:text-secondary-400 transition-colors duration-200">
                   Chính sách bảo mật
                 </Link>
