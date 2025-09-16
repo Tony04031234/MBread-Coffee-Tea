@@ -173,7 +173,7 @@ const HomePage = () => {
               tuyệt vời trong không gian ấm cúng và thân thiện.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="btn-primary text-lg px-8 py-4">
+              <Link href="/about" className="btn-primary text-lg px-8 py-4">
                 Tìm hiểu thêm
               </Link>
               <Link href="/franchise" className="btn-outline text-lg px-8 py-4">
