@@ -373,7 +373,7 @@ const PrivacyPage = () => {
                   Để thực hiện bất kỳ quyền nào đối với dữ liệu Google của bạn:
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  <li>Gửi email đến: lifecookvietnam@gmail.com</li>
+                  <li>Gửi email đến: pkdmaikhoi@gmail.com</li>
                   <li>Gọi điện đến: 094 625 20 20</li>
                   <li>Liên hệ trực tiếp tại cửa hàng: 7 Đường Số 7, An Lạc A, Bình Tân, TP.HCM</li>
                   <li>Chúng tôi sẽ phản hồi trong vòng 30 ngày</li>
@@ -414,7 +414,7 @@ const PrivacyPage = () => {
                   Bạn có quyền yêu cầu xóa dữ liệu Google của mình bất cứ lúc nào:
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  <li>Liên hệ với chúng tôi qua email: lifecookvietnam@gmail.com</li>
+                  <li>Liên hệ với chúng tôi qua email: pkdmaikhoi@gmail.com</li>
                   <li>Chúng tôi sẽ xóa dữ liệu Google của bạn trong vòng 30 ngày</li>
                   <li>Bạn sẽ nhận được xác nhận khi việc xóa hoàn tất</li>
                   <li>Một số dữ liệu có thể được giữ lại để tuân thủ nghĩa vụ pháp lý</li>
@@ -475,7 +475,7 @@ const PrivacyPage = () => {
             <div className="space-y-2 text-gray-700">
               <div className="flex items-center space-x-3">
                 <FiMail className="text-primary-600" />
-                <span>lifecookvietnam@gmail.com</span>
+                <span>pkdmaikhoi@gmail.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <FiPhone className="text-primary-600" />

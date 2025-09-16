@@ -47,7 +47,7 @@ const ContactPage = () => {
     {
       icon: <FiMail className="text-2xl text-primary-600" />,
       title: 'Email',
-      details: ['lifecookvietnam@gmail.com']
+      details: ['pkdmaikhoi@gmail.com']
     },
     {
       icon: <FiClock className="text-2xl text-primary-600" />,

@@ -505,7 +505,7 @@ const FranchisePage = () => {
             <div className="text-center">
               <FiMail className="text-3xl text-secondary-400 mx-auto mb-4" />
               <h3 className="text-xl font-serif font-semibold mb-2">Email</h3>
-              <p className="opacity-90">lifecookvietnam@gmail.com</p>
+              <p className="opacity-90">pkdmaikhoi@gmail.com</p>
             </div>
             <div className="text-center">
               <FiMapPin className="text-3xl text-secondary-400 mx-auto mb-4" />

@@ -238,7 +238,7 @@ const SignInPage = () => {
         >
           <p className="text-xs text-gray-500">
             Demo accounts:<br />
-            Admin: lifecookvietnam@gmail.com / admin123<br />
+            Admin: pkdmaikhoi@gmail.com / admin123<br />
             Customer: customer@example.com / customer123
           </p>
         </motion.div> */}
