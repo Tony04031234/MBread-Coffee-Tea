@@ -68,12 +68,6 @@ const OrdersPage = () => {
       const data = await response.json()
       
       if (response.ok) {
-        // Debug: Log the orders data to see what we're getting
-        console.log('Orders data:', data.orders)
-        if (data.orders && data.orders.length > 0) {
-          console.log('First order orderSummary:', data.orders[0].orderSummary)
-        }
-        
         setOrders(data.orders)
       } else {
         console.error('Error loading orders:', data.message)
@@ -263,10 +257,6 @@ const OrdersPage = () => {
                     <div className="flex items-center space-x-2">
                       <span className="text-lg font-bold text-primary-600">
                         {order.orderSummary.total.toLocaleString('vi-VN')}đ
-                      </span>
-                      {/* Debug: Show raw total value */}
-                      <span className="text-xs text-gray-400">
-                        (raw: {order.orderSummary.total})
                       </span>
                       <button
                         onClick={() => setSelectedOrder(order)}

@@ -79,9 +79,41 @@ export async function getUserOrders(userId: string): Promise<Order[]> {
       .get()
 
     const orders: Order[] = []
+    const ordersToUpdate: string[] = []
+
     ordersSnapshot.forEach(doc => {
-      orders.push(doc.data() as Order)
+      const orderData = doc.data() as Order
+      
+      // Check if total is 0 or missing, and recalculate if needed
+      if (orderData.orderSummary.total === 0 || !orderData.orderSummary.total) {
+        const recalculatedSummary = calculateOrderSummary(
+          orderData.items,
+          orderData.customerInfo.deliveryType
+        )
+        
+        // Update the order data with recalculated total
+        orderData.orderSummary = recalculatedSummary
+        ordersToUpdate.push(doc.id)
+      }
+      
+      orders.push(orderData)
     })
+
+    // Update orders with recalculated totals in batch
+    if (ordersToUpdate.length > 0) {
+      const batch = adminDb.batch()
+      ordersToUpdate.forEach(orderId => {
+        const order = orders.find(o => o.id === orderId)
+        if (order) {
+          const orderRef = adminDb.collection('orders').doc(orderId)
+          batch.update(orderRef, {
+            orderSummary: order.orderSummary,
+            updatedAt: new Date().toISOString()
+          })
+        }
+      })
+      await batch.commit()
+    }
 
     return orders
   } catch (error) {
@@ -172,5 +204,27 @@ export function calculateOrderSummary(
     deliveryFee,
     discount,
     total
+  }
+}
+
+export async function recalculateOrderTotal(orderId: string): Promise<void> {
+  try {
+    const order = await getOrderById(orderId)
+    if (!order) {
+      throw new Error('Order not found')
+    }
+
+    const recalculatedSummary = calculateOrderSummary(
+      order.items,
+      order.customerInfo.deliveryType
+    )
+
+    await adminDb.collection('orders').doc(orderId).update({
+      orderSummary: recalculatedSummary,
+      updatedAt: new Date().toISOString()
+    })
+  } catch (error) {
+    console.error('Error recalculating order total:', error)
+    throw error
   }
 }
