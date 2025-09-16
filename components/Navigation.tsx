@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useSession, signOut } from 'next-auth/react'
-import { FiMenu, FiX, FiCoffee, FiShoppingCart, FiUser, FiLogOut, FiSettings, FiShoppingBag } from 'react-icons/fi'
+import { FiMenu, FiX, FiShoppingCart, FiUser, FiLogOut, FiSettings, FiShoppingBag, FiPhone, FiMail, FiFacebook, FiYoutube, FiInstagram } from 'react-icons/fi'
+import { FaTiktok } from 'react-icons/fa'
 import Image from 'next/image'
 import { useCart } from '@/contexts/CartContext'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -56,6 +57,42 @@ const Navigation = () => {
   }, [])
 
   return (
+
+    <>
+          {/* Top Bar */}
+      <div className="bg-cream-50 text-primary-800 py-2 border-b border-gray-200">
+        <div className="container-custom px-4">
+          <div className="flex flex-col sm:flex-row justify-between items-center text-xs sm:text-sm">
+            <div className="flex items-center space-x-3 sm:space-x-6 mb-2 sm:mb-0">
+              <div className="flex items-center space-x-2">
+                <FiPhone className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span>094 625 20 20</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <FiMail className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden lg:inline">pkdmaikhoi@gmail.com</span>
+                <span className="lg:hidden">Email</span>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 sm:space-x-4">
+              <a href="#" className="hover:text-primary-600 transition-colors duration-200 p-1">
+                <FiFacebook className="w-4 h-4" />
+              </a>
+              <a href="#" className="hover:text-primary-600 transition-colors duration-200 p-1">
+                <FiYoutube className="w-4 h-4" />
+              </a>
+              <a href="#" className="hover:text-primary-600 transition-colors duration-200 p-1">
+                <FiInstagram className="w-4 h-4" />
+              </a>
+              <a href="#" className="hover:text-primary-600 transition-colors duration-200 p-1">
+                <FaTiktok className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+   
     <nav className="bg-white shadow-lg sticky top-0 z-50 relative">
       <div className="container-custom px-4">
         <div className="flex justify-between items-center py-4">
@@ -215,14 +252,14 @@ const Navigation = () => {
               </div>
 
               {/* Order Button */}
-              <div className="pt-2">
+              <div className="">
                 <Link
                   href="/ordering"
                   onClick={() => setIsMenuOpen(false)}
                   className="btn-primary w-full flex items-center justify-center space-x-2 relative py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   <FiShoppingCart size={20} />
-                  <span>Đặt món ngay</span>
+                  <span className='text-sm'>Đặt hàng ngay</span>
                   {cartState.totalItems > 0 && (
                     <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold animate-pulse">
                       {cartState.totalItems}
@@ -233,7 +270,6 @@ const Navigation = () => {
 
               {/* User Section */}
               <div className="pt-4 border-t border-gray-200">
-                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide px-3 mb-4">Tài khoản</h3>
                 {status === 'loading' ? (
                   <div className="w-full h-12 bg-gray-200 rounded-lg animate-pulse"></div>
                 ) : session ? (
@@ -285,7 +321,7 @@ const Navigation = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200">
                     <FiUser className="text-gray-400 text-3xl mx-auto mb-3" />
                     <p className="text-gray-600 mb-4">Đăng nhập để trải nghiệm tốt hơn</p>
                     <Link
@@ -294,7 +330,7 @@ const Navigation = () => {
                       className="btn-primary w-full flex items-center justify-center space-x-2"
                     >
                       <FiUser />
-                      <span>Đăng nhập</span>
+                      <span className='text-sm'>Đăng nhập</span>
                     </Link>
                   </div>
                 )}
@@ -311,7 +347,7 @@ const Navigation = () => {
                     className="w-full bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700 font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 border border-red-200 hover:border-red-300"
                   >
                     <FiLogOut />
-                    <span>Đăng xuất</span>
+                    <span className='text-sm'>Đăng xuất</span>
                   </button>
                 </div>
               )}
@@ -380,6 +416,7 @@ const Navigation = () => {
         )}
       </AnimatePresence>
     </nav>
+    </>
   )
 }
 
