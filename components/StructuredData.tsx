@@ -46,7 +46,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data, product }) 
           "description": "Thương hiệu cà phê và trà cao cấp tại Việt Nam",
           "url": "http://mbreadcoffeetea.com",
           "telephone": "+84-94-625-20-20",
-          "email": "info@mbread-coffee-tea.com",
+          "email": "lifecookvietnam@gmail.com",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "7 Đường Số 7, An Lạc A",
@@ -123,7 +123,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data, product }) 
           "name": "MBread Coffee & Tea",
           "image": "http://mbreadcoffeetea.com/store-image.jpg",
           "telephone": "+84-94-625-20-20",
-          "email": "info@mbread-coffee-tea.com",
+          "email": "lifecookvietnam@gmail.com",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "7 Đường Số 7, An Lạc A",

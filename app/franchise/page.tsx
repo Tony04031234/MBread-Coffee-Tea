@@ -500,12 +500,12 @@ const FranchisePage = () => {
             <div className="text-center">
               <FiPhone className="text-3xl text-secondary-400 mx-auto mb-4" />
               <h3 className="text-xl font-serif font-semibold mb-2">Điện thoại</h3>
-              <p className="opacity-90">(028) 1234 5678</p>
+              <p className="opacity-90">094 625 20 20</p>
             </div>
             <div className="text-center">
               <FiMail className="text-3xl text-secondary-400 mx-auto mb-4" />
               <h3 className="text-xl font-serif font-semibold mb-2">Email</h3>
-              <p className="opacity-90">franchise@mbread-coffee-tea.com</p>
+              <p className="opacity-90">lifecookvietnam@gmail.com</p>
             </div>
             <div className="text-center">
               <FiMapPin className="text-3xl text-secondary-400 mx-auto mb-4" />

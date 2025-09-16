@@ -47,7 +47,7 @@ export async function createAdminUser(
 
 // Example usage (uncomment and run when needed):
 // createAdminUser(
-//   'admin@mbread-coffee-tea.com',
+//   'lifecookvietnam@gmail.com',
 //   'admin123456',
 //   'Admin User',
 //   '+1234567890'

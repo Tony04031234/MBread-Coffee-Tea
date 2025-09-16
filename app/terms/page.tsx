@@ -434,7 +434,7 @@ const TermsPage = () => {
                 <p><strong>Tên:</strong> MBread Coffee & Tea</p>
                 <p><strong>Địa chỉ:</strong> 7 Đường Số 7, An Lạc A, Bình Tân, TP.HCM</p>
                 <p><strong>Điện thoại:</strong> 094 625 20 20</p>
-                <p><strong>Email:</strong> legal@mbread-coffee-tea.com</p>
+                <p><strong>Email:</strong> lifecookvietnam@gmail.com</p>
               </div>
               
               <div>

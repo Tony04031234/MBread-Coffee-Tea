@@ -49,7 +49,7 @@ const AboutAppPage = () => {
                   Ứng dụng đặt hàng và quản lý cà phê & trà trực tuyến
                 </p>
                 <p className="text-sm text-gray-500">
-                  Website: mbread-coffee-tea.com | Email: info@mbread-coffee-tea.com
+                  Website: mbread-coffee-tea.com | Email: lifecookvietnam@gmail.com
                 </p>
               </div>
             </div>
@@ -206,7 +206,7 @@ const AboutAppPage = () => {
                     <Link href="/privacy" className="text-primary-600 hover:text-primary-700 underline font-semibold">
                       Đọc chính sách bảo mật đầy đủ
                     </Link>
-                    <a href="mailto:privacy@mbread-coffee-tea.com" className="text-primary-600 hover:text-primary-700 underline font-semibold">
+                    <a href="mailto:lifecookvietnam@gmail.com" className="text-primary-600 hover:text-primary-700 underline font-semibold">
                       Liên hệ về quyền riêng tư
                     </a>
                   </div>

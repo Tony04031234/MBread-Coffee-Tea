@@ -37,17 +37,17 @@ const ContactPage = () => {
     {
       icon: <FiMapPin className="text-2xl text-primary-600" />,
       title: 'Địa chỉ',
-      details: ['123 Đường Nguyễn Huệ', 'Quận 1, TP.HCM', 'Việt Nam']
+      details: ['7 Đường Số 7, An Lạc A', 'Bình Tân, TP.HCM', 'Việt Nam']
     },
     {
       icon: <FiPhone className="text-2xl text-primary-600" />,
       title: 'Điện thoại',
-      details: ['(028) 1234 5678', '(028) 1234 5679']
+      details: ['094 625 20 20']
     },
     {
       icon: <FiMail className="text-2xl text-primary-600" />,
       title: 'Email',
-      details: ['info@mbread-coffee-tea.com', 'support@mbread-coffee-tea.com']
+      details: ['lifecookvietnam@gmail.com']
     },
     {
       icon: <FiClock className="text-2xl text-primary-600" />,
