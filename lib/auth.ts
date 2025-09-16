@@ -1,7 +1,5 @@
 import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import bcrypt from 'bcryptjs'
-import { prisma } from './prisma'
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -16,32 +14,19 @@ export const authOptions: NextAuthOptions = {
           return null
         }
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email
+        // Mock authentication - replace with your actual auth logic
+        // For now, we'll allow any email/password combination
+        if (credentials.email && credentials.password) {
+          return {
+            id: '1',
+            email: credentials.email,
+            name: 'Admin User',
+            role: 'ADMIN',
+            points: 0
           }
-        })
-
-        if (!user) {
-          return null
         }
 
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password,
-          user.password
-        )
-
-        if (!isPasswordValid) {
-          return null
-        }
-
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          role: user.role,
-          points: user.points
-        }
+        return null
       }
     })
   ],

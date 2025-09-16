@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { prisma } from '@/lib/prisma'
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,46 +13,14 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Get stats from database
-    const [
-      totalOrders,
-      totalRevenue,
-      totalCustomers,
-      totalMenuItems,
-      pendingOrders,
-      completedOrders
-    ] = await Promise.all([
-      prisma.order.count(),
-      prisma.order.aggregate({
-        _sum: {
-          total: true
-        }
-      }),
-      prisma.user.count({
-        where: {
-          role: 'CUSTOMER'
-        }
-      }),
-      prisma.menuItem.count(),
-      prisma.order.count({
-        where: {
-          status: 'PENDING'
-        }
-      }),
-      prisma.order.count({
-        where: {
-          status: 'DELIVERED'
-        }
-      })
-    ])
-
+    // Return mock stats since we removed the database
     const stats = {
-      totalOrders,
-      totalRevenue: totalRevenue._sum.total || 0,
-      totalCustomers,
-      totalMenuItems,
-      pendingOrders,
-      completedOrders
+      totalOrders: 0,
+      totalRevenue: 0,
+      totalCustomers: 0,
+      totalMenuItems: 0,
+      pendingOrders: 0,
+      completedOrders: 0
     }
 
     return NextResponse.json(stats)

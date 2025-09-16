@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { FiUsers, FiShoppingBag, FiDollarSign, FiTrendingUp, FiCoffee, FiPackage, FiClock } from 'react-icons/fi'
-import { prisma } from '@/lib/prisma'
 
 interface DashboardStats {
   totalOrders: number

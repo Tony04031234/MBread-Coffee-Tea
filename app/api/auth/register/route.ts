@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import bcrypt from 'bcryptjs'
-import { prisma } from '@/lib/prisma'
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,40 +19,21 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email }
-    })
-
-    if (existingUser) {
-      return NextResponse.json(
-        { message: 'Email này đã được sử dụng' },
-        { status: 400 }
-      )
+    // Mock registration - replace with your actual registration logic
+    const user = {
+      id: Date.now().toString(),
+      name,
+      email,
+      phone,
+      role: 'CUSTOMER',
+      points: 0,
+      createdAt: new Date().toISOString()
     }
-
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 12)
-
-    // Create user
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        phone,
-        password: hashedPassword,
-        role: 'CUSTOMER',
-        points: 0
-      }
-    })
-
-    // Return user without password
-    const { password: _, ...userWithoutPassword } = user
 
     return NextResponse.json(
       { 
         message: 'Đăng ký thành công!',
-        user: userWithoutPassword
+        user
       },
       { status: 201 }
     )
