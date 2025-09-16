@@ -41,6 +41,7 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <head>
+        <meta name="msvalidate.01" content="6766FAFBEE6B40DBB089BDAC1BF205DB" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon-16x16.png" sizes="16x16" type="image/png" />
         <link rel="icon" href="/icon-32x32.png" sizes="32x32" type="image/png" />
