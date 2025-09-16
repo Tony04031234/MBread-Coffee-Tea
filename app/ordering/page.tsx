@@ -113,7 +113,7 @@ const OrderingPage = () => {
         </div>
       </section>
 
-      {/* Guest Ordering Info for Non-Signed-In Users */}
+      {/* Guest Ordering Info for Non-Signed-In Users
       {!session && (
         <section className="bg-blue-50 border-b border-blue-200 py-6">
           <div className="container-custom px-4">
@@ -186,6 +186,7 @@ const OrderingPage = () => {
           </div>
         </section>
       )}
+         */}
 
 
       <div className="container-custom py-4 md:py-8 px-4">
