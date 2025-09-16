@@ -61,6 +61,18 @@ const OrdersPage = () => {
     }
   }, [session, status, router])
 
+  // Refresh orders when page becomes visible (user switches back to tab)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && session?.user?.id) {
+        loadOrders()
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
+  }, [session?.user?.id])
+
   const loadOrders = async () => {
     try {
       setIsLoading(true)

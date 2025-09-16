@@ -16,7 +16,17 @@ export async function GET(request: NextRequest) {
 
     const favorites = await FavoritesService.getUserFavorites(session.user.id)
 
-    return NextResponse.json({ favorites })
+    // Transform Firebase favorites to match the expected interface
+    const transformedFavorites = favorites.map(fav => ({
+      id: fav.productId,
+      name: fav.productName,
+      image: fav.productImage,
+      price: fav.productPrice,
+      category: fav.productCategory,
+      addedAt: fav.createdAt?.toDate?.()?.toISOString() || new Date().toISOString()
+    }))
+
+    return NextResponse.json({ favorites: transformedFavorites })
   } catch (error) {
     console.error('Error getting user favorites:', error)
     return NextResponse.json(

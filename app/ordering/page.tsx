@@ -227,6 +227,7 @@ const OrderingPage = () => {
 
       if (response.ok) {
         setOrderSuccess(true)
+        console.log('Order created successfully:', result.order?.id)
         
         // Reset form after 3 seconds
         setTimeout(() => {
@@ -246,7 +247,10 @@ const OrderingPage = () => {
           
           // Redirect based on user status
           if (session?.user?.id) {
-            router.push('/orders')
+            // Add a small delay to ensure order is saved, then redirect with cache busting
+            setTimeout(() => {
+              router.push(`/orders?t=${Date.now()}`)
+            }, 1000)
           } else {
             router.push('/')
           }

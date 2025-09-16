@@ -201,4 +201,12 @@ export class LocalFavoritesService {
   static getFavoritesCount(): number {
     return this.getFavorites().length
   }
+
+  static clearAllFavorites(): void {
+    try {
+      localStorage.removeItem(this.storageKey)
+    } catch (error) {
+      console.error('Error clearing local favorites:', error)
+    }
+  }
 }

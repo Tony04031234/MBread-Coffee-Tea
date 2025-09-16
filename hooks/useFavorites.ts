@@ -10,9 +10,47 @@ export const useFavorites = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Load favorites on mount
+  // Load favorites on mount and sync localStorage to Firebase when user signs in
   useEffect(() => {
     loadFavorites()
+    
+    // Sync localStorage favorites to Firebase when user signs in
+    if (session?.user?.id) {
+      syncLocalFavoritesToFirebase()
+    }
+  }, [session?.user?.id])
+
+  // Sync localStorage favorites to Firebase when user signs in
+  const syncLocalFavoritesToFirebase = useCallback(async () => {
+    try {
+      const localFavorites = LocalFavoritesService.getFavorites()
+      if (localFavorites.length === 0) return
+
+      // Get current Firebase favorites to avoid duplicates
+      const firebaseFavorites = await FavoritesService.getUserFavorites(session?.user?.id!)
+      const existingProductIds = new Set(firebaseFavorites.map(fav => fav.productId))
+
+      // Add local favorites that don't exist in Firebase
+      for (const localFav of localFavorites) {
+        if (!existingProductIds.has(localFav.productId)) {
+          await FavoritesService.addToFavorites(
+            session?.user?.id!,
+            localFav.productId,
+            localFav.productName,
+            localFav.productImage,
+            localFav.productPrice,
+            localFav.productCategory
+          )
+        }
+      }
+
+      // Clear localStorage after successful sync
+      LocalFavoritesService.clearAllFavorites()
+      
+      console.log('Successfully synced localStorage favorites to Firebase')
+    } catch (err) {
+      console.error('Error syncing localStorage favorites to Firebase:', err)
+    }
   }, [session?.user?.id])
 
   const loadFavorites = useCallback(async () => {

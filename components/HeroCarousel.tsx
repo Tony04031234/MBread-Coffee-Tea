@@ -57,7 +57,7 @@ const HeroCarousel = () => {
   }
 
   return (
-    <section className="relative h-[80vh] overflow-hidden">
+    <section className="relative h-[75vh] overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}

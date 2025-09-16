@@ -257,7 +257,21 @@ const ProfilePage = () => {
     }
   }
 
+  // Refresh data when switching tabs
+  useEffect(() => {
+    if (activeTab === 'orders') {
+      loadOrders()
+    } else if (activeTab === 'favorites') {
+      loadFavorites()
+    } else if (activeTab === 'addresses') {
+      loadDeliveryAddresses()
+    }
+  }, [activeTab])
+
   const formatPrice = (price: number) => {
+    if (price === undefined || price === null || isNaN(price)) {
+      return '0đ'
+    }
     return price.toLocaleString('vi-VN') + 'đ'
   }
 
