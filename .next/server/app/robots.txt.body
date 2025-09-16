@@ -1,6 +1,0 @@
-User-Agent: *
-Allow: /
-Disallow: /admin
-Disallow: /api/admin
-
-Sitemap: https://mbread-coffee-tea.com/sitemap.xml

@@ -64,22 +64,26 @@ const FeaturedMenu = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="card overflow-hidden hover:scale-105 transition-transform duration-300 flex flex-col"
             >
-              <div className="relative h-48">
-                <Image
-                  src={item.image}
-                  alt={item.name}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute top-4 right-4 bg-secondary-500 text-white px-2 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
-                  <FiStar size={14} />
-                  <span>Yêu thích</span>
+              <Link href={`/product/${item.id}`} className="block">
+                <div className="relative h-48">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute top-4 right-4 bg-secondary-500 text-white px-2 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
+                    <FiStar size={14} />
+                    <span>Yêu thích</span>
+                  </div>
                 </div>
-              </div>
+              </Link>
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-serif font-semibold text-primary-800 mb-2">
-                  {item.name}
-                </h3>
+                <Link href={`/product/${item.id}`} className="block mb-2">
+                  <h3 className="text-xl font-serif font-semibold text-primary-800 hover:text-primary-600 transition-colors duration-200">
+                    {item.name}
+                  </h3>
+                </Link>
                 <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
                   {item.description}
                 </p>

@@ -152,7 +152,7 @@ const MenuPage = () => {
                     </div>
                     <div className="p-6 flex flex-col flex-grow">
                       <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-xl font-serif font-semibold text-primary-800">
+                        <h3 className="text-xl font-serif font-semibold text-primary-800 hover:text-primary-600 transition-colors duration-200">
                           {item.name}
                         </h3>
                         <span className="text-lg font-bold text-primary-600">
