@@ -1,14 +1,30 @@
-import { createClient } from 'tinacms/dist/client'
-
-const client = createClient({
-  branch: process.env.NEXT_PUBLIC_EDIT_BRANCH || 'main',
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || '',
-  token: process.env.TINA_TOKEN || '',
-})
+import { client } from '../tina/__generated__/client'
 
 export const getMenuItems = async () => {
   try {
-    const menuItems = await client.queries.menuItemConnection()
+    const menuItems = await client.request({
+      query: `
+        query {
+          menuItemConnection {
+            edges {
+              node {
+                _sys {
+                  filename
+                }
+                title
+                description
+                price
+                image
+                category
+                isPopular
+                ingredients
+                allergens
+              }
+            }
+          }
+        }
+      `
+    })
     return menuItems.data.menuItemConnection.edges.map((edge: any) => ({
       id: edge.node._sys.filename,
       name: edge.node.title,
@@ -28,7 +44,27 @@ export const getMenuItems = async () => {
 
 export const getCarouselSlides = async () => {
   try {
-    const slides = await client.queries.heroCarouselConnection()
+    const slides = await client.request({
+      query: `
+        query {
+          heroCarouselConnection {
+            edges {
+              node {
+                _sys {
+                  filename
+                }
+                title
+                subtitle
+                image
+                buttonText
+                buttonLink
+                isActive
+              }
+            }
+          }
+        }
+      `
+    })
     return slides.data.heroCarouselConnection.edges.map((edge: any) => ({
       id: edge.node._sys.filename,
       title: edge.node.title,
@@ -46,7 +82,19 @@ export const getCarouselSlides = async () => {
 
 export const getPageContent = async (filename: string) => {
   try {
-    const page = await client.queries.page({ relativePath: `${filename}.mdx` })
+    const page = await client.request({
+      query: `
+        query($relativePath: String!) {
+          page(relativePath: $relativePath) {
+            title
+            description
+            heroImage
+            body
+          }
+        }
+      `,
+      variables: { relativePath: `${filename}.mdx` }
+    })
     return page.data.page
   } catch (error) {
     console.error('Error fetching page content:', error)

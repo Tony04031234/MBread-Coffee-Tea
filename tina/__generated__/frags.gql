@@ -1,0 +1,29 @@
+fragment MenuItemParts on MenuItem {
+  __typename
+  title
+  description
+  price
+  image
+  category
+  isPopular
+  ingredients
+  allergens
+}
+
+fragment PageParts on Page {
+  __typename
+  title
+  description
+  heroImage
+  body
+}
+
+fragment HeroCarouselParts on HeroCarousel {
+  __typename
+  title
+  subtitle
+  image
+  buttonText
+  buttonLink
+  isActive
+}
