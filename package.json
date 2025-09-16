@@ -6,9 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tinacms": "tinacms dev -c tina/config.ts",
+    "init-tina": "node scripts/init-tina.js"
   },
   "dependencies": {
+    "@tinacms/auth": "^1.1.0",
+    "@tinacms/cli": "^1.10.3",
+    "@tinacms/toolkit": "^1.7.13",
     "bcryptjs": "^3.0.2",
     "firebase": "^12.2.1",
     "firebase-admin": "^13.5.0",
@@ -18,7 +23,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^4.12.0",
-    "swiper": "^11.0.5"
+    "swiper": "^11.0.5",
+    "tinacms": "^2.8.3"
   },
   "devDependencies": {
     "@types/node": "^20",
