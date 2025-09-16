@@ -38,6 +38,13 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Calculate order summary
+    const subtotal = items.reduce((sum: number, item: OrderItem) => sum + (item.price * item.quantity), 0)
+    const tax = subtotal * 0.1
+    const deliveryFee = customerInfo.deliveryType === 'delivery' ? 15000 : 0
+    const discount = subtotal > 200000 ? subtotal * 0.05 : 0
+    const total = subtotal + tax + deliveryFee - discount
+
     // Create order
     const userId = isGuestOrder ? 'guest_' + Date.now() : session?.user?.id!
     const order = await createOrder(
@@ -45,19 +52,13 @@ export async function POST(request: NextRequest) {
       items as OrderItem[],
       customerInfo as CustomerInfo,
       {
-        subtotal: items.reduce((sum: number, item: OrderItem) => sum + (item.price * item.quantity), 0),
-        tax: items.reduce((sum: number, item: OrderItem) => sum + (item.price * item.quantity), 0) * 0.1,
-        deliveryFee: customerInfo.deliveryType === 'delivery' ? 15000 : 0,
-        discount: items.reduce((sum: number, item: OrderItem) => sum + (item.price * item.quantity), 0) > 200000 
-          ? items.reduce((sum: number, item: OrderItem) => sum + (item.price * item.quantity), 0) * 0.05 
-          : 0,
-        total: 0 // Will be calculated
+        subtotal,
+        tax,
+        deliveryFee,
+        discount,
+        total
       }
     )
-
-    // Calculate total
-    const total = order.orderSummary.subtotal + order.orderSummary.tax + order.orderSummary.deliveryFee - order.orderSummary.discount
-    order.orderSummary.total = total
 
     return NextResponse.json(
       { 
