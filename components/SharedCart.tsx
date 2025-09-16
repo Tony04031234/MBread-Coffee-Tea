@@ -264,7 +264,7 @@ const SharedCart: React.FC<SharedCartProps> = ({ isMobile = false, onClose }) =>
   }
 
   return (
-    <div className={`bg-white rounded-xl shadow-lg ${isMobile ? 'p-0' : 'p-6'} ${isMobile ? '' : 'sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto'}`}>
+    <div className={`bg-white ${isMobile ? 'p-0' : 'p-6 rounded-xl shadow-lg'} ${isMobile ? '' : 'sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto'}`}>
       {!isMobile && (
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
@@ -313,7 +313,7 @@ const SharedCart: React.FC<SharedCartProps> = ({ isMobile = false, onClose }) =>
         {/* Cart Items */}
         <div className="space-y-3 overflow-y-auto pr-2">
           {cartState.items.map((item) => (
-            <div key={item.id} className="flex items-center space-x-3 p-3 rounded-lg">
+            <div key={item.id} className="flex items-center space-x-3 md:p-3 rounded-lg">
               <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
                 <Image
                   src={item.image}
@@ -355,27 +355,27 @@ const SharedCart: React.FC<SharedCartProps> = ({ isMobile = false, onClose }) =>
         <div className="border-t pt-4">
           <div className="space-y-2">
             <div className="flex justify-between">
-              <span>Tạm tính:</span>
+              <span className="text-sm font-medium">Tạm tính:</span>
               <span>{formatPrice(orderSummary.subtotal)}</span>
             </div>
             <div className="flex justify-between">
-              <span>Thuế VAT (10%):</span>
+              <span className="text-sm font-medium">Thuế VAT (10%):</span>
               <span>{formatPrice(orderSummary.tax)}</span>
             </div>
             {orderSummary.deliveryFee > 0 && (
               <div className="flex justify-between">
-                <span>Phí giao hàng:</span>
+                <span className="text-sm font-medium">Phí giao hàng:</span>
                 <span>{formatPrice(orderSummary.deliveryFee)}</span>
               </div>
             )}
             {orderSummary.discount > 0 && (
               <div className="flex justify-between text-green-600">
-                <span>Giảm giá (5%):</span>
+                <span className="text-sm font-medium">Giảm giá (5%):</span>
                 <span>-{formatPrice(orderSummary.discount)}</span>
               </div>
             )}
             <div className="flex justify-between font-bold text-lg border-t pt-2">
-              <span>Tổng cộng:</span>
+              <span className="text-sm font-bold">Tổng cộng:</span>
               <span className="text-primary-600">{formatPrice(orderSummary.total)}</span>
             </div>
           </div>
@@ -395,7 +395,7 @@ const SharedCart: React.FC<SharedCartProps> = ({ isMobile = false, onClose }) =>
                   {step}
                 </div>
                 {step < 3 && (
-                  <div className={`md:w-24 sm:w-8 w-2 h-0.5 mx-2 ${
+                  <div className={`w-24 h-0.5 mx-2 ${
                     step < cartState.currentStep ? 'bg-primary-600' : 'bg-gray-200'
                   }`} />
                 )}
