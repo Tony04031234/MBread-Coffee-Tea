@@ -24,16 +24,16 @@ const AboutPage = () => {
     {
       icon: <FiAward className="text-4xl text-primary-600" />,
       title: 'Uy tín thương hiệu',
-      description: 'Xây dựng thương hiệu dựa trên sự tin tưởng và hài lòng của khách hàng qua nhiều năm.'
+      description: 'Xây dựng thương hiệu dựa trên sự tin tưởng và hài lòng của khách hàng từ những ngày đầu.'
     }
   ]
 
   const milestones = [
-    { year: '2020', title: 'Thành lập', description: 'MBread Coffee & Tea được thành lập với tầm nhìn mang đến trải nghiệm cà phê tuyệt vời' },
-    { year: '2021', title: 'Mở rộng', description: 'Mở thêm 3 chi nhánh tại TP.HCM và nhận được sự yêu mến của đông đảo khách hàng' },
-    { year: '2022', title: 'Phát triển', description: 'Ra mắt dòng sản phẩm trà cao cấp và bánh ngọt thủ công' },
-    { year: '2023', title: 'Công nhận', description: 'Nhận giải thưởng "Café tốt nhất TP.HCM" và mở chương trình nhượng quyền' },
-    { year: '2024', title: 'Tương lai', description: 'Kế hoạch mở rộng ra các tỉnh thành khác và phát triển thương hiệu quốc gia' }
+    { year: '2024', title: 'Thành lập', description: 'MBread Coffee & Tea được thành lập với tầm nhìn mang đến trải nghiệm cà phê và trà tuyệt vời' },
+    { year: '2024', title: 'Ra mắt', description: 'Chính thức ra mắt thương hiệu với dòng sản phẩm cà phê và trà cao cấp' },
+    { year: '2024', title: 'Phát triển', description: 'Xây dựng đội ngũ chuyên nghiệp và phát triển menu đa dạng' },
+    { year: '2025', title: 'Mở rộng', description: 'Kế hoạch mở chi nhánh đầu tiên và phát triển dịch vụ giao hàng' },
+    { year: 'Tương lai', title: 'Tầm nhìn', description: 'Mục tiêu trở thành thương hiệu cà phê và trà được yêu thích trong cộng đồng' }
   ]
 
   return (
@@ -70,18 +70,18 @@ const AboutPage = () => {
               </h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  MBread Coffee & Tea được thành lập vào năm 2020 với tình yêu dành cho cà phê và trà. 
-                  Từ một quán cà phê nhỏ tại trung tâm TP.HCM, chúng tôi đã phát triển thành một 
-                  thương hiệu được yêu mến với nhiều chi nhánh.
+                  MBread Coffee & Tea là một thương hiệu mới được thành lập với tình yêu dành cho cà phê và trà. 
+                  Chúng tôi bắt đầu hành trình với tầm nhìn mang đến những trải nghiệm đồ uống tuyệt vời 
+                  và không gian ấm cúng cho cộng đồng.
                 </p>
                 <p>
-                  Sứ mệnh của chúng tôi là mang đến những trải nghiệm cà phê và trà tuyệt vời, 
+                  Sứ mệnh của chúng tôi là mang đến những trải nghiệm cà phê và trà chất lượng cao, 
                   kết hợp giữa hương vị truyền thống và phong cách hiện đại. Mỗi ly đồ uống 
                   đều được pha chế với sự tận tâm và chuyên nghiệp.
                 </p>
                 <p>
                   Chúng tôi tin rằng cà phê không chỉ là một thức uống mà còn là một nghệ thuật, 
-                  một cách kết nối mọi người và tạo nên những khoảnh khắc đáng nhớ.
+                  một cách kết nối mọi người và tạo nên những khoảnh khắc đáng nhớ trong cuộc sống.
                 </p>
               </div>
             </motion.div>
@@ -136,9 +136,9 @@ const AboutPage = () => {
                   Tầm nhìn
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Trở thành thương hiệu cà phê và trà hàng đầu Việt Nam, được công nhận 
-                  về chất lượng sản phẩm và dịch vụ xuất sắc, góp phần nâng cao văn hóa 
-                  thưởng thức cà phê của người Việt.
+                  Trở thành thương hiệu cà phê và trà được yêu thích trong cộng đồng, 
+                  được công nhận về chất lượng sản phẩm và dịch vụ xuất sắc, góp phần 
+                  nâng cao văn hóa thưởng thức cà phê và trà của mọi người.
                 </p>
               </div>
             </motion.div>
@@ -197,10 +197,10 @@ const AboutPage = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
-              Hành trình phát triển
+              Hành trình của chúng tôi
             </h2>
             <p className="text-xl opacity-90">
-              Những cột mốc quan trọng trong quá trình xây dựng thương hiệu
+              Những bước đi đầu tiên và tầm nhìn tương lai của MBread Coffee & Tea
             </p>
           </motion.div>
 
@@ -223,9 +223,9 @@ const AboutPage = () => {
                         <p className="opacity-90">{milestone.description}</p>
                       </div>
                     </div>
-                    <div className="relative z-10 w-16 h-16 bg-secondary-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                    <div className="relative z-10 w-20 h-20 bg-secondary-500 rounded-full flex items-center text-center justify-center text-white font-bold text-lg">
                       {milestone.year}
-                    </div>
+                    </div>  
                     <div className="w-1/2"></div>
                   </motion.div>
                 ))}
@@ -276,29 +276,29 @@ const AboutPage = () => {
               Đội ngũ của chúng tôi
             </h2>
             <p className="text-lg text-gray-600">
-              Những con người tài năng và tận tâm đằng sau MBread Coffee & Tea
+              Những con người tài năng và tận tâm đang xây dựng MBread Coffee & Tea
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                name: 'Nguyễn Minh Tuấn',
-                position: 'Giám đốc điều hành',
+                name: 'Đội ngũ sáng lập',
+                position: 'Founders',
+                image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400',
+                description: 'Nhóm sáng lập với tình yêu dành cho cà phê và trà, đang xây dựng MBread Coffee & Tea với tầm nhìn mang đến trải nghiệm đồ uống tuyệt vời.'
+              },
+              {
+                name: 'Barista Team',
+                position: 'Chuyên gia pha chế',
                 image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
-                description: 'Với hơn 10 năm kinh nghiệm trong ngành F&B, anh Tuấn là người dẫn dắt tầm nhìn và chiến lược phát triển của MBread Coffee & Tea.'
+                description: 'Đội ngũ barista chuyên nghiệp với kinh nghiệm và đam mê, cam kết mang đến những ly đồ uống chất lượng cao nhất.'
               },
               {
-                name: 'Trần Thị Lan',
-                position: 'Head Barista',
-                image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400',
-                description: 'Chị Lan là chuyên gia pha chế với chứng chỉ quốc tế, đảm bảo chất lượng đồ uống luôn đạt tiêu chuẩn cao nhất.'
-              },
-              {
-                name: 'Lê Văn Hùng',
-                position: 'Quản lý chất lượng',
+                name: 'Development Team',
+                position: 'Đội ngũ phát triển',
                 image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
-                description: 'Anh Hùng chịu trách nhiệm kiểm soát chất lượng nguyên liệu và quy trình pha chế tại tất cả các chi nhánh.'
+                description: 'Nhóm phát triển sản phẩm và dịch vụ, luôn tìm kiếm những cách thức mới để cải thiện trải nghiệm khách hàng.'
               }
             ].map((member, index) => (
               <motion.div
