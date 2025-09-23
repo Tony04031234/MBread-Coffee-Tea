@@ -268,7 +268,7 @@ const OrderingPage = () => {
          */}
 
 
-      <div className="max-w-7xl mx-auto py-4 md:py-8 px-4">
+      <div className="max-w-8xl mx-auto py-4 md:py-8 px-4">
         {/* Mobile Category Filter */}
         <div className="lg:hidden bg-white rounded-xl shadow-lg border border-gray-100 p-4 mb-6">
           <div className="flex items-center space-x-3 mb-4">
@@ -313,7 +313,7 @@ const OrderingPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
           {/* Category Navigation - Left Column */}
-          <div className="hidden lg:block lg:col-span-3">
+          <div className="hidden lg:block lg:col-span-2">
             <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-4 sticky top-20">
               <div className="flex items-center mb-2 space-x-3 mb-0 border-b border-gray-100 pb-4">
                 <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center">
@@ -511,7 +511,7 @@ const OrderingPage = () => {
           </div>
 
           {/* Cart Section - Right Column */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-4">
             <SharedCart />
           </div>
         </div>

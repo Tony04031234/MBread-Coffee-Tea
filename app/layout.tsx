@@ -12,8 +12,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   ...generateMetadata({
-    title: 'Trang chủ',
-    description: 'MBread Coffee & Tea - Thương hiệu cà phê và trà cao cấp tại Việt Nam. Khám phá menu đa dạng, không gian ấm cúng và dịch vụ chuyên nghiệp.',
+    title: 'MBread Coffee & Tea',
+    description: 'Thương hiệu cà phê và trà cao cấp tại Việt Nam. Khám phá menu đa dạng, không gian ấm cúng và dịch vụ chuyên nghiệp.',
     keywords: ['trang chủ', 'homepage', 'cà phê Việt Nam', 'trà cao cấp'],
     url: '/',
   }),
