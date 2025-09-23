@@ -39,19 +39,64 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <section className="bg-primary-800 text-white py-20">
-        <div className="max-w-6xl mx-auto text-center">
+      <section className="relative text-white py-20 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&h=1080&fit=crop"
+            alt="Warm coffee shop atmosphere"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-900/50 via-primary-800/50 to-primary-900/50" />
+          {/* Subtle pattern overlay */}
+          <div className="absolute inset-0 opacity-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+        
+        {/* Content */}
+        <div className="relative z-10 max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6 drop-shadow-lg">
               Về chúng tôi
             </h1>
-            <p className="text-xl opacity-90 max-w-2xl mx-auto">
+            <p className="text-xl opacity-95 max-w-2xl mx-auto drop-shadow-md">
               Câu chuyện về hành trình xây dựng thương hiệu cà phê và trà cao cấp
             </p>
+            
+            {/* Decorative elements */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="flex justify-center space-x-8 mt-8"
+            >
+              {['☕', '👥', '❤️', '🎯'].map((emoji, index) => (
+                <motion.div
+                  key={index}
+                  animate={{
+                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    delay: index * 0.5,
+                    ease: "easeInOut"
+                  }}
+                  className="text-3xl drop-shadow-lg"
+                >
+                  {emoji}
+                </motion.div>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
       </section>

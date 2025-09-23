@@ -199,7 +199,7 @@ const StoreMap = ({ stores, selectedStore, onStoreSelect, height = '500px' }: St
         style={{ height }}
       />
       
-      {/* Map Legend */}
+      {/* Map Legend 
       <div className="bg-white rounded-lg p-3 border border-gray-200">
         <h4 className="text-sm font-semibold text-gray-800 mb-2">Chú giải</h4>
         <div className="flex items-center space-x-4 text-xs">
@@ -217,6 +217,7 @@ const StoreMap = ({ stores, selectedStore, onStoreSelect, height = '500px' }: St
           </div>
         </div>
       </div>
+      */}
 
       {/* Store Info Card */}
       {selectedStoreData && (
@@ -279,14 +280,14 @@ const StoreMap = ({ stores, selectedStore, onStoreSelect, height = '500px' }: St
                 className="flex-1 btn-outline text-center text-sm py-2"
               >
                 <FiMapPin className="inline mr-1" />
-                Xem trên bản đồ
+                Google Map
               </a>
               <a
                 href={`tel:${selectedStoreData.phone}`}
                 className="flex-1 btn-primary text-center text-sm py-2"
               >
                 <FiPhone className="inline mr-1" />
-                Gọi ngay
+                Liên hệ
               </a>
             </div>
           </div>

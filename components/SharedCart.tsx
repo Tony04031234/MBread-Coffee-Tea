@@ -387,7 +387,7 @@ const SharedCart: React.FC<SharedCartProps> = ({ isMobile = false, onClose }) =>
                 {/* Cart Items */}
                 <div className="space-y-3 overflow-y-auto pr-2">
                     {cartState.items.map((item) => (
-                        <div key={item.id} className="flex items-center space-x-3 md:p-3 rounded-lg">
+                        <div key={item.id} className="flex items-center space-x-2 md:p-0 rounded-lg">
                             <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
                                 <Image
                                     src={item.image}
@@ -401,23 +401,23 @@ const SharedCart: React.FC<SharedCartProps> = ({ isMobile = false, onClose }) =>
                                 <p className="text-sm text-gray-600">{formatPrice(item.price)}</p>
                             </div>
                             <div className="flex items-center space-x-2">
-                                <button
+                               <button
                                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                    className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors duration-200"
+                                    className="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors duration-200"
                                 >
                                     <FiMinus size={14} />
-                                </button>
-                                <span className="w-8 text-center font-medium">{item.quantity}</span>
+                                </button> 
+                                <span className="w-4 text-center font-medium">{item.quantity}</span>
                                 <button
                                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                    className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors duration-200"
+                                    className="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors duration-200"
                                 >
                                     <FiPlus size={14} />
                                 </button>
                             </div>
                             <button
                                 onClick={() => removeFromCart(item.id)}
-                                className="text-red-500 hover:text-red-700 transition-colors duration-200 p-1"
+                                className="text-red-500 hover:text-red-700 transition-colors duration-200 p-0"
                             >
                                 <FiTrash2 size={16} />
                             </button>

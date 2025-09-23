@@ -122,7 +122,7 @@ const GalleryPage = () => {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <section className="bg-primary-800 text-white py-20 ">
+      <section className=" text-primary-800 pt-20 ">
         <div className="max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

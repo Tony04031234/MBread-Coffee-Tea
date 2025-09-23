@@ -107,19 +107,38 @@ const FranchisePage = () => {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <section className="bg-primary-800 text-white py-20">
-        <div className="max-w-6xl mx-auto text-center">
+      <section className="relative text-white py-20 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920&h=1080&fit=crop"
+            alt="Business partnership and growth"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-900/30 via-primary-800/30 to-primary-900/30" />
+          {/* Subtle pattern overlay */}
+          <div className="absolute inset-0 opacity-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+        
+        {/* Content */}
+        <div className="relative z-10 max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6 drop-shadow-lg">
               Cơ hội nhượng quyền
             </h1>
-            <p className="text-xl opacity-90 max-w-2xl mx-auto">
+            <p className="text-xl opacity-95 max-w-2xl mx-auto drop-shadow-md">
               Tham gia cùng MBread Coffee & Tea để xây dựng thành công trong ngành F&B
             </p>
+          
           </motion.div>
         </div>
       </section>

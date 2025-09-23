@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import { FiArrowRight, FiStar, FiClock, FiUsers, FiCoffee, FiMapPin, FiPhone, FiMail } from 'react-icons/fi'
 import HeroCarousel from '@/components/HeroCarousel'
 import FeaturedMenu from '@/components/FeaturedMenu'
+import GallerySection from '@/components/GallerySection'
 import StoreMap from '@/components/StoreMap'
 import StoreSearch from '@/components/StoreSearch'
 import { storeLocations } from '@/data/stores'
@@ -272,6 +273,9 @@ const HomePage = () => {
       {/* Featured Menu Section */}
       <FeaturedMenu />
 
+      {/* Gallery Section */}
+      <GallerySection />
+
       {/* Promotions Section */}
       <section className="section-padding bg-primary-600">
         <div className="max-w-6xl mx-auto">
@@ -392,34 +396,7 @@ const HomePage = () => {
               </Link>
             </div>
             
-            {/* Legal Links */}
-            <div className="mt-8 pt-6 ">
-              <div className="bg-white/80 p-6 rounded-lg shadow-sm border border-gray-200 ">
-                <h3 className="md:text-2xl text-xl font-semibold text-primary-800 mb-4 text-center">
-                  Thông tin pháp lý
-                </h3>
-                <p className="md:text-lg text-base text-gray-600 mb-4 text-center">
-                  Bằng việc sử dụng dịch vụ của chúng tôi, bạn đồng ý với các điều khoản sau:
-                </p>
-                <div className="flex flex-wrap justify-center gap-6">
-                  <Link href="/about-app" className="flex items-center space-x-2 text-primary-600 hover:text-primary-700  font-semibold">
-                    <span>📱</span>
-                    <span className="underline">Về ứng dụng</span>
-                  </Link>
-                  <Link href="/privacy" className="flex items-center space-x-2 text-primary-600 hover:text-primary-700  font-semibold">
-                    <span>🔒</span>
-                    <span className="underline">Chính sách bảo mật</span>
-                  </Link>
-                  <Link href="/terms" className="flex items-center space-x-2 text-primary-600 hover:text-primary-700  font-semibold">
-                    <span>📋</span>
-                    <span className="underline">Điều khoản dịch vụ</span>
-                  </Link>
-                </div>
-                <p className="md:text-base text-sm text-gray-500 mt-4 text-center">
-                  Chính sách bảo mật của chúng tôi giải thích cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu Google của bạn.
-                </p>
-              </div>
-            </div>
+
           </motion.div>
         </div>
       </section>
