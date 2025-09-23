@@ -4,12 +4,16 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { FiArrowRight, FiStar, FiClock, FiUsers, FiCoffee } from 'react-icons/fi'
+import { FiArrowRight, FiStar, FiClock, FiUsers, FiCoffee, FiMapPin, FiPhone, FiMail } from 'react-icons/fi'
 import HeroCarousel from '@/components/HeroCarousel'
 import FeaturedMenu from '@/components/FeaturedMenu'
+import StoreMap from '@/components/StoreMap'
+import StoreSearch from '@/components/StoreSearch'
+import { storeLocations } from '@/data/stores'
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true)
+  const [selectedStore, setSelectedStore] = useState(storeLocations[0]?.id)
 
   useEffect(() => {
     // Check if user has seen loading animation recently
@@ -166,12 +170,12 @@ const HomePage = () => {
 
       {/* Introduction Section */}
       <section className="section-padding bg-cream-50">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-5xl mx-auto"
+            className="text-center max-w-6xl mx-auto"
           >
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-primary-800 mb-6">
               Chào mừng đến với MBread Coffee & Tea
@@ -205,7 +209,7 @@ const HomePage = () => {
 
       {/* Features Section */}
       <section className="section-padding">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -270,7 +274,7 @@ const HomePage = () => {
 
       {/* Promotions Section */}
       <section className="section-padding bg-primary-600">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -290,9 +294,82 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Store Locations Section */}
+      <section className="section-padding bg-white">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary-800 mb-4">
+              Tìm cửa hàng gần bạn
+            </h2>
+            <p className="text-lg text-gray-600">
+              MBread Coffee & Tea có mặt tại nhiều địa điểm thuận tiện tại TP.HCM
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Store List - Left Side */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="h-[600px] flex flex-col"
+            >
+              <h3 className="text-2xl font-serif font-bold text-primary-800 mb-0">
+                Danh sách cửa hàng
+              </h3>
+       
+              
+             {/* <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="pt-4 mt-4"
+              >
+                <Link href="/contact" className="btn-primary w-full text-center">
+                  Xem tất cả cửa hàng
+                </Link>
+              </motion.div>*/}
+              
+              {/* Store Search */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-6"
+              >
+                <StoreSearch 
+                  stores={storeLocations}
+                  onStoreSelect={setSelectedStore}
+                  selectedStore={selectedStore}
+                />
+              </motion.div>
+            </motion.div>
+
+            {/* Interactive Map - Right Side */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <StoreMap 
+                stores={storeLocations}
+                selectedStore={selectedStore}
+                onStoreSelect={setSelectedStore}
+                height="600px"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="section-padding bg-cream-100">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

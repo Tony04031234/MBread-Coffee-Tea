@@ -10,6 +10,7 @@ import Image from 'next/image'
 import { useCart } from '@/contexts/CartContext'
 import { motion, AnimatePresence } from 'framer-motion'
 import SharedCart from '@/components/SharedCart'
+import { brandInfo } from '@/data/stores'
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -70,21 +71,21 @@ const Navigation = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <FiMail className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span className="hidden lg:inline">pkdmaikhoi@gmail.com</span>
+                <span className="hidden lg:inline">{brandInfo.email}</span>
                 <span className="lg:hidden">Email</span>
               </div>
             </div>
             <div className="flex items-center space-x-3 sm:space-x-4">
-              <a href="#" className="hover:text-primary-600 transition-colors duration-200 p-1">
+              <a href={brandInfo.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-primary-600 transition-colors duration-200 p-1" title="Facebook">
                 <FiFacebook className="w-4 h-4" />
               </a>
-              <a href="#" className="hover:text-primary-600 transition-colors duration-200 p-1">
+              <a href={brandInfo.social.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-primary-600 transition-colors duration-200 p-1" title="YouTube">
                 <FiYoutube className="w-4 h-4" />
               </a>
-              <a href="#" className="hover:text-primary-600 transition-colors duration-200 p-1">
+              <a href={brandInfo.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-primary-600 transition-colors duration-200 p-1" title="Instagram">
                 <FiInstagram className="w-4 h-4" />
               </a>
-              <a href="#" className="hover:text-primary-600 transition-colors duration-200 p-1">
+              <a href={brandInfo.social.tiktok} target="_blank" rel="noopener noreferrer" className="hover:text-primary-600 transition-colors duration-200 p-1" title="TikTok">
                 <FaTiktok className="w-4 h-4" />
               </a>
             </div>

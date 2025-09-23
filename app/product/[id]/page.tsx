@@ -444,7 +444,7 @@ const ProductDetailPage = () => {
 
       {/* Header */}
       <section className="bg-primary-800 text-white py-8 md:py-12">
-        <div className="container-custom px-4">
+        <div className="max-w-6xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -481,7 +481,7 @@ const ProductDetailPage = () => {
         </div>
       </section>
 
-      <div className="container-custom py-8 md:py-12 px-4">
+      <div className="max-w-6xl mx-auto py-8 md:py-12 px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
           {/* Product Images */}
           <motion.div

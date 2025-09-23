@@ -108,7 +108,7 @@ const FranchisePage = () => {
     <div className="min-h-screen">
       {/* Header */}
       <section className="bg-primary-800 text-white py-20">
-        <div className="container-custom text-center">
+        <div className="max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -126,7 +126,7 @@ const FranchisePage = () => {
 
       {/* Stats Section */}
       <section className="section-padding bg-white">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div
@@ -150,7 +150,7 @@ const FranchisePage = () => {
 
       {/* Why Choose Us */}
       <section className="section-padding bg-cream-50">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -191,7 +191,7 @@ const FranchisePage = () => {
 
       {/* Requirements */}
       <section className="section-padding">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -232,7 +232,7 @@ const FranchisePage = () => {
 
       {/* Process */}
       <section className="section-padding bg-primary-600 text-white">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -310,7 +310,7 @@ const FranchisePage = () => {
 
       {/* Investment Info */}
       <section className="section-padding bg-cream-50">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -486,7 +486,7 @@ const FranchisePage = () => {
 
       {/* Contact Info */}
       <section className="section-padding bg-cream-50">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

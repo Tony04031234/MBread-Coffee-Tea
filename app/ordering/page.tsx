@@ -97,7 +97,7 @@ const OrderingPage = () => {
 
       {/* Header */}
       <section className="bg-primary-800 text-white py-12 md:py-20">
-        <div className="container-custom text-center">
+        <div className="max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -116,7 +116,7 @@ const OrderingPage = () => {
       {/* Guest Ordering Info for Non-Signed-In Users
       {!session && (
         <section className="bg-blue-50 border-b border-blue-200 py-6">
-          <div className="container-custom px-4">
+          <div className="max-w-6xl mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -189,7 +189,7 @@ const OrderingPage = () => {
          */}
 
 
-      <div className="container-custom py-4 md:py-8 px-4">
+      <div className="max-w-6xl mx-auto py-4 md:py-8 px-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
           {/* Menu Section */}
           <div className="lg:col-span-2">

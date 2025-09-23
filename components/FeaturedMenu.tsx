@@ -96,7 +96,7 @@ const FeaturedMenu = () => {
         onClose={() => setShowToast(false)}
         showSignInLink={true}
       />
-      <div className="container-custom">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

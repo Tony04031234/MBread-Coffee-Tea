@@ -40,7 +40,7 @@ const AboutPage = () => {
     <div className="min-h-screen">
       {/* Header */}
       <section className="bg-primary-800 text-white py-20">
-        <div className="container-custom text-center">
+        <div className="max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -58,7 +58,7 @@ const AboutPage = () => {
 
       {/* Story Section */}
       <section className="section-padding">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -104,7 +104,7 @@ const AboutPage = () => {
 
       {/* Mission & Vision */}
       <section className="section-padding bg-cream-50">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -148,7 +148,7 @@ const AboutPage = () => {
 
       {/* Values */}
       <section className="section-padding">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -189,7 +189,7 @@ const AboutPage = () => {
 
       {/* Timeline */}
       <section className="section-padding bg-primary-600 text-white">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -265,7 +265,7 @@ const AboutPage = () => {
 
       {/* Team Section */}
       <section className="section-padding bg-cream-50">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

@@ -122,7 +122,7 @@ const MenuPage = () => {
       />
       {/* Header */}
       <section className="bg-primary-800 text-white py-20">
-        <div className="container-custom text-center">
+        <div className="max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -140,7 +140,7 @@ const MenuPage = () => {
 
       {/* Search and Filter */}
       <section className="py-8 bg-white shadow-sm px-4">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
             {/* Search */}
             <div className="relative flex-1 md:max-w-md w-full">
@@ -186,7 +186,7 @@ const MenuPage = () => {
 
       {/* Menu Items */}
       <section className="section-padding">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           {filteredItems.length === 0 ? (
             <div className="text-center py-16">
               <p className="text-xl text-gray-500">Không tìm thấy món ăn nào phù hợp</p>
@@ -281,7 +281,7 @@ const MenuPage = () => {
 
       {/* CTA Section */}
       <section className="section-padding bg-primary-600">
-        <div className="container-custom text-center text-white">
+        <div className="max-w-6xl mx-auto text-center text-white">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

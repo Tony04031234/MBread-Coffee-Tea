@@ -2,7 +2,10 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiMapPin, FiPhone, FiMail, FiClock, FiFacebook, FiInstagram, FiSend } from 'react-icons/fi'
+import { FiMapPin, FiPhone, FiMail, FiClock, FiFacebook, FiInstagram, FiSend, FiGlobe, FiYoutube } from 'react-icons/fi'
+import { storeLocations, brandInfo } from '@/data/stores'
+import StoreMap from '@/components/StoreMap'
+import StoreSearch from '@/components/StoreSearch'
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +16,7 @@ const ContactPage = () => {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [selectedStore, setSelectedStore] = useState(storeLocations[0]?.id)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,7 +51,7 @@ const ContactPage = () => {
     {
       icon: <FiMail className="text-2xl text-primary-600" />,
       title: 'Email',
-      details: ['pkdmaikhoi@gmail.com']
+      details: [brandInfo.email]
     },
     {
       icon: <FiClock className="text-2xl text-primary-600" />,
@@ -60,14 +64,36 @@ const ContactPage = () => {
     {
       name: 'Facebook',
       icon: <FiFacebook />,
-      url: 'https://facebook.com',
+      url: brandInfo.social.facebook,
       color: 'hover:text-blue-600'
     },
     {
       name: 'Instagram',
       icon: <FiInstagram />,
-      url: 'https://instagram.com',
+      url: brandInfo.social.instagram,
       color: 'hover:text-pink-600'
+    },
+    {
+      name: 'YouTube',
+      icon: <FiYoutube />,
+      url: brandInfo.social.youtube,
+      color: 'hover:text-red-600'
+    },
+    {
+      name: 'TikTok',
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+        </svg>
+      ),
+      url: brandInfo.social.tiktok,
+      color: 'hover:text-white'
+    },
+    {
+      name: 'Website',
+      icon: <FiGlobe />,
+      url: `https://${brandInfo.website}`,
+      color: 'hover:text-green-600'
     }
   ]
 
@@ -75,7 +101,7 @@ const ContactPage = () => {
     <div className="min-h-screen">
       {/* Header */}
       <section className="bg-primary-800 text-white py-20">
-        <div className="container-custom text-center">
+        <div className="max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -93,7 +119,7 @@ const ContactPage = () => {
 
       {/* Contact Info */}
       <section className="section-padding bg-cream-50">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             {contactInfo.map((info, index) => (
               <motion.div
@@ -124,7 +150,7 @@ const ContactPage = () => {
 
       {/* Map and Contact Form */}
       <section className="section-padding">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Map */}
             <motion.div
@@ -276,9 +302,70 @@ const ContactPage = () => {
         </div>
       </section>
 
+      {/* Store Locations Section */}
+      <section className="section-padding bg-white">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary-800 mb-4">
+              Tìm cửa hàng gần bạn
+            </h2>
+            <p className="text-lg text-gray-600">
+              Tìm cửa hàng gần bạn nhất để trải nghiệm hương vị tuyệt vời
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Store List - Left Side */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="h-[700px] flex flex-col"
+            >
+              <h3 className="text-2xl font-serif font-bold text-primary-800 mb-0">
+                Danh sách cửa hàng MBread Coffee & Tea
+              </h3>
+              
+              {/* Store Search */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-6"
+              >
+                <StoreSearch 
+                  stores={storeLocations}
+                  onStoreSelect={setSelectedStore}
+                  selectedStore={selectedStore}
+                />
+              </motion.div>
+            </motion.div>
+
+            {/* Interactive Map - Right Side */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <StoreMap 
+                stores={storeLocations}
+                selectedStore={selectedStore}
+                onStoreSelect={setSelectedStore}
+                height="700px"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="section-padding bg-cream-50">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

@@ -123,7 +123,7 @@ const GalleryPage = () => {
     <div className="min-h-screen">
       {/* Header */}
       <section className="bg-primary-800 text-white py-20 ">
-        <div className="container-custom text-center">
+        <div className="max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -141,7 +141,7 @@ const GalleryPage = () => {
 
       {/* Filter */}
       <section className="py-8 bg-white shadow-sm">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <div className="flex flex-wrap justify-center gap-4">
             {categories.map((category) => (
               <button
@@ -162,7 +162,7 @@ const GalleryPage = () => {
 
       {/* Gallery Grid */}
       <section className="section-padding">
-        <div className="container-custom">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             layout
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
