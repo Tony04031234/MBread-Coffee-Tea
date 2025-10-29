@@ -99,8 +99,8 @@ const Navigation = () => {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/mbread-logo.png" alt="MBread Coffee & Tea" width={100} height={100} className="w-10 h-10 rounded-full" />
-            <span className="text-xl md:text-2xl font-serif font-bold text-primary-800">
+            <Image src="/mbread-logo.jpg" alt="MBread Coffee & Tea" width={100} height={100} className="w-10 h-10 rounded-full" />
+            <span className="text-xl md:text-xl font-serif font-bold text-primary-800">
               MBread Coffee & Tea
             </span>
           </Link>
@@ -189,16 +189,20 @@ const Navigation = () => {
               </div>
             ) : (
               <Link
-                href="/auth/signin"
+                href="https://pos.mbreadcoffeetea.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200"
               >
-                <span className="text-sm">Đăng nhập</span>
+                <span className="text-sm">Hệ thống</span>
               </Link>
             )}
 
 
             <Link
-              href="/ordering"
+              href="https://pos.mbreadcoffeetea.com/order"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary flex items-center space-x-2 text-sm px-4 py-2 relative"
             >
               <FiShoppingCart />
@@ -255,7 +259,9 @@ const Navigation = () => {
               {/* Order Button */}
               <div className="">
                 <Link
-                  href="/ordering"
+                  href="https://pos.mbreadcoffeetea.com/order"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsMenuOpen(false)}
                   className="btn-primary w-full flex items-center justify-center space-x-2 relative py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
                 >
@@ -271,87 +277,22 @@ const Navigation = () => {
 
               {/* User Section */}
               <div className="pt-4 border-t border-gray-200">
-                {status === 'loading' ? (
-                  <div className="w-full h-12 bg-gray-200 rounded-lg animate-pulse"></div>
-                ) : session ? (
-                  <div className="space-y-4">
-                    {/* User Info */}
-                    <div className="flex items-center space-x-3 p-4 bg-gradient-to-r from-primary-50 to-primary-100 rounded-lg border border-primary-200">
-                      <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center">
-                        <FiUser className="text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-semibold text-gray-900">{session.user?.name}</p>
-                        <p className="text-sm text-gray-600">{session.user?.email}</p>
-                        <div className="flex items-center mt-1">
-                          <span className="text-xs bg-primary-600 text-white px-2 py-1 rounded-full">
-                            {session.user?.role === 'ADMIN' ? 'Quản trị viên' : 'Khách hàng'}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* User Menu Links */}
-                    <div className="space-y-1">
-                      <Link
-                        href="/profile"
-                        onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center space-x-3 py-3 px-4 text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-colors duration-200"
-                      >
-                        <FiUser size={18} />
-                        <span>Thông tin cá nhân</span>
-                      </Link>
-                      <Link
-                        href="/orders"
-                        onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center space-x-3 py-3 px-4 text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-colors duration-200"
-                      >
-                        <FiShoppingBag size={18} />
-                        <span>Đơn hàng của tôi</span>
-                      </Link>
-                      {session.user?.role === 'ADMIN' && (
-                        <Link
-                          href="/admin"
-                          onClick={() => setIsMenuOpen(false)}
-                          className="flex items-center space-x-3 py-3 px-4 text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-colors duration-200"
-                        >
-                          <FiSettings size={18} />
-                          <span>Quản trị</span>
-                        </Link>
-                      )}
-                    </div>
-                  </div>
-                ) : (
                   <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200">
                     <FiUser className="text-gray-400 text-3xl mx-auto mb-3" />
-                    <p className="text-gray-600 mb-4">Đăng nhập để trải nghiệm tốt hơn</p>
+                    <p className="text-gray-600 mb-4">Hệ thống quản lý MBread Coffee & Tea</p>
                     <Link
-                      href="/auth/signin"
+                      href="https://pos.mbreadcoffeetea.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       onClick={() => setIsMenuOpen(false)}
                       className="btn-primary w-full flex items-center justify-center space-x-2"
                     >
-                      <FiUser />
-                      <span className='text-sm'>Đăng nhập</span>
+                      <span className='text-sm'>Vào hệ thống </span>
                     </Link>
                   </div>
-                )}
+            
               </div>
 
-              {/* Sign Out Button - Always at Bottom */}
-              {session && (
-                <div className="pt-4 border-t border-gray-200">
-                  <button
-                    onClick={() => {
-                      signOut()
-                      setIsMenuOpen(false)
-                    }}
-                    className="w-full bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700 font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 border border-red-200 hover:border-red-300"
-                  >
-                    <FiLogOut />
-                    <span className='text-sm'>Đăng xuất</span>
-                  </button>
-                </div>
-              )}
               </div>
             </motion.div>
           )}
