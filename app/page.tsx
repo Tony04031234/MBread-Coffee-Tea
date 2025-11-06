@@ -59,7 +59,7 @@ const HomePage = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-800 via-primary-600 to-primary-400">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-600 via-primary-600 to-primary-400">
         <motion.div 
           className="flex flex-col items-center space-y-8"
           initial={{ opacity: 0 }}
@@ -225,7 +225,7 @@ const HomePage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               {
                 icon: <FiCoffee className="text-4xl text-primary-600" />,
@@ -253,7 +253,7 @@ const HomePage = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                className="card p-6 text-center hover:scale-105 transition-transform duration-300"
+                className="card p-4 text-center hover:scale-105 transition-transform duration-300 border-2 border-primary-600"
               >
                 <div className="flex justify-center mb-4">
                   {feature.icon}
@@ -315,18 +315,14 @@ const HomePage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Store List - Left Side */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               className="h-[600px] flex flex-col"
-            >
-              <h3 className="text-2xl font-serif font-bold text-primary-800 mb-0">
-                Danh sách cửa hàng
-              </h3>
-       
+            >       
               
              {/* <motion.div
                 initial={{ opacity: 0, y: 20 }}

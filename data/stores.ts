@@ -21,7 +21,7 @@ export interface StoreLocation {
 export const storeLocations: StoreLocation[] = [
   {
     id: 'main-store',
-    name: 'MBread Coffee & Tea - Chi nhánh chính',
+    name: 'MBread Coffee & Tea số 7',
     address: '7 Đường Số 7, An Lạc A',
     district: 'Bình Tân',
     city: 'TP.HCM',
@@ -45,16 +45,16 @@ export const storeLocations: StoreLocation[] = [
     isMainStore: true
   },
   {
-    id: 'district-1',
-    name: 'MBread Coffee & Tea - Quận 1',
-    address: '123 Nguyễn Huệ, Phường Bến Nghé',
-    district: 'Quận 1',
+    id: 'district-tan-phu',
+    name: 'MBread Coffee & Tea số 58',
+    address: '58 Đường Số 40, Phường Tân Phú, TP.HCM',
+    district: 'Tân Phú',
     city: 'TP.HCM',
     phone: '094 625 20 21',
     email: 'mbreadcoffeetea@gmail.com',
     coordinates: {
-      lat: 10.7769,
-      lng: 106.7009
+      lat: 10.7500,
+      lng: 106.6300
     },
     hours: {
       weekdays: '7:00 - 22:00',
@@ -70,16 +70,16 @@ export const storeLocations: StoreLocation[] = [
     isMainStore: false
   },
   {
-    id: 'district-7',
-    name: 'MBread Coffee & Tea - Quận 7',
-    address: '456 Nguyễn Thị Thập, Phường Tân Phong',
-    district: 'Quận 7',
+    id: 'district-cat-lai',
+    name: 'MBread Coffee & Tea - Cát Lái',
+    address: '105/14 Đường Nguyễn Thị Thập, Phường Tân Phong, TP.HCM',
+    district: 'Cát Lái',
     city: 'TP.HCM',
     phone: '094 625 20 22',
     email: 'mbreadcoffeetea@gmail.com',
     coordinates: {
-      lat: 10.7374,
-      lng: 106.7224
+      lat: 10.7300,
+      lng: 106.7200
     },
     hours: {
       weekdays: '7:00 - 22:00',
@@ -94,31 +94,6 @@ export const storeLocations: StoreLocation[] = [
     ],
     isMainStore: false
   },
-  {
-    id: 'district-3',
-    name: 'MBread Coffee & Tea - Quận 3',
-    address: '789 Võ Văn Tần, Phường 6',
-    district: 'Quận 3',
-    city: 'TP.HCM',
-    phone: '094 625 20 23',
-    email: 'mbreadcoffeetea@gmail.com',
-    coordinates: {
-      lat: 10.7879,
-      lng: 106.6898
-    },
-    hours: {
-      weekdays: '7:00 - 22:00',
-      weekends: '8:00 - 23:00'
-    },
-    features: [
-      'WiFi miễn phí',
-      'Bãi đậu xe miễn phí',
-      'Giao hàng tận nơi',
-      'Không gian yên tĩnh',
-      'Menu đa dạng'
-    ],
-    isMainStore: false
-  }
 ];
 
 export const brandInfo = {
