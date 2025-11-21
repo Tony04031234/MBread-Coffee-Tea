@@ -275,7 +275,7 @@ const Navigation = () => {
                 </Link>
               </div>
 
-              {/* User Section */}
+              {/* User Section 
               <div className="pt-4 border-t border-gray-200">
                   <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200">
                     <FiUser className="text-gray-400 text-3xl mx-auto mb-3" />
@@ -292,6 +292,7 @@ const Navigation = () => {
                   </div>
             
               </div>
+              */}
 
               </div>
             </motion.div>

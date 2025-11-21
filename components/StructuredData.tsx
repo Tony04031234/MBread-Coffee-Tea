@@ -21,9 +21,9 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data, product }) 
           "foundingDate": "2020",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "7 Đường Số 7, An Lạc A",
-            "addressLocality": "Bình Tân",
-            "addressRegion": "TP. Hồ Chí Minh",
+            "streetAddress": "B1.12.40 Đường 33CL",
+            "addressLocality": "Phường Cát Lái",
+            "addressRegion": "Thành phố Hồ Chí Minh",
             "addressCountry": "VN"
           },
           "contactPoint": {
@@ -49,9 +49,9 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data, product }) 
           "email": "pkdmaikhoi@gmail.com",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "7 Đường Số 7, An Lạc A",
-            "addressLocality": "Bình Tân",
-            "addressRegion": "TP. Hồ Chí Minh",
+            "streetAddress": "B1.12.40 Đường 33CL",
+            "addressLocality": "Phường Cát Lái",
+            "addressRegion": "Thành phố Hồ Chí Minh",
             "addressCountry": "VN"
           },
           "geo": {
@@ -126,9 +126,9 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data, product }) 
           "email": "pkdmaikhoi@gmail.com",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "7 Đường Số 7, An Lạc A",
-            "addressLocality": "Bình Tân",
-            "addressRegion": "TP. Hồ Chí Minh",
+            "streetAddress": "B1.12.40 Đường 33CL",
+            "addressLocality": "Phường Cát Lái",
+            "addressRegion": "Thành phố Hồ Chí Minh",
             "addressCountry": "VN"
           },
           "geo": {

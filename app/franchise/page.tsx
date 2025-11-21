@@ -534,7 +534,7 @@ const FranchisePage = () => {
             <div className="text-center">
               <FiMapPin className="text-3xl text-primary-600 mx-auto mb-4" />
               <h3 className="text-xl font-serif font-semibold text-primary-800 mb-2">Địa chỉ</h3>
-              <p className="text-gray-600">7 Đường Số 7, An Lạc A, Bình Tân, TP.HCM</p>
+              <p className="text-gray-600">B1.12.40 Đường 33CL<br />Phường Cát Lái, Thành phố Hồ Chí Minh, Việt Nam</p>
             </div>
           </div>
         </div>

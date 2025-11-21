@@ -12,28 +12,29 @@ const HeroCarousel = () => {
   const slides = [
     {
       id: 1,
-      image: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200',
-      title: 'Khám phá hương vị cà phê tuyệt vời',
-      subtitle: 'Tại MBread Coffee & Tea, mỗi ly cà phê đều được pha chế với tình yêu và sự tận tâm',
-      cta: 'Thưởng thức cà phê',
-      link: '/menu?category=coffee'
+      image: '/images/hero1.jpg',
+      title: '',
+      subtitle: '',
+      cta: '',
+      link: ''
     },
     {
       id: 2,
+      image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1200',
+      title: 'Bánh ngọt tươi ngon mỗi ngày',
+      subtitle: 'Những chiếc bánh được làm thủ công với nguyên liệu tươi ngon nhất',
+      cta: 'Xem bánh ngọt',
+      link: '/menu?category=pastry'
+    },
+    {
+      id: 3,
       image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200',
       title: 'Trà cao cấp từ khắp nơi trên thế giới',
       subtitle: 'Thưởng thức những loại trà đặc sản với hương vị độc đáo và tinh tế',
       cta: 'Khám phá trà',
       link: '/menu?category=tea'
     },
-    {
-      id: 3,
-      image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1200',
-      title: 'Bánh ngọt tươi ngon mỗi ngày',
-      subtitle: 'Những chiếc bánh được làm thủ công với nguyên liệu tươi ngon nhất',
-      cta: 'Xem bánh ngọt',
-      link: '/menu?category=pastry'
-    }
+
   ]
 
   useEffect(() => {
@@ -57,7 +58,7 @@ const HeroCarousel = () => {
   }
 
   return (
-    <section className="relative h-[100vh] overflow-hidden">
+    <section className="relative h-[90vh] overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -74,7 +75,11 @@ const HeroCarousel = () => {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+          {slides[currentSlide].link && (
+            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+          )}
+           <div className="absolute inset-0 bg-black bg-opacity-5"></div>
+
         </motion.div>
       </AnimatePresence>
 
@@ -96,13 +101,16 @@ const HeroCarousel = () => {
               <p className="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed">
                 {slides[currentSlide].subtitle}
               </p>
-              <Link
+              
+              {slides[currentSlide].link && (
+                <Link
                 href={slides[currentSlide].link}
                 className="btn-primary text-lg px-8 py-4 inline-flex items-center space-x-2 hover:scale-105 transition-transform duration-200"
               >
-                <span>{slides[currentSlide].cta}</span>
-                <FiArrowRight />
-              </Link>
+                  <span>{slides[currentSlide].cta}</span>
+                  <FiArrowRight />
+                </Link>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>

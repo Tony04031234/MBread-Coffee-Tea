@@ -431,8 +431,9 @@ const TermsPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
               <div>
                 <h3 className="font-semibold text-primary-800 mb-2">Thông tin công ty</h3>
-                <p><strong>Tên:</strong> MBread Coffee & Tea</p>
-                <p><strong>Địa chỉ:</strong> 7 Đường Số 7, An Lạc A, Bình Tân, TP.HCM</p>
+                <p><strong>Tên:</strong> CÔNG TY CỔ PHẦN MAI KHÔI HOLDINGS</p>
+                <p><strong>Mã số thuế:</strong> 0319178421</p>
+                <p><strong>Địa chỉ:</strong> B1.12.40 Đường 33CL, Phường Cát Lái, Thành phố Hồ Chí Minh, Việt Nam</p>
                 <p><strong>Điện thoại:</strong> 094 625 20 20</p>
                 <p><strong>Email:</strong> pkdmaikhoi@gmail.com</p>
               </div>

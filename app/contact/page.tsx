@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiMapPin, FiPhone, FiMail, FiClock, FiFacebook, FiInstagram, FiSend, FiGlobe, FiYoutube } from 'react-icons/fi'
+import { FiMapPin, FiPhone, FiMail, FiClock, FiFacebook, FiInstagram, FiSend, FiGlobe, FiYoutube, FiBriefcase } from 'react-icons/fi'
 import { storeLocations, brandInfo } from '@/data/stores'
 import StoreMap from '@/components/StoreMap'
 import StoreSearch from '@/components/StoreSearch'
@@ -39,9 +39,14 @@ const ContactPage = () => {
 
   const contactInfo = [
     {
+      icon: <FiBriefcase className="text-2xl text-primary-600" />,
+      title: 'Thông tin công ty',
+      details: ['CÔNG TY CỔ PHẦN MAI KHÔI HOLDINGS', 'Mã số thuế: 0319178421']
+    },
+    {
       icon: <FiMapPin className="text-2xl text-primary-600" />,
       title: 'Địa chỉ',
-      details: ['7 Đường Số 7, An Lạc A', 'Bình Tân, TP.HCM', 'Việt Nam']
+      details: ['B1.12.40 Đường 33CL', 'Phường Cát Lái, Thành phố Hồ Chí Minh', 'Việt Nam']
     },
     {
       icon: <FiPhone className="text-2xl text-primary-600" />,
@@ -119,8 +124,8 @@ const ContactPage = () => {
 
       {/* Contact Info */}
       <section className="section-padding bg-cream-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="max-w-8xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-16">
             {contactInfo.map((info, index) => (
               <motion.div
                 key={index}
@@ -145,6 +150,27 @@ const ContactPage = () => {
               </motion.div>
             ))}
           </div>
+
+          {/* Company Information 
+          <div className="mt-12 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="card p-6 inline-block"
+            >
+              <h3 className="text-xl font-serif font-semibold text-primary-800 mb-3">
+                Thông tin công ty
+              </h3>
+              <p className="text-gray-700 font-medium mb-2">
+                CÔNG TY CỔ PHẦN MAI KHÔI HOLDINGS
+              </p>
+              <p className="text-gray-600">
+                Mã số thuế: 0319178421
+              </p>
+            </motion.div>
+          </div>
+          */}
         </div>
       </section>
 

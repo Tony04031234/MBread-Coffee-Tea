@@ -108,7 +108,8 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <FiMapPin className="text-secondary-400 shrink-0" />
                 <span className="text-gray-300">
-                  7 Đường Số 7, An Lạc A, Bình Tân, TP.HCM
+                  B1.12.40 Đường 33CL<br />
+                  Phường Cát Lái, Thành phố Hồ Chí Minh, Việt Nam
                 </span>
               </div>
               <div className="flex items-center space-x-3">
@@ -177,8 +178,21 @@ const Footer = () => {
               </div>
             </div>
 
+        {/* Company Information */}
+        <div className="mt-8 pt-6 border-t border-primary-700">
+          <div className="text-center space-y-2">
+            <h3 className="text-lg font-semibold text-white">Thông tin công ty</h3>
+            <p className="text-gray-300">
+              CÔNG TY CỔ PHẦN MAI KHÔI HOLDINGS
+            </p>
+            <p className="text-gray-300">
+              Mã số thuế: 0319178421
+            </p>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
-        <div className="border-t border-primary-700 mt-12 pt-8 text-center">
+        <div className="border-t border-primary-700 mt-8 pt-8 text-center">
           <p className="text-gray-300">
             © 2025 MBread Coffee & Tea. Tất cả quyền được bảo lưu.
           </p>

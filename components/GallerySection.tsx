@@ -81,7 +81,7 @@ const GallerySection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary-800 mb-4">
-            Khám phá không gian MBread
+            Khám phá không gian tại MBread Coffee & Tea
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Những khoảnh khắc đẹp và không gian ấm cúng tại MBread Coffee & Tea
