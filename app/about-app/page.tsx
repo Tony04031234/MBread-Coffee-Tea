@@ -18,7 +18,7 @@ const AboutAppPage = () => {
             className="text-center"
           >
             <div className="flex justify-center mb-6">
-              <Image src="/mbread-logo.png" alt="MBread Coffee & Tea" width={100} height={100} className="w-16 h-16 rounded-full" />
+              <Image src="/mbread-logo.jpg" alt="MBread Coffee & Tea" width={100} height={100} className="w-16 h-16 rounded-full" />
             </div>
             <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
               Về ứng dụng MBread Coffee & Tea

@@ -16,7 +16,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data, product }) 
           "name": "MBread Coffee & Tea",
           "alternateName": "MBread Coffee Tea",
           "url": "http://mbreadcoffeetea.com",
-          "logo": "http://mbreadcoffeetea.com/mbread-logo.png",
+          "logo": "http://mbreadcoffeetea.com/mbread-logo.jpg",
           "description": "Thương hiệu cà phê và trà cao cấp tại Việt Nam",
           "foundingDate": "2020",
           "address": {

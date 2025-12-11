@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <Image src="/mbread-logo.png" alt="MBread Coffee & Tea" width={100} height={100} className="w-10 h-10 rounded-full shrink-0" />
+              <Image src="/mbread-logo.jpg" alt="MBread Coffee & Tea" width={100} height={100} className="w-10 h-10 rounded-full shrink-0" />
               <span className="text-xl font-serif font-bold">MBread Coffee & Tea</span>
             </div>
             <p className="text-gray-300 leading-relaxed">

@@ -121,7 +121,7 @@ const SignUpPage = () => {
           className="text-center"
         >
           <div className="flex justify-center">
-            <Image src="/mbread-logo.png" alt="MBread Coffee & Tea" width={100} height={100} className="md:w-24 md:h-24 w-16 h-16 rounded-xl" />
+            <Image src="/mbread-logo.jpg" alt="MBread Coffee & Tea" width={100} height={100} className="md:w-24 md:h-24 w-16 h-16 rounded-xl" />
           </div>
           <h2 className="mt-6 text-3xl font-serif font-bold text-primary-800">
             Đăng ký

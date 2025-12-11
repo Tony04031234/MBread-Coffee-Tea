@@ -6,6 +6,7 @@ import { FiMapPin, FiPhone, FiMail, FiClock, FiFacebook, FiInstagram, FiSend, Fi
 import { storeLocations, brandInfo } from '@/data/stores'
 import StoreMap from '@/components/StoreMap'
 import StoreSearch from '@/components/StoreSearch'
+import QRCodeSection from '@/components/QRCodeSection'
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -447,6 +448,9 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
+
+      {/* QR Code Section */}
+      <QRCodeSection />
     </div>
   )
 }

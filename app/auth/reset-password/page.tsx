@@ -102,7 +102,7 @@ const ResetPasswordPage = () => {
             className="text-center"
           >
             <div className="flex justify-center">
-              <Image src="/mbread-logo.png" alt="MBread Coffee & Tea" width={100} height={100} className="md:w-24 md:h-24 w-16 h-16 rounded-xl" />
+              <Image src="/mbread-logo.jpg" alt="MBread Coffee & Tea" width={100} height={100} className="md:w-24 md:h-24 w-16 h-16 rounded-xl" />
             </div>
             <h2 className="mt-6 text-3xl font-serif font-bold text-primary-800">
               Đặt lại mật khẩu thành công
@@ -156,7 +156,7 @@ const ResetPasswordPage = () => {
             className="text-center"
           >
             <div className="flex justify-center">
-              <Image src="/mbread-logo.png" alt="MBread Coffee & Tea" width={100} height={100} className="md:w-24 md:h-24 w-16 h-16 rounded-xl" />
+              <Image src="/mbread-logo.jpg" alt="MBread Coffee & Tea" width={100} height={100} className="md:w-24 md:h-24 w-16 h-16 rounded-xl" />
             </div>
             <h2 className="mt-6 text-3xl font-serif font-bold text-primary-800">
               Liên kết không hợp lệ
@@ -214,7 +214,7 @@ const ResetPasswordPage = () => {
         <div className="max-w-md w-full space-y-8">
           <div className="text-center">
             <div className="flex justify-center">
-              <Image src="/mbread-logo.png" alt="MBread Coffee & Tea" width={100} height={100} className="md:w-24 md:h-24 w-16 h-16 rounded-xl" />
+              <Image src="/mbread-logo.jpg" alt="MBread Coffee & Tea" width={100} height={100} className="md:w-24 md:h-24 w-16 h-16 rounded-xl" />
             </div>
             <h2 className="mt-6 text-3xl font-serif font-bold text-primary-800">
               Đang xác thực...
@@ -241,7 +241,7 @@ const ResetPasswordPage = () => {
           className="text-center"
         >
           <div className="flex justify-center">
-            <Image src="/mbread-logo.png" alt="MBread Coffee & Tea" width={100} height={100} className="md:w-24 md:h-24 w-16 h-16 rounded-xl" />
+            <Image src="/mbread-logo.jpg" alt="MBread Coffee & Tea" width={100} height={100} className="md:w-24 md:h-24 w-16 h-16 rounded-xl" />
           </div>
           <h2 className="mt-6 text-3xl font-serif font-bold text-primary-800">
             Đặt lại mật khẩu

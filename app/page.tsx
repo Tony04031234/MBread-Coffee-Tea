@@ -81,7 +81,7 @@ const HomePage = () => {
             className="relative"
           >
             <Image
-              src="/mbread-logo.png"
+              src="/mbread-logo.jpg"
               alt="MBread Logo"
               width={120}
               height={120}
