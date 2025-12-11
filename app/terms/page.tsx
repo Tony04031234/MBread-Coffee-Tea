@@ -434,7 +434,7 @@ const TermsPage = () => {
                 <p><strong>Tên:</strong> CÔNG TY CỔ PHẦN MAI KHÔI HOLDINGS</p>
                 <p><strong>Mã số thuế:</strong> 0319178421</p>
                 <p><strong>Địa chỉ:</strong> B1.12.40 Đường 33CL, Phường Cát Lái, Thành phố Hồ Chí Minh, Việt Nam</p>
-                <p><strong>Điện thoại:</strong> 094 625 20 20</p>
+                <p><strong>Điện thoại:</strong> 0972022074</p>
                 <p><strong>Email:</strong> pkdmaikhoi@gmail.com</p>
               </div>
               

@@ -114,7 +114,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <FiPhone className="text-secondary-400 shrink-0" />
-                <span className="text-gray-300">094 625 20 20</span>
+                <span className="text-gray-300">0972022074</span>
               </div>
               <div className="flex items-center space-x-3">
                 <FiMail className="text-secondary-400 shrink-0" />

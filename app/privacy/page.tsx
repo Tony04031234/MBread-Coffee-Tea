@@ -374,7 +374,7 @@ const PrivacyPage = () => {
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                   <li>Gửi email đến: pkdmaikhoi@gmail.com</li>
-                  <li>Gọi điện đến: 094 625 20 20</li>
+                  <li>Gọi điện đến: 0972022074</li>
                   <li>Liên hệ trực tiếp tại cửa hàng: B1.12.40 Đường 33CL, Phường Cát Lái, Thành phố Hồ Chí Minh, Việt Nam</li>
                   <li>Chúng tôi sẽ phản hồi trong vòng 30 ngày</li>
                 </ul>
@@ -479,7 +479,7 @@ const PrivacyPage = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <FiPhone className="text-primary-600" />
-                <span>094 625 20 20</span>
+                <span>0972022074</span>
               </div>
               <div className="flex items-center space-x-3">
                 <FiMapPin className="text-primary-600" />

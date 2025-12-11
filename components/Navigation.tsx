@@ -67,7 +67,7 @@ const Navigation = () => {
             <div className="flex items-center space-x-3 sm:space-x-6 mb-2 sm:mb-0">
               <div className="flex items-center space-x-2">
                 <FiPhone className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>094 625 20 20</span>
+                <span>0972022074</span>
               </div>
               <div className="flex items-center space-x-2">
                 <FiMail className="w-3 h-3 sm:w-4 sm:h-4" />

@@ -524,7 +524,7 @@ const FranchisePage = () => {
             <div className="text-center">
               <FiPhone className="text-3xl text-primary-600 mx-auto mb-4" />
               <h3 className="text-xl font-serif font-semibold text-primary-800 mb-2">Điện thoại</h3>
-              <p className="text-gray-600">094 625 20 20</p>
+              <p className="text-gray-600">0972022074</p>
             </div>
             <div className="text-center">
               <FiMail className="text-3xl text-primary-600 mx-auto mb-4" />

@@ -52,7 +52,7 @@ const ContactPage = () => {
     {
       icon: <FiPhone className="text-2xl text-primary-600" />,
       title: 'Điện thoại',
-      details: ['094 625 20 20']
+      details: ['0972022074']
     },
     {
       icon: <FiMail className="text-2xl text-primary-600" />,
@@ -125,25 +125,44 @@ const ContactPage = () => {
 
       {/* Contact Info */}
       <section className="section-padding bg-cream-50">
-        <div className="max-w-8xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-2xl md:text-3xl font-serif font-bold text-primary-800 mb-3">
+              Thông tin liên hệ
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Liên hệ với chúng tôi qua nhiều kênh khác nhau
+            </p>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 mb-16">
             {contactInfo.map((info, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="card p-6 text-center"
+                className="card p-5 sm:p-6 text-center hover:shadow-xl transition-all duration-300 bg-white border border-gray-100 hover:border-primary-200 group"
               >
                 <div className="flex justify-center mb-4">
-                  {info.icon}
+                  <div className="p-3 bg-primary-50 rounded-full group-hover:bg-primary-100 transition-colors duration-300">
+                    {info.icon}
+                  </div>
                 </div>
-                <h3 className="text-xl font-serif font-semibold text-primary-800 mb-3">
+                <h3 className="text-base sm:text-lg md:text-xl font-serif font-semibold text-primary-800 mb-3 sm:mb-4">
                   {info.title}
                 </h3>
-                <div className="space-y-1">
+                <div className="space-y-1.5 sm:space-y-2">
                   {info.details.map((detail, idx) => (
-                    <p key={idx} className="text-gray-600">
+                    <p 
+                      key={idx} 
+                      className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed break-words"
+                    >
                       {detail}
                     </p>
                   ))}

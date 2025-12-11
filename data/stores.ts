@@ -22,10 +22,10 @@ export const storeLocations: StoreLocation[] = [
   {
     id: 'main-store',
     name: 'MBread Coffee & Tea số 7',
-    address: 'B1.12.40 Đường 33CL',
+    address: '7 Đường số 7, Bình Tân, Thành phố Hồ Chí Minh',
     district: 'Phường Cát Lái',
     city: 'Thành phố Hồ Chí Minh',
-    phone: '094 625 20 20',
+    phone: '0972022074',
     email: 'mbreadcoffeetea@gmail.com',
     coordinates: {
       lat: 10.7612,
@@ -50,7 +50,7 @@ export const storeLocations: StoreLocation[] = [
     address: '58 Đường Số 40, Phường Tân Phú, TP.HCM',
     district: 'Tân Phú',
     city: 'TP.HCM',
-    phone: '094 625 20 21',
+    phone: '0972022074',
     email: 'mbreadcoffeetea@gmail.com',
     coordinates: {
       lat: 10.7500,
@@ -72,10 +72,10 @@ export const storeLocations: StoreLocation[] = [
   {
     id: 'district-cat-lai',
     name: 'MBread Coffee & Tea - Cát Lái',
-    address: '105/14 Đường Nguyễn Thị Thập, Phường Tân Phong, TP.HCM',
+    address: 'B1.12.40 Đường 33CL, Phường Cát Lái, Thành phố Hồ Chí Minh',
     district: 'Cát Lái',
     city: 'TP.HCM',
-    phone: '094 625 20 22',
+    phone: '0972022074',
     email: 'mbreadcoffeetea@gmail.com',
     coordinates: {
       lat: 10.7300,

@@ -391,8 +391,6 @@ const HomePage = () => {
                 Cơ hội nhượng quyền
               </Link>
             </div>
-            
-
           </motion.div>
         </div>
       </section>
